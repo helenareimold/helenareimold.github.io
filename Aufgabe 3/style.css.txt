@@ -1,7 +1,0 @@
-Selektor {
-    Attribut1: Wert1;
-    Attribut2: Wert2;
-}
-body {
-    background: #FFFF00;
-}
