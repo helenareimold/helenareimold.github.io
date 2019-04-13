@@ -3,5 +3,5 @@ Selektor {
     Attribut2: Wert2;
 }
 body {
-    background: grey;
+    background: #FFFF00;
 }
