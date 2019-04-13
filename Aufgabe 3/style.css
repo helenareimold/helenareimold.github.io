@@ -5,7 +5,8 @@ body {
 section {background: #CEF6F5;
 width: 90%}
 
-img {border-radius: 20%}
+img {border-radius: 90%}
 img {width: 400;
 height: 600;}
 img {border: #000000}
+img {border: 5px}
