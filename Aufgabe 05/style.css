@@ -17,7 +17,5 @@ main {font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucid
 body {font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif}
 
 header{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%
 }
