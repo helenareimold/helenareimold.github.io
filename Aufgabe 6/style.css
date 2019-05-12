@@ -1,7 +1,6 @@
 /*Handy Ansicht */
 
 
-
 body {background: #ffcc66;}
 
 section {background: #CEF6F5;
@@ -104,7 +103,7 @@ width: 100%;
 
 .navbar-bar {overflow: hidden;
 width: 25%;
-height: 30px;}
+height: 50px;}
 
 .navbar-bar:hover {position: absolute;
 background-color: #08088A;
