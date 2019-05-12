@@ -8,11 +8,12 @@ section {background: #CEF6F5;
 width: 90%;
 float: left;
 display: inline-flexbox;
-max-height: 85%;
+max-height: 23em;
 margin: 2%;
 overflow: auto;
 border-radius: 3px;
-padding: 0;}
+padding: 1%;
+clear: none;}
 
 img {border-radius: 90%; } 
 img {width: 135px;} 
@@ -62,21 +63,22 @@ font-size: 2em; }
      text-decoration: underline;
  }
 
-main { width: 60%;
+main {
 float: right;
 align-content: center;
-margin-left: 15em;
+margin-left: 0,5em;
 }
 
 
 div {
     background-color: #08088A;
-    width: 20%;
-    height: 50em;
+    width: 95%;
+    height: 25%;
     float: left;
     overflow: hidden;
     margin: 1%;
-    padding: 1%;
+    padding: 0em;
+    border-radius: 2em;
 }
 
 
@@ -84,20 +86,19 @@ div {
 .as1:hover {width: 15%; }
    
 aside {
-    width: 15%;
-    float: left;
+    width: 100%;
     overflow: auto;
     padding: 0em;
-    margin: 2em;
+    margin: 0em;
     border-style: solid;
     border-radius: 1em;
     border-color: #000000;
     background-color: #99ffbb;
+    font-size: 1em;
 }
 
 .wrapper {background-color: blue;
-width: 80%;
-float: right;
+width: 100%;
 }
 
 
@@ -110,6 +111,38 @@ background-color: #08088A;
 outline: none;
 width: 20em;
 height: 35em;}
+
+
+
+/* Tablet Ansicht */
+
+@media screen and (min-width: 63em) {
+
+div { 
+    width: 45%;
+
+    }
+  
+.as1 {width: 100%;
+    }
+
+}
+
+
+/* Desktop Ansicht */
+
+@media screen and (min-width: 80em) {
+
+    .wrapper {width: 80%;
+    float: left;}
+
+    div {width: 23%;
+    height: 25%;}
+
+    .as1 {width: 15%;
+    clear: right;}
+}
+
 
 
 
