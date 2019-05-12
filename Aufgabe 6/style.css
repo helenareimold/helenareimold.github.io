@@ -105,8 +105,46 @@ outline: none;
 width: 20em;
 height: 25em;}
 
-@media screen and (min-width: 36em)
 
+@media only screen and (max-width: 1024px) {
+
+    .main1 { width:100%; }
+    
+    .div { width:78%; }
+    
+    aside {
+        width:20%;
+        margin-right:0;
+        margin-bottom:2%;
+    }
+
+    } 
+
+
+    
+@media only screen and (max-width: 480px) {
+
+  .main1 {
+        width:100%;
+        margin-right:0;
+        margin-bottom:2%;
+    }
+    
+    aside {
+        width:100%;
+        height:200px;
+        margin-right:0;
+        margin-bottom:2%;
+    }
+    
+    }
+
+    footer {width:100%;
+        height:200px;
+        margin-right:0;
+        margin-bottom:2%;}
+    }
+    
 
 
 
