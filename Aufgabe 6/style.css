@@ -117,8 +117,11 @@ height: 35em;}
 
 @media screen and (min-width: 63em) {
 
+
+    .wrapper {width: 70%;} 
+
 div { 
-    width: 45%;
+    width: 35%;
 
     }
   
@@ -133,13 +136,19 @@ div {
 @media screen and (min-width: 80em) {
 
     .wrapper {width: 80%;
-    float: left;}
+    float: right;}
 
     div {width: 23%;
-    height: 28%;}
+    height: 25em;}
 
-    .as1 {width: 15%;
-    clear: right;}
+    aside {width: 15%;
+    float: left;}
+
+    main { width: 60%;
+        float: right;
+        align-content: center;
+        margin-left: 15em;
+        }
 }
 
 
