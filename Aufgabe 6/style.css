@@ -32,6 +32,8 @@ footer {width: 100%;
     background:#ffff99;
     font-size: 0,75em;
     clear: both; 
+    height: 5em;
+    font-size: 1,5em;
     }
 
 h1 {background: #ffff99;
@@ -103,111 +105,14 @@ height: 30px;}
 background-color: #08088A;
 outline: none;
 width: 20em;
-height: 25em;}
+height: 35em;}
+
+/* For mobile phones: */
+[class*="1,2,3"] {
+    width: 100%;
+  }
 
 
-/* Phone Design */
-@media screen and (min-width: 36em)  {
-
-    header { background-color: #344444;
-        width:100%;
-    height: 3em; }
-    
-    main { background-color: aquamarine;
-         width:78%;
-        height: 40em; }
-    
-    aside { background-color: chartreuse; 
-        width:100;
-        height: 30em;
-    }
-
-    } 
-
-
-    /* Tablet Version */
-
-@media (min-width: 62em) {
-
-    main {
-        width: 60%
-    }
-    
-    li {
-        margin-left: 7em;
-    }
-    
-    section {
-        width: 17em;
-        height: 10em;
-    }
-    
-    
-    aside {
-        width: 20%;
-        height: 40em;
-        padding: 1.5em;
-        border: 1em;
-    }
-    
-    
-    
-    h1 {
-        width: 800px;
-    }
-    
-    
-    }
-    
-
-
-    /* DESKTOP Version */
-
-
-@media (min-width: 90em) {
-
-
-    main {
-        width: 70%;
-        background-color: blueviolet;
-    }
-    
-    section {
-        width: 20em;
-        height: 25em;
-        position: relative;
-        
-    }
-    
-
-    
-    
-    aside {
-        width: 25%;
-        height: 40em;
-        padding: 1.5em;
-        border: 1em;
-    }
-    
-    
-    li {
-        margin-left: 1em;
-        text-align: center;
-       
-    }
-    
-  
-    
-    h1 {
-        width: 2000px;
-        height: 15px;
-    
-        text-align: left;
-       
-    }
-    
-    
-    }
 
 
     
