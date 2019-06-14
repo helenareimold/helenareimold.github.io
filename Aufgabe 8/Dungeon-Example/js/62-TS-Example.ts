@@ -1,47 +1,49 @@
-// BEISPIEL UND AUFGABE:
-// Dieses Skript soll als Beispiel dazu dienen, wie Interfaces und Arrays genutzt werden können.
-// Hier wird ein ungefährer Aufbau eines simplen Klick-Spiels gezeigt. Der Nutzer kann dabei durch Button ein neues Monster erstellen.
-// Zu beginn werden hier zuerst Interfaces, danach Variablen deklariert.
-// Weiter unten kommen dann die Funktionen.
-
-
 interface Monster {
+    
     monsterName : string; // Name des Monsters
     monsterHealthPoints : number; // Lebenspunkte
     monsterExperience : number; // Erfahrungspunkte bei besiegen des Monsters
     monsterModifier : string []; // Monster-Verstärker. Diese sind in diesem Fall nur Text! (Da hier einfacher Zufall für die Auswahl genutzt wird, kann der gleiche Eintrag auch doppelt vorkommen)
+
+    monsterWeapon : string; //Waffe des Monsters
+    monsterImage : string;  //Bild des Monsters
 }
 
 
 // ------- Variablen -------- //
-// INSGESAMT EINGEBAUTE FEHLER bei den Variablen: I (1 / einer)
+
 
 let monsterHolder : string = "monsterHoldingCell";                                  // ID für das Haupt-Element, in welchem die Monster sich befinden werden. Wird vielleicht mehrfach in dem Skript gebraucht, deshalb einmalig definitiert.
 
 let playerName : string = "Spielername";                                            // Ein paar globale Variablen, welche den Spieler darstellen.
-let playerXP : number = 0;                                                          // Stellt die gesammelte Erfahrung des Spielers dar.
+let playerXP : number = 0;                                                          // Stellt die gesammelte Erfahrung des Spielers dar. - wenn der Spieler startet hat er keine Erfahrung
 let playerXPperLevel : number = 500;                                                // Da es nur einen Spieler gibt, ergibt sich noch nicht viel Sinn darin, für den Spieler ein interface (im Sinne der Programmierung) zu erstellen.
+let playerItems : string = "Hammer und Meisel"
 
 // Mehrere Arrays, welche jeweils Bauteile für Namen oder Eigenschaften der Monster beinhalten.
-let prefix : string[] = ["Wald-", "Seuchen-", "Uralte(s) ", "Gift-", "Brennende(s) ", "Kniescheibenzertrümmernde(s) ", "Müde(s)", "Fette(s)", "Hungrige(s)"]; // length = 9, da 9 Einträge. Von 0-8.
-let monsterName : string[] = ["Ratte", "Nagetier", "Ungeziefer", "Osterhase", "Gummibär", "Mondgesicht"]; // length = 6, da 6 Einträge. Von 0-5.
-let suffix : string[] = [" des Verderbens", " aus der Hölle", " der Lethalität", " mit Rheuma", " der Redundanz", " der Zerberstung", "aus Fuwa", "aus der Tiefe", "mit Spliss"]; // length = 9, da hier 9 Einträge sind. Von 0-8.
-let monsterScr = imagePush();
-let monsterModifers : string[] = ["Ist nervig", "Linkshänder", "Bier-Connoisseur", "Verfehlt häufig", "Prokrastiniert", "Müde", "Verwirrt", "Wasserscheu", "Bipolar", "Hat Schnupfen", "Verläuft sich oft"]; // Eine Reihe von zufälligen "Verstärkern" für das Monster.
+let prefix : string[] = ["Fette(s) ", "Hungrige(s) ", "Große(s) ", "Grüne(s) ", "Opfer ", "Wütende ", "Verdorbene ", "Lachendes "]; // length = 8, da 8 Einträge. Von 0-7.
+let monsterName : string[] = ["Osterhase", "Mondgesicht", "Gummibär", "Teufel", "Ungeheuer", "Ameise", "Spinne", "Viech"]; // length = 8, da 8 Einträge. Von 0-7.
+let suffix : string[] = ["aus Fuwa", "mit Spliss", " mit Schnupfen", " die Erbarmungslos", " die Rächerin", " aus der Tiefe", " aus dem Meer", " ohne Gnade"]; // length = 8, da hier 8 Einträge sind. Von 0-7.
+
+let monsterModifers : string[] = ["Fett", "hat kein Leben", "unsterblich", "unzerstörbar", "teuflisch", "aufmerksam", "langsam", "stark", "flink", "liebevoll", "kugelrund"]; // Eine Reihe von zufälligen Verstärkern/Zusätzen für das Monster. length = 8, da 8 Einträge. Von 0-7.
+
+let monsterWeapon : string[] = ["unsterblich", "Hammer", "Wasserbombe", "Spritzpistole", "Säge", "Axt", "Killerblick", "Berührung des Todes"] // length = 8, da 8 Einträge. Von 0-7.
+let Images : string[] = ["Bilder/osterhase.png", "Bilder/mondgesicht.png", "Bilder/gummibär.png"] // length = 3, da 3 Einträge. Von 0-2.
 
 
 // -- Initialisierung für viele/variable Anzahl an Monster --
 let monsterArray : Monster[] = []; // Das Haupt-Array wurde erstellt und initialisiert!
-console.log(monsterArray ); // Gebe das Monster-Array einmal zu beginn aus. Es sollte leer sein.
+//console.log(monsterArray ); // Gebe das Monster-Array einmal zu beginn aus. Es sollte leer sein.
 
 
 // ----------- Funktionen ----------- //
-// INSGESAMT EINGEBAUTE FEHLER bei den Funktionen: IIIII (5 / fünf)
+
 
 // Generelle onload-funktion um Event-Listener zum Dokument hinzuzufügen
 window.onload = function () {
     document.getElementById("monsterSpawner").addEventListener("click", generateMonster, false);
     updatePlayerLevel(); // Zu Anfang wird durch eine Funktion ein HTML-Element mit Inhalt befüllt.
+    console.log("" + document.getElementById("monsterSpawner").innerHTML); 
 }
 
 
@@ -53,23 +55,32 @@ console.log(document.getElementById("monsterSpawner").innerHTML);
 // Ruft eine Funktion auf, welche dann das entsprechende HTML erzeugt.
 function generateMonster()
 {
+;
+    let newMonsterWeapon : string = generatedMonsterWeapon();
+    let newImage: string ;
+    
     let newMonsterName : string = generateMonsterName();                // Eigens-gebaute Funktion, welche einen string zurück gibt.
-    let newMonsterHP : number = generateMonsterHitPoints();             // Eigens-gebaute Funktion, welche eine Zahl zurück gibt.
+    let newMonsterHP : number = generateMonsterHealthPoints();             // Eigens-gebaute Funktion, welche eine Zahl zurück gibt.
     let newMonsterXP : number = generateMonsterXP();                    // Eigens-gebaute Funktion, welche eine Zahl zurück gibt.
     let newMonsterModifier : string[] = generateMonsterModifer();       // Eigens-gebaute Funktion, welche ein string-Array zurück gibt.
 
-
     let newMonster : Monster = {                                        // Monster wird erstellt.
+    
+        monsterWeapon : newMonsterWeapon,
+        monsterImage : newImage,
+
         monsterName : newMonsterName, 
         monsterHealthPoints : newMonsterHP,
         monsterExperience : newMonsterXP,
         monsterModifier : newMonsterModifier,
-    
-    
     };
 
     monsterArray.push(newMonster);                                      // Monster wird erst in diesem Schritt zu dem Array hinzugefügt 
-
+    if(monsterArray.length != 0)                                        
+    {
+        console.log(monsterArray[monsterArray.length - 1].monsterExperience);                    // Man kann nur auf Array-Teile zugreifen, welche definiert sind.
+    }
+    
     monsterGenerateHTML();                                              // Triggere die Generierung von HTML
 }
 
@@ -90,15 +101,13 @@ function monsterGenerateHTML()
     holdingDiv.appendChild(monsterMod);                                // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
 
     let monsterImg : HTMLElement = document.createElement("img");       // Erstelle ein <img>-Element
-    monsterImg.setAttribute("src", "imgs/" + monsterArray[monsterArray.length - 1]);                 // Der Pfad für das Bild muss über setAttribute festgelegt werden. Der Bildpfad kann natürlich auch anders aussehen.
-    monsterImg.setAttribute("alt", "Schreckliches Monster");            // Das alt für das Bild wird hier festgelegt.
+    monsterImg.setAttribute("src", Images[generatedImage()]);                 // Der Pfad für das Bild muss über setAttribute festgelegt werden. Der Bildpfad kann natürlich auch anders aussehen.
+    monsterImg.setAttribute("alt", "Schreckliches Monster");                         // Das alt für das Bild wird hier festgelegt.
     holdingDiv.appendChild(monsterImg);                                 // Füge das Bild zu dem holding-div hinzu (<div>, welche ein paar Zeilen zuvor erstellt worden ist)
 
-    var monsterBtn : HTMLElement = document.createElement("BUTTON");    // Erstelle ein <button>-Element
+    let monsterBtn : HTMLElement = document.createElement("BUTTON");    // Erstelle ein <button>-Element
     monsterBtn.innerHTML = "Monster bekämpfen!";                        // Verändere den Inhalt des HTML-Elementes. Der genaue Text ist dabei euch überlassen.
-    holdingDiv.appendChild(monsterBtn);    
-    holdingDiv.appendChild(monsterImg);     
-    let monsterWeap = document.createElement("p");                        // Füge den Button zu dem holding-div hinzu.
+    holdingDiv.appendChild(monsterBtn);                                 // Füge den Button zu dem holding-div hinzu.
 
     let monsterCount : number = monsterArray.length;                    // Die aktuelle Anzahl vorhandener Monster, zudem auch die neue Zahl für das Monster-Array.
     console.log("Aktuelle Anzahl an Monstern: " + monsterCount);
@@ -114,10 +123,9 @@ function monsterGenerateHTML()
 // [ ] Optionale Aufgabe: verkleinere diesen Code auf eine Zeile mit nur einem Semikolon!
 // Muss mit einer Zahl aufgerufen werden: getRNGNumber(5); // Liefert eine ganze Zahl zwischen 0 bis 4 zurück.
 function getRNGNumber(_maxNumber : number) : number
-{                                                     // Diese Zeile ist einer der drei Fehler in den Funktionen. Ich bin mal so frei und vermerke das hier. Einfach löschen und alles wird besser.
-    return Math.floor(Math.random() * _maxNumber);                                                   // Gebe diese Zahl zurück, Funktion kann ähnlich einer Variable in Rechnungen genutzt werden.
+{
+    return Math.floor(Math.random() * _maxNumber);   //Generiert eine Zahl zwischen 0 und 1, multipliziert mit maxNumber und rundet diese 
 }
-
 
 // Diese Funktion gibt einen zusammengewürfelten Namen zurück.
 // Wird für die Monster-generierung verwendet!
@@ -133,7 +141,7 @@ function generateMonsterName() : string
 
     // Monster-Mittelname
     rngNumber = getRNGNumber(monsterName.length);                       // Der Rückgabewert der Funktion wird hier verwendet um den entsprechenden Teil des Namens (hier: Mitte) zu generieren.
-    generatedMonsterName += monsterName[rngNumber];                             // Füge den Monsternamen zusammen: nimm aus dem entsprechenden Array mit der zufallsgenerierten Zahl den entsprechenden Eintrag.
+    generatedMonsterName += monsterName[rngNumber];                     // Füge den Monsternamen zusammen: nimm aus dem entsprechenden Array mit der ZUFALLSGENERIERTEN Zahl den entsprechenden Eintrag.
 
     // Monster-Titel
     rngNumber = getRNGNumber(suffix.length);                            // Der Rückgabewert der Funktion wird hier verwendet um den entsprechenden Teil des Namens (hier: Ende) zu generieren.
@@ -143,9 +151,36 @@ function generateMonsterName() : string
 }
 
 
+//Diese Funktion gibt die Waffe des Monsters aus                                            <-- Neu
+//Liefert eine zufällig ausgewählte Waffe
+function generatedMonsterWeapon() : string
+{
+    let generatedMonsterWeapon : string = "";
+    generatedMonsterWeapon = monsterWeapon[getRNGNumber(monsterWeapon.length)];
+    return generatedMonsterWeapon;
+}
+
+// Wird für die Erstellung der Monster-Schwierigkeit aufgerufen.                             
+// Liefert eine variierende Zahl zurück.
+function generateMonsterDifficulty() : number
+{
+    // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 20) + 1 zurück.
+    let tempMonsterDf : number = 1 + getRNGNumber(20);
+    return tempMonsterDf;
+}
+
+
+//Wird für die Auswahl eines Bildes aufgerufen                                       
+//Liefert uns ein zufälliges Bild        
+function generatedImage()           
+{
+    let tempImage : number = getRNGNumber(Images.length);
+    return tempImage;
+}
+
 // Wird für die Monster-Lebenspunkte aufgerufen.
 // Liefert eine variierende Zahl zurück.
-function generateMonsterHitPoints() : number
+function generateMonsterHealthPoints() : number
 {
     // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 10) + 1 zurück.
     let tempMonsterHP : number = 1 + getRNGNumber(10);
@@ -157,8 +192,8 @@ function generateMonsterHitPoints() : number
 // Liefert eine variierende Zahl zurück.
 function generateMonsterXP() : number
 {
-    // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 350) + 100 zurück.
-    let tempMonsterXP : number = 100 + getRNGNumber(350);
+    // Diese Funktion gibt eine zufällige ganze Zahl (zwischen 0 und 500) + 100 zurück.             <-- von 350 auf 500 erhöht
+    let tempMonsterXP : number = 100 + getRNGNumber(500);
     return tempMonsterXP;
 }
 
@@ -195,17 +230,6 @@ function updatePlayerLevel()
 
     document.getElementById("xpCounter").innerHTML = "Player-Level: " + tempLevel + " (XP: " + playerXP + " / " + playerXPperLevel + ")";       // Baue den String für die Spieler-Info zusammen
     console.log("Spieler " + playerName + " hat nun Level " + tempLevel + " mit " + playerXP + " (" + playerXPperLevel + " pro Level)");        // Spieler-Level in der Konsole.
-}
-
-function imagePush() {
-    let src: any[] = [];
-    console.log(src);
-    for (let i = 1; i <= 60; i++) {
-        let path = "monster" + i + ".png";
-        console.log(src);
-    }
-
-    return src; 
 }
 
 //# sourceMappingURL=62-TS-Example.js.map
