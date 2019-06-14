@@ -36,7 +36,7 @@ let monsterArray : Monster[] = []; // Das Haupt-Array wurde erstellt und initial
 //console.log(monsterArray ); // Gebe das Monster-Array einmal zu beginn aus. Es sollte leer sein.
 
 
-// ----------- Funktionen ----------- //
+//Funktionen 
 
 
 // Generelle onload-funktion um Event-Listener zum Dokument hinzuzufügen
@@ -55,7 +55,10 @@ console.log(document.getElementById("monsterSpawner").innerHTML);
 // Ruft eine Funktion auf, welche dann das entsprechende HTML erzeugt.
 function generateMonster()
 {
-;
+    let monsterNr : number = getRNGNumber(3) + 1;  //zwischen 1-3 Monster werden angezeigt
+    for (let i = 0; i < monsterNr; i++)             // for Schleife
+
+     {
     let newMonsterWeapon : string = generatedMonsterWeapon();
     let newImage: string ;
     
@@ -81,23 +84,49 @@ function generateMonster()
         console.log(monsterArray[monsterArray.length - 1].monsterExperience);                    // Man kann nur auf Array-Teile zugreifen, welche definiert sind.
     }
     
-    monsterGenerateHTML();                                              // Triggere die Generierung von HTML
+    monsterGenerateHTML(monsterArray.length);                                              // Triggere die Generierung von HTML
+}
+
+updateHTML();
+}
+function updateHTML() {
+    clearMonsterCell();
+    monsterGenerateHTMLAII();
+    getMonsterCount();
+}
+function monsterGenerateHTMLAII() {
+    for (let i: number = 1; i <= monsterArray.length; i++) {
+        console.log("Hierbei wurden " + i + " Monster generiert");
+        monsterGenerateHTML(i);
+    }
+}
+function clearMonsterCell() {
+    let monsterCell = document.getElementById("monsterHoldingCell");
+    if (monsterCell.hasChildNodes) {                            // bei Kindelementen, soll nachfolgendes ausgeführt werden
+        while (monsterCell.firstChild) {
+            monsterCell.removeChild(monsterCell.firstChild);                //löschen der Kindelemente        
+        }
+    }
+    console.log("Kindelemente des MonsterCell wurden entfernt");
+}
+function getMonsterCount() {
+    return monsterArray.length;
 }
 
 // Generiert HTML-Elemente, welche dann einem Element untergeordnet werden. Erzeugt ebenfalls einen Event-Listener auf dem Button.
-function monsterGenerateHTML()
+function monsterGenerateHTML(count)
 {
     let holdingDiv : HTMLElement = document.createElement("div");       // Erstelle ein neues HTML-Element vom typ <div>. Es ist jedoch noch nicht zu sehen!
-    holdingDiv.setAttribute("id", "monster" + monsterArray.length);     // Die ID jedes neu-erstellten Monsters entspricht der aktuellen Array-Länge.
+    holdingDiv.setAttribute("id", "monster" + count);     // Die ID jedes neu-erstellten Monsters entspricht der aktuellen Array-Länge.
     holdingDiv.setAttribute("class", "monster");                        // Klasse für Visuals.
     document.getElementById(monsterHolder).appendChild(holdingDiv);     // Das HTML-Element muss erst noch zu einem Objekt hinzugefügt werden, in diesem Fall mit der id "monsterHoldingCell"
 
     let monsterName : HTMLElement = document.createElement("p");        // Generiere einen <p>
-    monsterName.innerHTML = monsterArray[monsterArray.length - 1].monsterName;                     // Inhalt des <p>: Monster-Name des letzten Monsters im Array.
+    monsterName.innerHTML = monsterArray[count - 1].monsterName;                     // Inhalt des <p>: Monster-Name des letzten Monsters im Array.
     holdingDiv.appendChild(monsterName);                                // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
 
     let monsterMod : HTMLElement = document.createElement("p");        // Generiere einen <p>
-    monsterMod.innerHTML = monsterArray[monsterArray.length - 1].monsterModifier[0] + ", " +  monsterArray[monsterArray.length -1].monsterModifier[1]; // Inhalt des <p>: Monster-Modifizierer null und eins
+    monsterMod.innerHTML = monsterArray[count - 1].monsterModifier[0] + ", " +  monsterArray[count -1].monsterModifier[1]; // Inhalt des <p>: Monster-Modifizierer null und eins
     holdingDiv.appendChild(monsterMod);                                // Füge das <p> zum HTML-Dokument hinzu, indem es dem holding-Div angefügt wird.
 
     let monsterImg : HTMLElement = document.createElement("img");       // Erstelle ein <img>-Element
@@ -151,7 +180,7 @@ function generateMonsterName() : string
 }
 
 
-//Diese Funktion gibt die Waffe des Monsters aus                                            <-- Neu
+//Diese Funktion gibt die Waffe des Monsters aus                                           
 //Liefert eine zufällig ausgewählte Waffe
 function generatedMonsterWeapon() : string
 {
@@ -210,7 +239,7 @@ function generateMonsterModifer() : string[]
 
 
 // Aufgerufen, wenn man auf den Button klickt.
-// Der Spieler kämpft gegen das entsprechende Monster. Er erhält dann Erfahrungspunkte.
+// Entsprechendes Monster wird bekämpft und der Spieler erhält Erfahrungspunkte.
 function fightMonster(_index : number)
 {
 
@@ -220,6 +249,8 @@ function fightMonster(_index : number)
     playerXP += monsterArray[_index - 1].monsterExperience;                 	    // _index ist in diesem Fall die Länge des Arrays - allerdings zählt der Computer beginnend von null, nicht eins! Deshalb _index-1.
 
     updatePlayerLevel();
+    monsterArray.splice(_index -1, 1);
+    updateHTML();
 }
 
 
