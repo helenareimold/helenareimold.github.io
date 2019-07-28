@@ -252,6 +252,7 @@ function indexKarte(array: any, card: Karte) {
             index = i; }
         }
     return index; }
+    
 
 function stapelStatus() {
     if(leer(ziehstapel)) {  // Wenn der Ziehstapel leer ist... 
