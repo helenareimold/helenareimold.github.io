@@ -1,0 +1,162 @@
+html {
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  width: 100%;
+  background: grey;
+  font-family: fantasy;
+  font-size: 30px;
+  text-align: center;
+}
+
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  background: darkgray;
+}
+
+
+
+.meinSpiel {
+  background-image: url("hintergrund.jpg");
+  background-size: 100% 100%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.spielFeld1 {
+  float: left;
+  height: 100%;
+  width: 100%;  
+  padding: 0;
+}
+
+
+.spielFeld2 {
+  background-color: #21610B;
+  width: 60%;
+  height: 35%;
+  display: table;
+  box-sizing: border-box;
+  border-image: url("marmor.jpg") 100 100 stretch;
+  border-width:15px;
+  border-style: solid;
+  overflow: hidden;
+  margin: 10px auto;
+}
+
+.feldSpieler {
+  border-style: dotted solid;
+  border-width: 7px 0px 0px 0px;
+  height: 28%;
+  width: 100%;
+  display: table;
+  font-size: 20px;
+  font-family: fantasy;
+  font-weight: bold;
+}
+
+.feldGegner {
+  border-style: dotted solid;
+  border-width: 0px 0px 7px 0px;
+  height: 28%;
+  width: 100%;
+  display: table;
+  font-size: 20px;
+  font-family: fantasy;
+  font-weight: bold;
+}
+
+
+.meinObjekt {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.letsStart {
+  background-color: darkblue;
+  color: white;
+  border-color: white;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 50%;
+  font-size: 15px;
+  font-family: fantasy;
+  width: 100px;
+  height: 100px;
+}
+
+.kartenWert {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: 70px;
+  padding-top: 19px;
+  padding-left: 30px;
+  position: absolute;
+  
+}
+
+.back {
+  background-image: url("casino.jpg");
+  background-size: 48% auto;
+  height: 120px;
+  width: 100px;
+  border-style: solid;
+  border-radius: 15px;
+  border-width: 5px;
+}
+
+.blau {
+ background: blue;
+  height: 120px;
+  width: 100px;
+  border-style: solid;
+  border-radius: 15px;
+  border-width: 5px;
+}
+
+.rot {
+background: red;
+  height: 120px;
+  width: 100px;
+  border-style: solid;
+  border-radius: 15px;
+  border-width: 5px;
+}
+
+.gelb {
+background: yellow;
+  height: 120px;
+  width: 100px;
+  border-style: solid;
+  border-radius: 15px;
+  border-width: 5px;
+}
+
+.grün {
+ background: #2EFE2E;
+  height: 120px;
+  width: 100px;
+  border-style: solid;
+  border-radius: 15px;
+  border-width: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+  
+ 

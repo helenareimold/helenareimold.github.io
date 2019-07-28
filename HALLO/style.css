@@ -1,0 +1,339 @@
+body {background: green;
+}
+
+
+header {background: grey;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+.blau {
+  background: #0080FF;
+  height: 100px;
+  width: 80px;
+  border: 3px solid black;
+  color: white;
+  text-align: center;
+  line-height: 102px;
+  font-family: sans-serif;
+  font-size: 65pt;
+  font-weight: bold;
+  border-radius: 7%;
+}
+
+.rot {
+  background: #DF0101;
+  height: 100px;
+  width: 80px;
+  border: 3px solid black;
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 65pt;
+  font-weight: bold;
+  border-radius: 7%;
+}
+
+.gelb {
+  background: #F7FE2E;
+  height: 100px;
+  width: 80px;
+  border: 3px solid black;
+  color: white;
+  text-align: center;
+  line-height: 102px;
+  font-family: sans-serif;
+  font-size: 65pt;
+  font-weight: bold;
+  border-radius: 7%;
+}
+
+.grün {
+  background: #74DF00;
+  height: 100px;
+  width: 80px;
+  border: 3px solid black;
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 65pt;
+  font-weight: bold;
+  border-radius: 7%;
+}
+
+#FeldGegner {background: lightblue;
+            width: 400px;
+            height: 130px;
+            border: 3px #111111 solid;
+            margin: auto;   
+           }
+
+
+#FeldSpieler {background: lightblue;
+              width: 400px;
+              height: 130px;
+              border: 3px #111111 solid;
+              margin: auto;
+            }
+
+#Ablagestapel {
+  width: 250px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px #111111 solid;
+  margin: auto;
+  background: lightsalmon;
+  text-align: center;
+  line-height: 20px;
+  font-size: 40pt;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+#Ziehstapel {
+  width: 250px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px #111111 solid;
+  margin: auto;
+  background: salmon;
+  text-align: center;
+  line-height: 20px;
+  font-size: 40pt;
+  font-family: Arial, Helvetica, sans-serif;
+  float: right;
+  
+}
+
+.unserSpielfeld {
+  display: table;
+  width: 100%;
+  align-items: center;
+  height: 50%;
+  box-sizing: border-box;
+  background-color: firebrick;
+  border-color: black;
+  border-width: 10px;
+  border-radius: 60px;
+  border-style: solid;
+  overflow: hidden;
+}
+
+.meinObjekt {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.meinSpiel {
+  background-color: grey;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.stack {
+  float: left;
+  width: 30%;
+  height: 100%;
+}
+
+.info {
+  height: 25%;
+  width: 100%;
+}
+
+.meinFeld {
+  float: left;
+  background-color: goldenrod;
+  height: 100%;
+  width: 100%;  
+  padding: 0;
+}
+
+/*
+.game {
+  background-color: grey;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.stack {
+  float: left;
+  width: 30%;
+  height: 100%;
+}
+
+.info {
+  height: 25%;
+  width: 100%;
+}
+
+.stapelKarten {
+  display: table;
+  background-color: lightcyan;
+  height: 75%;
+  width: 100%; 
+  border-color: black;
+  border-top-width: 0px;
+  border-left-width: 0px;
+  border-bottom-width: 0px;
+  border-right-width: 20px;
+  border-style: solid;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.meinObjekt {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.field {
+  float: left;
+  background-color: goldenrod;
+  height: 100%;
+  width: 100%;  
+  padding: 0;
+}
+
+.kartenComputer {
+  display: table;
+  height: 25%;
+  width: 100%;
+  background-color: lawngreen;
+  overflow: scroll !important;
+}
+
+.inField {
+  display: table;
+  width: 100%;
+  align-items: center;
+  height: 50%;
+  box-sizing: border-box;
+  background-color: firebrick;
+  border-color: black;
+  border-width: 10px;
+  border-radius: 60px;
+  border-style: solid;
+  overflow: hidden;
+}
+
+.kartenSpieler {
+  display: table;
+  background-color: dodgerblue;
+  height: 25%;
+  width: 100%;
+  overflow: scroll !important;
+}
+
+body {
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+.stapelKarten {
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+.card {
+  height: 70px;
+  width: 120px;
+  text-align: center;
+  color: black;
+  border-style: solid;
+  border-radius: 20px;
+  background-color: darkcyan;
+  border-color: black;
+  border-width: 5px;
+  border-bottom: none;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+/*.cardRot {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+
+/*.value {
+  padding-top: 10px;
+  padding-left: 3px;
+  margin-bottom: -80px;
+  font-size: 50px;
+}
+
+.back {
+  background: gold;
+  height: 70px;
+  width: 120px;
+  border-style: solid;
+  border-radius: 20px;
+}
+
+.blau {
+ background: blue;
+  height: 70px;
+  width: 120px;
+  border-style: solid;
+  border-radius: 20px;
+}
+
+.rot {
+background: red;
+  height: 70px;
+  width: 120px;
+  border-style: solid;
+  border-radius: 20px;
+}
+
+.gelb {
+background: yellow;
+  height: 70px;
+  width: 120px;
+  border-style: solid;
+  border-radius: 20px;
+}
+
+.grün {
+ background: green;
+  height: 70px;
+  width: 120px;
+  border-style: solid;
+  border-radius: 20px;
+}
+
+.letsStart {
+  margin-top: 10px;
+  border: none;
+  background-color: darkblue;
+  padding: 18px 28px;
+  font-size: 40px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.letsStart:hover {
+  background-color: lightgrey;
+}
+
+.green {
+  color: darkgoldenrod;
+}
+
+
+
+
+
+
+  
+ 

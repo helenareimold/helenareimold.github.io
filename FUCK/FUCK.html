@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spiel</title>
+        <link rel="stylesheet" href="main.css">
+        <script src="main.js"></script> 
+    </head>
+    <body>
+        <div class="game">
+            <div class="field">
+                <div id="computerCards" class="computerCards">
+                </div>
+                <div class="inField">
+                    <div id="gameCards" class="item">
+                    </div>
+                    <div class="item stackcard">
+                        <div class></div>
+                        <button onclick="start()" class="b green">(Neu-) Start</button>
+                    </div>
+                    <div id="stackCards" class="item">
+                        <div onclick="clickCard('nc')" id="nc" class="item">
+                            <div class="stackcard card back"></div>
+                            <div class="stackcard card back cardRot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="playerCards" class="playerCards">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

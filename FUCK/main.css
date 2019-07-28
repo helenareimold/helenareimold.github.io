@@ -1,0 +1,179 @@
+.game {
+    background-color: grey;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.stack {
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.info {
+    height: 25%;
+    width: 100%;
+}
+
+.stackCards {
+    display: table;
+    background-color: #477148;
+    height: 75%;
+    width: 100%; 
+    border-color: black;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-bottom-width: 0px;
+    border-right-width: 20px;
+    border-style: solid;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.item {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.field {
+    float: left;
+    background-color: goldenrod;
+    height: 100%;
+    width: 100%;  
+    padding: 0;
+}
+
+.computerCards {
+    display: table;
+    height: 25%;
+    width: 100%;
+    background-color: floralwhite;
+    overflow: scroll !important;
+}
+
+.inField {
+    display: table;
+    width: 100%;
+    align-items: center;
+    height: 50%;
+    box-sizing: border-box;
+    background-color: firebrick;
+    border-color: black;
+    border-width: 10px;
+    border-radius: 60px;
+    border-style: solid;
+    overflow: hidden;
+}
+
+.playerCards {
+    display: table;
+    background-color: dodgerblue;
+    height: 25%;
+    width: 100%;
+    overflow: scroll !important;
+}
+
+body {
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+.stackcard {
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.card {
+    height: 70px;
+    width: 120px;
+    text-align: left;
+    color: black;
+    border-style: solid;
+    border-radius: 20px;
+    background-color: blueviolet;
+    border-color: white;
+    border-width: 5px;
+    border-bottom: none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.cardRot {
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.value {
+    padding-top: 10px;
+    padding-left: 3px;
+    margin-bottom: -80px;
+    font-size: 50px;
+}
+
+.back {
+    content:url("card_back.jpeg");
+    height: 70px;
+    width: 120px;
+    border-style: solid;
+    border-radius: 20px;
+    background: #477148;
+}
+
+.heart {
+    content:url("heart.jpeg");
+    height: 70px;
+    width: 120px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.spades {
+    content:url("spades.jpeg");
+    height: 70px;
+    width: 120px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.clubs {
+    content:url("clubs.jpeg");
+    height: 70px;
+    width: 120px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.diams {
+    content:url("diams.jpeg");
+    height: 70px;
+    width: 120px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.b {
+    margin-top: 10px;
+    border: none;
+    background-color: darkmagenta;
+    padding: 18px 28px;
+    font-size: 40px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.b:hover {
+    background-color: rgb(17, 0, 255);
+}
+
+.green {
+    color: darkgoldenrod;
+}
