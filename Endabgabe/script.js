@@ -119,7 +119,7 @@ function spielFeldGenerierung() {
     document.getElementById("feldSpieler").innerHTML = feldSpieler;
     document.getElementById("feldGegner").innerHTML = feldGegner;
 }
-function createCard(back, card, erstelleDivItem) {
+function createCard(karteBack, card, erstelleDivItem) {
     var farbe = "keine Farbe";
     var kartenWert = "kein Wert";
     switch (card.cardColor) { // Wenn sie gezeigt werden soll, muss aus mehreren Fällen unterschieden werden welche Farbe und welchen dazugehörigen Wert die Karte hat
@@ -140,7 +140,7 @@ function createCard(back, card, erstelleDivItem) {
         kartenWert = card.cardNumber.toString();
     }
     var divKarte = "";
-    if (back) {
+    if (karteBack) {
         if (erstelleDivItem) {
             divKarte = divKarte + `<div class="meinObjekt">`;
         }
