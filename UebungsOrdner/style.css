@@ -1,0 +1,29 @@
+.container1 {
+    background-color: rosybrown;
+    height: 500px;
+    flex: 1;
+    padding: 10px;
+}
+
+.container2 {
+    background-color:black;
+    height: 500px;
+    flex: 1;
+    padding: 10px;
+}
+
+body {
+    display: flex;
+    width: 95%;
+    margin: auto;
+}
+
+button {
+    display: block;
+    margin-bottom: 20px;
+    width: 20%;
+    height: 10%;
+    background-color: transparent;
+    border: 1px solid silver;
+    color: white;
+}
