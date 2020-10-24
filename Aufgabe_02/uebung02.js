@@ -1,11 +1,10 @@
-"use strict";
 class Card {
     constructor(color, cardNumber) {
         this.cardNumber = cardNumber;
         this.color = color;
     }
 }
-let numberString = window.prompt("Geben sie eine Zahl von 1-10 ein:", "3");
+let numberString = window.prompt("Geben sie eine Zahl von 1-10 ein:");
 let amountCards = parseInt(numberString);
 let endAmountCards = amountCards + amountCards;
 let cards = [];
@@ -66,10 +65,10 @@ function createDeck(_event) {
     }
 }
 function createGamerCards(_event) {
-    let leftPosition = -1100;
+    let leftPosition = -900;
     for (let i = 0; i < amountCards; i++) {
         deck[i].style.left = leftPosition + "px";
-        deck[i].style.top = "450px";
+        deck[i].style.top = "350px";
         deck[i].textContent = deck[i].id;
         leftPosition += 170;
         gamerCard.push(deck[i]);
@@ -79,7 +78,7 @@ function createGamerCards(_event) {
     }
 }
 function createEnemyCards(_event) {
-    let leftPosition = -1100;
+    let leftPosition = -900;
     for (let i = amountCards; i < endAmountCards; i++) {
         deck[i].style.left = leftPosition + "px";
         deck[i].style.top = "50px";
@@ -122,34 +121,34 @@ function spielerAufnehmen(_event) {
             currentEmpty.push(currentPos + "px");
         }
         switch (currentEmpty[lastPosition]) {
-            case "-1100px":
+            case "-900px":
                 styleGamerCard();
                 break;
-            case "-930px":
+            case "-730px":
                 styleGamerCard();
                 break;
-            case "-760px":
+            case "-660px":
                 styleGamerCard();
                 break;
-            case "-590px":
+            case "-490px":
                 styleGamerCard();
                 break;
-            case "-420px":
+            case "-320px":
                 styleGamerCard();
                 break;
-            case "-250px":
+            case "-150px":
                 styleGamerCard();
                 break;
-            case "-80px":
+            case "20px":
                 styleGamerCard();
                 break;
-            case "90px":
+            case "190px":
                 styleGamerCard();
                 break;
-            case "260px":
+            case "360px":
                 styleGamerCard();
                 break;
-            case "430px":
+            case "530px":
                 styleGamerCard();
                 break;
         }
@@ -195,34 +194,34 @@ function gegnerAufnehmen() {
     if (enemyCard.length == 10 && gamerCard.length == 10) { }
     else {
         switch (currentEmptyEnemy[lastEnemyPos]) {
-            case "-1100px":
+            case "-900px":
                 styleEnemycard();
                 break;
-            case "-930px":
+            case "-730px":
                 styleEnemycard();
                 break;
-            case "-760px":
+            case "-660px":
                 styleEnemycard();
                 break;
-            case "-590px":
+            case "-490px":
                 styleEnemycard();
                 break;
-            case "-420px":
+            case "-320px":
                 styleEnemycard();
                 break;
-            case "-250px":
+            case "-150px":
                 styleEnemycard();
                 break;
-            case "-80px":
+            case "20px":
                 styleEnemycard();
                 break;
-            case "90px":
+            case "190px":
                 styleEnemycard();
                 break;
-            case "260px":
+            case "360px":
                 styleEnemycard();
                 break;
-            case "430px":
+            case "530px":
                 styleEnemycard();
                 break;
         }
