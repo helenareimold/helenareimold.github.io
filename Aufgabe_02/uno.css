@@ -1,0 +1,48 @@
+html,body{
+    height: 100%;
+}
+
+body{
+display: flex;
+}
+#container{
+    flex: 3;
+    height: 100%;
+}
+#enemy{
+    height: 33.3%;
+    background-color:darkgray;
+}
+#middle{
+    height: 33.3%;
+    background-color: gray;
+}
+#gamer{
+    height: 33.3%;
+    background-color: darkgray;
+}
+#left{
+    flex: 1;
+    height: 100%;
+    background-color:gray;
+}
+.green{
+background-color: green;
+}
+
+.blue{
+background-color: blue;
+}
+.red{
+background-color: red;
+}
+.yellow{
+    background-color: yellow;
+}
+div{
+    text-align: center;
+    line-height: 90px;
+    font-weight:900;
+    font-size: 20px;
+    font-family: monospace;
+}
