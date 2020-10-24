@@ -77,10 +77,10 @@ for(let i = 0;i<stapelkarten.length;i++){
 }
 
 function createGamerCards(_event:Event):void{
-let leftPosition:number = -900;
+let leftPosition:number = -1100;
     for(let i:number = 0;i<amountCards;i++){
         deck[i].style.left =leftPosition+"px";
-        deck[i].style.top ="350px";
+        deck[i].style.top ="450px";
         deck[i].textContent = deck[i].id;
         
         leftPosition += 170;
@@ -93,7 +93,7 @@ for(let i = 0; i<gamerCard.length;i++){
 
 
 function createEnemyCards(_event:Event):void{
-    let leftPosition:number = -900;
+    let leftPosition:number = -1100;
     for(let i:number = amountCards;i<endAmountCards;i++){
         deck[i].style.left =leftPosition+"px";
         deck[i].style.top ="50px";
@@ -139,34 +139,34 @@ function spielerAufnehmen(_event:MouseEvent):void{
             currentEmpty.push(currentPos+"px")
         }
     switch(currentEmpty[lastPosition]){
-        case"-900px":
+        case"-1100px":
             styleGamerCard();
         break;
-        case "-730px":
+        case "-930px":
             styleGamerCard();
             break;
-        case "-660px":
+        case "-760px":
             styleGamerCard();
             break;
-        case "-490px":
+        case "-590px":
             styleGamerCard();
             break;
-        case "-320px":
+        case "-420px":
             styleGamerCard();
             break;
-        case "-150px":
+        case "-250px":
             styleGamerCard();
             break;
-        case "20px":
+        case "-80px":
             styleGamerCard();
             break;
-        case "190px":
+        case "90px":
                 styleGamerCard();
                 break;
-        case "360px":
+        case "260px":
                 styleGamerCard();
                 break;
-        case "530px":
+        case "430px":
              styleGamerCard();
                  break;
 
@@ -220,34 +220,34 @@ function gegnerAufnehmen():void{
     else{
         
     switch(currentEmptyEnemy[lastEnemyPos]){
-        case"-900px":
+        case"-1100px":
         styleEnemycard();
     break;
-    case "-730px":
+    case "-930px":
         styleEnemycard();
         break;
-    case "-660px":
+    case "-760px":
         styleEnemycard();
         break;
-    case "-490px":
+    case "-590px":
         styleEnemycard();
         break;
-    case "-320px":
+    case "-420px":
         styleEnemycard();
         break;
-    case "-150px":
+    case "-250px":
         styleEnemycard();
         break;
-    case "20px":
+    case "-80px":
         styleEnemycard();
         break;
-    case "190px":
+    case "90px":
         styleEnemycard();
             break;
-    case "360px":
+    case "260px":
         styleEnemycard();
             break;
-    case "530px":
+    case "430px":
         styleEnemycard();
              break;
     }
