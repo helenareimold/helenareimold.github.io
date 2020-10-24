@@ -1,10 +1,11 @@
+"use strict";
 class Card {
     constructor(color, cardNumber) {
         this.cardNumber = cardNumber;
         this.color = color;
     }
 }
-let numberString = window.prompt("Geben sie eine Zahl von 1-10 ein:");
+let numberString = window.prompt("Geben sie eine Zahl von 1-10 ein:", "3");
 let amountCards = parseInt(numberString);
 let endAmountCards = amountCards + amountCards;
 let cards = [];

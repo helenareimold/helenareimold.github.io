@@ -7,7 +7,7 @@ class Card{
         this.color = color;
     }
     }
-let numberString:string = window.prompt("Geben sie eine Zahl von 1-10 ein:");
+let numberString:string = window.prompt("Geben sie eine Zahl von 1-10 ein:",);
 let amountCards:number = parseInt(numberString);
 let endAmountCards:number=amountCards+amountCards;
 let cards:Card[] = [];
@@ -77,10 +77,10 @@ for(let i = 0;i<stapelkarten.length;i++){
 }
 
 function createGamerCards(_event:Event):void{
-let leftPosition:number = -1100;
+let leftPosition:number = -900;
     for(let i:number = 0;i<amountCards;i++){
         deck[i].style.left =leftPosition+"px";
-        deck[i].style.top ="450px";
+        deck[i].style.top ="350px";
         deck[i].textContent = deck[i].id;
         
         leftPosition += 170;
@@ -93,7 +93,7 @@ for(let i = 0; i<gamerCard.length;i++){
 
 
 function createEnemyCards(_event:Event):void{
-    let leftPosition:number = -1100;
+    let leftPosition:number = -900;
     for(let i:number = amountCards;i<endAmountCards;i++){
         deck[i].style.left =leftPosition+"px";
         deck[i].style.top ="50px";
@@ -139,34 +139,34 @@ function spielerAufnehmen(_event:MouseEvent):void{
             currentEmpty.push(currentPos+"px")
         }
     switch(currentEmpty[lastPosition]){
-        case"-1100px":
+        case"-900px":
             styleGamerCard();
         break;
-        case "-930px":
+        case "-730px":
             styleGamerCard();
             break;
-        case "-760px":
+        case "-660px":
             styleGamerCard();
             break;
-        case "-590px":
+        case "-490px":
             styleGamerCard();
             break;
-        case "-420px":
+        case "-320px":
             styleGamerCard();
             break;
-        case "-250px":
+        case "-150px":
             styleGamerCard();
             break;
-        case "-80px":
+        case "20px":
             styleGamerCard();
             break;
-        case "90px":
+        case "190px":
                 styleGamerCard();
                 break;
-        case "260px":
+        case "360px":
                 styleGamerCard();
                 break;
-        case "430px":
+        case "530px":
              styleGamerCard();
                  break;
 
@@ -220,34 +220,34 @@ function gegnerAufnehmen():void{
     else{
         
     switch(currentEmptyEnemy[lastEnemyPos]){
-        case"-1100px":
+        case"-900px":
         styleEnemycard();
     break;
-    case "-930px":
+    case "-730px":
         styleEnemycard();
         break;
-    case "-760px":
+    case "-660px":
         styleEnemycard();
         break;
-    case "-590px":
+    case "-490px":
         styleEnemycard();
         break;
-    case "-420px":
+    case "-320px":
         styleEnemycard();
         break;
-    case "-250px":
+    case "-150px":
         styleEnemycard();
         break;
-    case "-80px":
+    case "20px":
         styleEnemycard();
         break;
-    case "90px":
+    case "190px":
         styleEnemycard();
             break;
-    case "260px":
+    case "360px":
         styleEnemycard();
             break;
-    case "430px":
+    case "530px":
         styleEnemycard();
              break;
     }
