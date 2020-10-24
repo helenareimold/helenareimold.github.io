@@ -7,7 +7,7 @@ class Card{
         this.color = color;
     }
     }
-let numberString:string = window.prompt("Geben sie eine Zahl von 1-10 ein:",);
+let numberString:string = window.prompt("Geben sie eine Zahl von 1-10 ein:");
 let amountCards:number = parseInt(numberString);
 let endAmountCards:number=amountCards+amountCards;
 let cards:Card[] = [];
