@@ -25,12 +25,16 @@ namespace LO3_PotionEditor {
         let amount: number[] = [];
         recipe.innerHTML = "";
 
-
+        
         for (let i: number = 0; i < ingredients.length; i++) {
+            if(ingredients[i].checked){
             price.push(Number(ingredients[i].getAttribute("price")));
         }
+        }
         for (let i: number = 0; i < amounts.length; i++) {
+            if(ingredients[i].checked){
             amount.push(Number(amounts[i].value));
+            }
         }
 
         for (let entry of formData) {

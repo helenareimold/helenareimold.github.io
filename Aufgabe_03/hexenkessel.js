@@ -22,10 +22,14 @@ var LO3_PotionEditor;
         let amount = [];
         recipe.innerHTML = "";
         for (let i = 0; i < ingredients.length; i++) {
-            price.push(Number(ingredients[i].getAttribute("price")));
+            if (ingredients[i].checked) {
+                price.push(Number(ingredients[i].getAttribute("price")));
+            }
         }
         for (let i = 0; i < amounts.length; i++) {
-            amount.push(Number(amounts[i].value));
+            if (ingredients[i].checked) {
+                amount.push(Number(amounts[i].value));
+            }
         }
         for (let entry of formData) {
             switch (String(entry[1])) {
