@@ -55,16 +55,9 @@ var L06_Hexenkessel_No4;
         return __awaiter(this, void 0, void 0, function* () {
             console.log("Send order");
             let form = new FormData(document.forms[0]);
-            let secForm = new FormData(document.forms[1]);
-            let thirdForm = new FormData(document.forms[2]);
-            let fourthForm = new FormData(document.forms[3]);
-            let fithForm = new FormData(document.forms[4]);
             let query = new URLSearchParams(form);
-            let secQuery = new URLSearchParams(secForm);
-            let thirQuery = new URLSearchParams(thirdForm);
-            let fourthQuery = new URLSearchParams(fourthForm);
-            let fithQuery = new URLSearchParams(fithForm);
-            let response = yield fetch(url + "?" + query.toString() + "&" + secQuery.toString() + "&" + thirQuery.toString() + "&" + fourthQuery.toString() + "&" + fithQuery.toString());
+            let record = addRec.split("<br>").join("->").split("#").join("%23");
+            let response = yield fetch(url + "?" + query.toString() + "&" + "instructions=" + record + "&" + "total=" + calculatePrice(price, amounts));
             let responseText = yield response.text();
             alert(responseText);
         });
@@ -151,7 +144,7 @@ var L06_Hexenkessel_No4;
         else if (totalPrice < 493) {
             let sickel = totalPrice / 29;
             let knut = totalPrice % 29;
-            return sickel.toFixed() + " Sickel," + knut.toFixed() + " Knut";
+            return sickel.toFixed() + " Sickel, " + knut.toFixed() + " Knut";
         }
         else {
             let galleone = totalPrice / 493;

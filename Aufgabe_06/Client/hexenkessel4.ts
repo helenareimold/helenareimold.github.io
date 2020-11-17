@@ -55,24 +55,16 @@ namespace L06_Hexenkessel_No4 {
     }
 
     async function sendOrder(_event: Event): Promise<void> {
-     console.log("Send order");
-    let form: FormData = new FormData(document.forms[0]);
-    let secForm: FormData = new FormData(document.forms[1]);
-    let thirdForm: FormData = new FormData(document.forms[2]);
-    let fourthForm: FormData = new FormData(document.forms[3]);
-    let fithForm: FormData = new FormData(document.forms[4]);
+        console.log("Send order");
+        let form: FormData = new FormData(document.forms[0]);
 
-     let query: URLSearchParams = new URLSearchParams(<any>form);
-     let secQuery: URLSearchParams = new URLSearchParams(<any>secForm);
-     let thirQuery: URLSearchParams = new URLSearchParams(<any>thirdForm);
-     let fourthQuery: URLSearchParams = new URLSearchParams(<any>fourthForm);
-     let fithQuery: URLSearchParams = new URLSearchParams(<any>fithForm);
+        let query: URLSearchParams = new URLSearchParams(<any>form);
+        let record = addRec.split("<br>").join("->").split("#").join("%23");
+        let response: Response = await fetch(url + "?" + query.toString() + "&" + "instructions=" + record + "&" + "total=" + calculatePrice(price, amounts));
+        let responseText: string = await response.text();
 
-     let response: Response = await fetch(url + "?" + query.toString() +"&"+ secQuery.toString() +"&"+ thirQuery.toString() +"&"+ fourthQuery.toString() +"&"+ fithQuery.toString());
-     let responseText: string = await response.text();
-     
-     alert(responseText);
-     }
+        alert(responseText);
+    }
 
 
     function addIngredients(): void {
@@ -169,7 +161,7 @@ namespace L06_Hexenkessel_No4 {
         else if (totalPrice < 493) {
             let sickel: number = totalPrice / 29;
             let knut: number = totalPrice % 29;
-            return sickel.toFixed() + " Sickel," + knut.toFixed() + " Knut";
+            return sickel.toFixed() + " Sickel, " + knut.toFixed() + " Knut";
         }
         else {
             let galleone: number = totalPrice / 493;
