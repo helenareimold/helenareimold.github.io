@@ -16,7 +16,6 @@ var L06_Hexenkessel_No4;
         _response.setHeader("Access-Control-Allow-Origin", "*");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
-            console.log("hallo");
             let jsonString = JSON.stringify(url.query);
             _response.write(jsonString);
         }
