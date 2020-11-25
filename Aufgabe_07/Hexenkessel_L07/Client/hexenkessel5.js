@@ -45,8 +45,7 @@ var L07_Hexenkessel_No5;
     }
     function showAllRecipes() {
         return __awaiter(this, void 0, void 0, function* () {
-            let recipes = [];
-            let response = yield fetch(url + "?" + "command == retrieve");
+            let response = yield fetch(url + "?" + "command=retrieve");
             let responseText = yield response.text();
             alert(responseText);
         });

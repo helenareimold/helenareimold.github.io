@@ -44,9 +44,8 @@ namespace L07_Hexenkessel_No5 {
     }
 
 async function showAllRecipes(): Promise<void> {
-let recipes: string[] = [];
 
-let response: Response = await fetch(url + "?" + "command == retrieve");
+let response: Response = await fetch(url + "?" + "command=retrieve");
 let responseText: string = await response.text();
 
 alert(responseText);
