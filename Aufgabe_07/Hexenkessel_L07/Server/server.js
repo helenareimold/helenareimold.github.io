@@ -36,6 +36,16 @@ var L07_Hexenkessel_No5;
         });
     }
     function handleRequest(_request, _response) {
+        let verify;
+        if (verify == "retrieve") {
+            getAllRecipes();
+        }
+        else {
+            getMyRecipeBack(_request, _response);
+        }
+        _response.end();
+    }
+    function getMyRecipeBack(_request, _response) {
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
         if (_request.url) {
@@ -44,7 +54,8 @@ var L07_Hexenkessel_No5;
             _response.write(jsonString);
             storeOrder(url.query);
         }
-        _response.end();
+    }
+    function getAllRecipes() {
     }
     function storeOrder(_order) {
         recipe.insert(_order);

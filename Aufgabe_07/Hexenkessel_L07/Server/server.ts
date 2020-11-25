@@ -34,6 +34,20 @@ export namespace L07_Hexenkessel_No5 {
     }
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
+        let verify: string;
+        if (verify == "retrieve") {
+            getAllRecipes();
+        }
+
+        else {
+            getMyRecipeBack(_request, _response);
+        }
+
+        _response.end();
+    }
+
+
+    function getMyRecipeBack(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -44,9 +58,10 @@ export namespace L07_Hexenkessel_No5 {
 
             storeOrder(url.query);
         }
+    }
 
-    
-        _response.end();
+    function getAllRecipes(): void {
+
     }
 
     function storeOrder(_order: Recipe): void {
