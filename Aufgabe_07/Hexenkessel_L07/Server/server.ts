@@ -35,8 +35,8 @@ export namespace L07_Hexenkessel_No5 {
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
-        console.log(url);
-        
+        console.log(url.query["Name"]);
+
         let verify: string;
         if (verify == "retrieve") {
             getAllRecipes();
