@@ -30,6 +30,7 @@ namespace L07_Hexenkessel_No5 {
         console.log(submit);
 
         let showAll: HTMLElement = document.getElementById("showAll");
+        let showAllOrders: HTMLElement = document.getElementById("showAllOrders");
         document.querySelector("div#formDesc").addEventListener("change", addDescription);
         document.querySelector("div#ingredients").addEventListener("change", addIngredients);
         document.querySelector("div#instructions").addEventListener("change", addInstruction);
@@ -38,6 +39,12 @@ namespace L07_Hexenkessel_No5 {
         document.getElementById("resetOrder").addEventListener("click", resetRecipe);
         showAll.addEventListener("click", addRecipe);
         submit.addEventListener("click", sendOrder);
+        showAllOrders.addEventListener("click", showAllRecipes);
+
+    }
+
+    function showAllRecipes(): void {
+
 
     }
 

@@ -31,6 +31,7 @@ var L07_Hexenkessel_No5;
             let submit = document.querySelector("button[type=button]");
             console.log(submit);
             let showAll = document.getElementById("showAll");
+            let showAllOrders = document.getElementById("showAllOrders");
             document.querySelector("div#formDesc").addEventListener("change", addDescription);
             document.querySelector("div#ingredients").addEventListener("change", addIngredients);
             document.querySelector("div#instructions").addEventListener("change", addInstruction);
@@ -39,7 +40,10 @@ var L07_Hexenkessel_No5;
             document.getElementById("resetOrder").addEventListener("click", resetRecipe);
             showAll.addEventListener("click", addRecipe);
             submit.addEventListener("click", sendOrder);
+            showAllOrders.addEventListener("click", showAllRecipes);
         });
+    }
+    function showAllRecipes() {
     }
     function resetRecipe() {
         document.getElementById("basics").reset();
