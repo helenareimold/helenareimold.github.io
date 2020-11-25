@@ -37,7 +37,7 @@ var L07_Hexenkessel_No5;
     }
     function handleRequest(_request, _response) {
         let url = Url.parse(_request.url, true);
-        console.log(url.query["Name"]);
+        console.log(url.query);
         let verify;
         if (verify == "retrieve") {
             getAllRecipes();
