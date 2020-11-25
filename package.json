@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node UebungsOrdner/L07/CocktailBar/Server/Server.js remote"
+    "start": "node Aufgabe_07/Hexenkessel_L07/Server/server.js"
   },
   "repository": {
     "type": "git",
