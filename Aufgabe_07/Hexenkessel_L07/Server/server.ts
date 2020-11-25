@@ -3,11 +3,11 @@ import * as Url from "url";
 import * as Mongo from "mongodb";
 
 export namespace L07_Hexenkessel_No5 {
-    interface Order {
+    interface Recipe {
         [type: string]: string | string[];
     }
 
-    let orders: Mongo.Collection;
+    let recipe: Mongo.Collection;
     let port: number | string | undefined = process.env.PORT;
     if (port == undefined)
         port = 5001;
@@ -29,8 +29,8 @@ export namespace L07_Hexenkessel_No5 {
         let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
         await mongoClient.connect();
-        orders = mongoClient.db("PotionEditor").collection("Recipe");
-        console.log("Database connection ", orders != undefined);
+        recipe = mongoClient.db("PotionEditor").collection("Recipe");
+        console.log("Database connection ", recipe != undefined);
     }
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
@@ -46,7 +46,7 @@ export namespace L07_Hexenkessel_No5 {
         _response.end();
     }
 
-    function storeOrder(_order: Order): void {
-        orders.insert(_order);
+    function storeOrder(_order: Recipe): void {
+        recipe.insert(_order);
     }
 }

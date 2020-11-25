@@ -13,7 +13,7 @@ const Url = require("url");
 const Mongo = require("mongodb");
 var L07_Hexenkessel_No5;
 (function (L07_Hexenkessel_No5) {
-    let orders;
+    let recipe;
     let port = process.env.PORT;
     if (port == undefined)
         port = 5001;
@@ -31,8 +31,8 @@ var L07_Hexenkessel_No5;
             let options = { useNewUrlParser: true, useUnifiedTopology: true };
             let mongoClient = new Mongo.MongoClient(_url, options);
             yield mongoClient.connect();
-            orders = mongoClient.db("PotionEditor").collection("Recipe");
-            console.log("Database connection ", orders != undefined);
+            recipe = mongoClient.db("PotionEditor").collection("Recipe");
+            console.log("Database connection ", recipe != undefined);
         });
     }
     function handleRequest(_request, _response) {
@@ -46,7 +46,7 @@ var L07_Hexenkessel_No5;
         _response.end();
     }
     function storeOrder(_order) {
-        orders.insert(_order);
+        recipe.insert(_order);
     }
 })(L07_Hexenkessel_No5 = exports.L07_Hexenkessel_No5 || (exports.L07_Hexenkessel_No5 = {}));
 //# sourceMappingURL=server.js.map
