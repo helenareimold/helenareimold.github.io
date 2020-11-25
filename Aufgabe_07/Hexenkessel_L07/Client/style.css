@@ -142,6 +142,16 @@ font-size: 1em;
 	font-family: 'Merienda One', monospace;
 }
 
+#showAllOrders {
+	font-size: 1em;
+	background-color: rgb(92, 23, 23);
+	color: white;
+	padding: 8px;
+	border-color: black;
+	border-width: 5px;
+	font-family: 'Merienda One', monospace;
+}
+
 #subButtons {
 	display: flex;
 	justify-content: center;

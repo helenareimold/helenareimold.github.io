@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>L07: Hexenkessel, der Fünfte</title>
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-    
+
     <script src="generateContent.js" type="text/javascript" charset="utf-8"></script>
     <script src="hexenkessel5.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -17,7 +17,8 @@
         <p> Welcome! Create your own potion.. <br>
             Good to know: To add temperature, choose duration also. To add intensity, choose texture & color also. <br>
             If you're done with it, click show recipe. You forgot something? Just add something new! <br>
-            If you want to create something new, click reset. You're done? Send me your order!  </p>
+            If you want to create something new, click reset. You're done? Send me your order! <br>
+            You want to reorder a given recipe, just show your old recipes. </p>
     </header>
     <div>
         <form id="basics" method="GET">
@@ -137,8 +138,9 @@
             <h3>Thank you. See you soon!</h3>
         </div>
         <div id="subButtons">
-            <button id="resetOrder">Reset</button>
-            <button id="sendOrder" type="button" form="orderForm">Order</button>
+            <button id="resetOrder">reset</button>
+            <button id="sendOrder" type="button" form="orderForm">order</button>
+            <button id="showAllOrders">show old recipes</button>
         </div>
     </div>
 </body>
