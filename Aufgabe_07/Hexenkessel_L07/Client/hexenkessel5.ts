@@ -47,7 +47,6 @@ async function showAllRecipes(): Promise<void> {
 
 let response: Response = await fetch(url + "?" + "command=retrieve");
 let responseText: string = await response.text();
-
 alert(responseText);
 
 

@@ -36,20 +36,19 @@ var L07_Hexenkessel_No5;
         });
     }
     function handleRequest(_request, _response) {
+        _response.setHeader("content-type", "text/html; charset=utf-8");
+        _response.setHeader("Access-Control-Allow-Origin", "*");
         let url = Url.parse(_request.url, true);
-        console.log(url.query);
-        let verify;
+        let verify = url.query["command"];
         if (verify == "retrieve") {
-            getAllRecipes();
+            getAllRecipes(_request, _response);
         }
         else {
             getMyRecipeBack(_request, _response);
+            _response.end();
         }
-        _response.end();
     }
     function getMyRecipeBack(_request, _response) {
-        _response.setHeader("content-type", "text/html; charset=utf-8");
-        _response.setHeader("Access-Control-Allow-Origin", "*");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
             let jsonString = JSON.stringify(url.query);
@@ -57,7 +56,18 @@ var L07_Hexenkessel_No5;
             storeOrder(url.query);
         }
     }
-    function getAllRecipes() {
+    function getAllRecipes(_request, _response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let results = recipe.find();
+            let recipes = yield results.toArray();
+            for (let recipe of recipes) {
+                for (let key in Object(recipe)) {
+                    _response.write(key + " : " + Object(recipe)[key] + "\n");
+                }
+                _response.write("\n");
+            }
+            _response.end();
+        });
     }
     function storeOrder(_order) {
         recipe.insert(_order);

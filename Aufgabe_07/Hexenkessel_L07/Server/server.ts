@@ -34,26 +34,25 @@ export namespace L07_Hexenkessel_No5 {
     }
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
+        _response.setHeader("content-type", "text/html; charset=utf-8");
+        _response.setHeader("Access-Control-Allow-Origin", "*");
+
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
-        console.log(url.query);
-        
-        let verify: string;
+
+        let verify: string | string[] = url.query["command"];
         if (verify == "retrieve") {
-            getAllRecipes();
+            getAllRecipes(_request, _response);
         }
 
         else {
             getMyRecipeBack(_request, _response);
+            _response.end();
         }
 
-        _response.end();
     }
 
 
     function getMyRecipeBack(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
-        _response.setHeader("content-type", "text/html; charset=utf-8");
-        _response.setHeader("Access-Control-Allow-Origin", "*");
-
         if (_request.url) {
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
             let jsonString: string = JSON.stringify(url.query);
@@ -63,7 +62,17 @@ export namespace L07_Hexenkessel_No5 {
         }
     }
 
-    function getAllRecipes(): void {
+    async function getAllRecipes(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
+        let results: Mongo.Cursor = recipe.find();
+        let recipes: string[] = await results.toArray();
+        
+        for (let recipe of recipes) {
+           for(let key in Object(recipe)){
+               _response.write(key+" : " + Object(recipe)[key]+"\n");
+           }
+           _response.write("\n"); 
+        }
+        _response.end();
 
     }
 
@@ -71,3 +80,5 @@ export namespace L07_Hexenkessel_No5 {
         recipe.insert(_order);
     }
 }
+
+
