@@ -41,8 +41,11 @@ export namespace L07_Hexenkessel_No5 {
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
             let jsonString: string = JSON.stringify(url.query);
             _response.write(jsonString);
+
+            storeOrder(url.query);
         }
 
+    
         _response.end();
     }
 

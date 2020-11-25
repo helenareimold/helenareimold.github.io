@@ -42,6 +42,7 @@ var L07_Hexenkessel_No5;
             let url = Url.parse(_request.url, true);
             let jsonString = JSON.stringify(url.query);
             _response.write(jsonString);
+            storeOrder(url.query);
         }
         _response.end();
     }
