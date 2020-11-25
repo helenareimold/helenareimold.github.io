@@ -67,7 +67,7 @@ namespace L07_Hexenkessel_No5 {
 
         let query: URLSearchParams = new URLSearchParams(<any>form);
         let record = addRec.split("<br>").join("->").split("#").join("%23");
-        let response: Response = await fetch(url + "?" + query.toString() + "&" + "instructions=" + record + "&" + "total=" + calculatePrice(price, amounts));
+        let response: Response = await fetch(url + "?" + query.toString() + "&" + "Instructions=" + record + "&" + "Total=" + calculatePrice(price, amounts));
         let responseText: string = await response.text();
 
         alert(responseText);

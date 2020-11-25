@@ -61,7 +61,7 @@ var L07_Hexenkessel_No5;
             let form = new FormData(document.forms[0]);
             let query = new URLSearchParams(form);
             let record = addRec.split("<br>").join("->").split("#").join("%23");
-            let response = yield fetch(url + "?" + query.toString() + "&" + "instructions=" + record + "&" + "total=" + calculatePrice(price, amounts));
+            let response = yield fetch(url + "?" + query.toString() + "&" + "Instructions=" + record + "&" + "Total=" + calculatePrice(price, amounts));
             let responseText = yield response.text();
             alert(responseText);
         });
