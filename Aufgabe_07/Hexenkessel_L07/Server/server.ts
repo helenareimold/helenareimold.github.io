@@ -56,7 +56,9 @@ export namespace L07_Hexenkessel_No5 {
         if (_request.url) {
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
             let jsonString: string = JSON.stringify(url.query);
-            _response.write(jsonString);
+            for(let key in Object(jsonString)){
+                _response.write(key+" : " + Object(jsonString)[key]+"\n")
+            }
 
             storeOrder(url.query);
         }
