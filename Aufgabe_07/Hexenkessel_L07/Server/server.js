@@ -51,9 +51,8 @@ var L07_Hexenkessel_No5;
     function getMyRecipeBack(_request, _response) {
         if (_request.url) {
             let url = Url.parse(_request.url, true);
-            let jsonString = JSON.stringify(url.query);
-            for (let key in Object(jsonString)) {
-                _response.write(key + " : " + Object(jsonString)[key] + "\n");
+            for (let key in url.query) {
+                _response.write(key + " : " + url.query[key] + "\n");
             }
             storeOrder(url.query);
         }
