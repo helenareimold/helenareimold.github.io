@@ -79,7 +79,7 @@ export namespace L07_Hexenkessel_No5 {
     }
 
     function storeOrder(_order: Recipe): void {
-        recipe.insert(_order);
+        recipe.insertOne(_order);
     }
 }
 

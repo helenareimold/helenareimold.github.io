@@ -71,7 +71,7 @@ var L07_Hexenkessel_No5;
         });
     }
     function storeOrder(_order) {
-        recipe.insert(_order);
+        recipe.insertOne(_order);
     }
 })(L07_Hexenkessel_No5 = exports.L07_Hexenkessel_No5 || (exports.L07_Hexenkessel_No5 = {}));
 //# sourceMappingURL=server.js.map
