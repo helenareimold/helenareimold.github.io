@@ -17,6 +17,7 @@ namespace L10_Snowboardpiste_No3 {
     let tree: Tree;
     let golden: number;
     let imageData: ImageData;
+    let imageData2:ImageData;
 
     function handleLoad(_event: Event): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
@@ -83,19 +84,16 @@ namespace L10_Snowboardpiste_No3 {
         sun.drawSun(crc2, new Vector(100, 75));
         mountain.drawMountain(crc2);
         piste.drawPiste(crc2, golden);
-        lift.drawLift(crc2);
-        tree.drawTrees(crc2);
-        house.drawHouse(crc2);
     }
-
+    
     function update(): void {
-
+        
         crc2.putImageData(imageData, 0, 0);
         moveObjects();
         drawObjects();
     }
-
-
+    
+    
     function moveObjects(): void {
         for (let snow of snowflakes) {
             snow.move(crc2);
@@ -104,12 +102,12 @@ namespace L10_Snowboardpiste_No3 {
             boarder.move(crc2);
         }
     }
-
-
+    
+    
     function drawObjects(): void {
-
+        
         snowboarder.drawLiftPeople(crc2);
-
+        
         for (let cloud of cloudOne) {
             cloud.drawCloud(crc2)
         }
@@ -122,6 +120,9 @@ namespace L10_Snowboardpiste_No3 {
         for (let snow of snowflakes) {
             snow.drawSnow(crc2);
         }
+        lift.drawLift(crc2);
+        tree.drawTrees(crc2);
+        house.drawHouse(crc2);
     }
 }
 

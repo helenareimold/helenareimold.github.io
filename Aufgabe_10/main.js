@@ -16,6 +16,7 @@ var L10_Snowboardpiste_No3;
     let tree;
     let golden;
     let imageData;
+    let imageData2;
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
         crc2 = canvas.getContext("2d");
@@ -70,9 +71,6 @@ var L10_Snowboardpiste_No3;
         sun.drawSun(crc2, new L10_Snowboardpiste_No3.Vector(100, 75));
         mountain.drawMountain(crc2);
         piste.drawPiste(crc2, golden);
-        lift.drawLift(crc2);
-        tree.drawTrees(crc2);
-        house.drawHouse(crc2);
     }
     function update() {
         crc2.putImageData(imageData, 0, 0);
@@ -101,6 +99,9 @@ var L10_Snowboardpiste_No3;
         for (let snow of snowflakes) {
             snow.drawSnow(crc2);
         }
+        lift.drawLift(crc2);
+        tree.drawTrees(crc2);
+        house.drawHouse(crc2);
     }
 })(L10_Snowboardpiste_No3 || (L10_Snowboardpiste_No3 = {}));
 //# sourceMappingURL=main.js.map
