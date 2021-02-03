@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENDABGABE: Time to shine</title>
+
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+
+    <!-- <script src="generateContent.js" type="text/javascript" charset="utf-8"></script> -->
+</head>
+
+<body>
+    <header>
+        <h1>Fireworks-Editor</h1>
+        <p>Welcome! Put in the name of your fireworks and inform me about the things to take care off. After that, just assemble your rockets like you want. 
+            <br> Choose size, color, duration, the radius of explosion and the amount of particles</p>
+    </header>
+
+    <div id="editorContainer">
+        <form id="basics" method="GET">
+            <div id="description">
+                <h2>Choose here</h2>
+                <fieldset id="name">
+                    <legend> Name </legend>
+                    <input type="text" name="Name" placeholder="put in fireworks name" required />
+                </fieldset>
+
+                <fieldset id="risks">
+                    <legend> Risks </legend>
+                    <input type="text" name="Risks" placeholder="good to know" required />
+                </fieldset>
+            </div>
+        </form>
+
+        <form id="components" method="GET">
+            <div id="extras">
+                <fieldset id="rocketSize">
+                    <legend> Size </legend>
+                    <input type="radio" name="Size" id="small" value="small" checked />
+                    <label for="small">small</label>
+                    <input type="radio" name="Size" id="middle" value="middle" />
+                    <label for="middle">middle</label>
+                    <input type="radio" name="Size" id="big" value="big" />
+                    <label for="big">big</label>
+                </fieldset>
+
+                <fieldset id="rocketColor">
+                    <legend>Color</legend>
+                    <input type="color" name="Color" id="color" value="#fff000">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Duration of effect</legend>
+                    <span id="sliderTime">
+                        3s
+                        <input type="range" name="Duration" id="duration" min="3" max="15" step="1" value="1">
+                        15s
+                    </span>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Radius of explosion</legend>
+                    <span id="sliderRadius">
+                        1cm
+                        <input type="range" name="Radius" id="radius" min="1" max="10" step="1" value="1">
+                        10cm
+                    </span>
+                </fieldset>
+
+                <fieldset>
+                    <legend> Amount of particles </legend>
+                    <input type="number" name="Amount" class="amount" step="50" min="0" max="500" value="0" />
+                </fieldset>
+            </div>
+        </form>
+
+        <div>
+            <button id="addShowOrder">add new / show order</button>
+        </div>
+
+    </div>
+
+    <div id="compilationContainer">
+        <div id="yourOrder">
+            <h2>Your order</h2>
+
+        </div>
+
+        <div id="buttonContainer">
+            <button id="resetOrder">reset</button>
+            <button id="sendOrder" type="button" form="orderForm">order</button>
+            <button id="showAllOrders">show all orders</button>
+        </div>
+    </div>
+
+    <div id="canvasContainer">
+        <h2>Check out your fireworks
+    </div>
+
+
+</body>
+
+</html>

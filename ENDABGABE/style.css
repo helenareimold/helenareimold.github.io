@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+
+
+body {
+	color: white;
+	font-family: 'Nunito', monospace;
+	margin: 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 18vh 82vh;
+	grid-template-areas: 
+	"kopf kopf kopf"
+	"links mitte rechts";
+}
+
+#editorContainer {
+	background-color: rgb(8, 12, 29);
+	font-size: 1.3em;
+	grid-area: links;
+	position: relative;
+}
+
+#compilationContainer {
+	font-size: 1.3em;
+	grid-area: mitte;
+	background-color: rgb(70, 28, 37);
+}
+
+#canvasContainer {
+	background-image: url(sky.jpg);
+	font-size: 1.3em;
+	grid-area: rechts;
+}
+
+header{
+	background-color: rgb(121, 104, 112);
+	grid-area: kopf;
+	text-align: center;
+}
+
+h1{
+	font-family: 'Cabin Sketch', monospace;
+	font-size: 3em;
+}
+
+p{
+	font-size: 1.3em;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+	top: 8%;
+	width: 200vh;
+}
+
+
+#description {
+	grid-area: description;
+}
+
+#extras {
+	grid-area: extras;
+}
+
+#addShowOrder {
+	left: 50%;
+	transform: translate(-50%);
+	position: absolute;
+	bottom: 2%;
+	width: 20vh;
+	height: 4vh;
+	box-shadow: 3px 3px 5px black;
+	border: 0;
+	border-radius: 3px;
+	font-size: 0.8em;
+	background-color: rgb(37, 45, 68);
+	color: white;
+	cursor: pointer;
+}
+
+#buttonContainer{
+	left: 50%;
+	transform: translate(-50%);
+	position: absolute;
+	bottom: 2%;
+}
+
+#resetOrder, #sendOrder, #showAllOrders{
+	width: 20vh;
+	height: 4vh;
+	box-shadow: 3px 3px 5px black;
+	border: 0;
+	border-radius: 3px;
+	font-size: 0.8em;
+	margin: 5px;
+	background-color: rgb(102, 54, 70);
+	color: white;
+	cursor: pointer;
+}
+
+
+h2{
+	text-align: center;
+	font-size: 1.2em;
+	
+}
+
+fieldset{
+	margin: 1vh;
+	border-width: 3px;
+	border-color: white;
+}
