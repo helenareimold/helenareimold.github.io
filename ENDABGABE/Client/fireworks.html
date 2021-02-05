@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 
+    <script src="main.js" type="text/javascript" charset="utf-8"></script>
+
     <!-- <script src="generateContent.js" type="text/javascript" charset="utf-8"></script> -->
 </head>
 
@@ -19,8 +21,8 @@
     </header>
 
     <div id="editorContainer">
-        <form id="basics" method="GET">
-            <div id="description">
+        <form id="formDescription" method="GET">
+            <div id="basics">
                 <h2>Choose here</h2>
                 <fieldset id="name">
                     <legend> Name </legend>
@@ -34,7 +36,7 @@
             </div>
         </form>
 
-        <form id="components" method="GET">
+        <form id="formComponents" method="GET">
             <div id="extras">
                 <fieldset id="rocketSize">
                     <legend> Size </legend>
@@ -77,21 +79,22 @@
         </form>
 
         <div>
-            <button id="addShowOrder">add new / show order</button>
+            <button id="addButton">add new / show order</button>
         </div>
 
     </div>
 
     <div id="compilationContainer">
+        <h2>Your order</h2>
+
         <div id="yourOrder">
-            <h2>Your order</h2>
 
         </div>
 
         <div id="buttonContainer">
-            <button id="resetOrder">reset</button>
-            <button id="sendOrder" type="button" form="orderForm">order</button>
-            <button id="showAllOrders">show all orders</button>
+            <button id="resetButton">reset</button>
+            <button id="sendButton" type="button" form="orderForm">order</button>
+            <button id="showAllButton">show all orders</button>
         </div>
     </div>
 

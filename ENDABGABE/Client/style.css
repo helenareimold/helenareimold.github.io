@@ -54,7 +54,7 @@ p{
 }
 
 
-#description {
+#basics {
 	grid-area: description;
 }
 
@@ -62,7 +62,7 @@ p{
 	grid-area: extras;
 }
 
-#addShowOrder {
+#addButton {
 	left: 50%;
 	transform: translate(-50%);
 	position: absolute;
@@ -85,7 +85,7 @@ p{
 	bottom: 2%;
 }
 
-#resetOrder, #sendOrder, #showAllOrders{
+#resetButton, #sendButton, #showAllButton{
 	width: 20vh;
 	height: 4vh;
 	box-shadow: 3px 3px 5px black;
@@ -102,11 +102,17 @@ p{
 h2{
 	text-align: center;
 	font-size: 1.2em;
-	
 }
 
 fieldset{
 	margin: 1vh;
 	border-width: 3px;
 	border-color: white;
+}
+
+#yourOrder{
+	margin-left: 5vh;
+	margin-top: 3vh;
+	overflow-y: scroll;
+	max-height: 64vh;
 }
