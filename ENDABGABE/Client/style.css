@@ -53,15 +53,6 @@ p{
 	width: 200vh;
 }
 
-
-#basics {
-	grid-area: description;
-}
-
-#extras {
-	grid-area: extras;
-}
-
 #addButton {
 	left: 50%;
 	transform: translate(-50%);

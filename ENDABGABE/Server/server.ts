@@ -14,8 +14,16 @@ export namespace ENDABGABE_EIA2 {
     server.addListener("request", handleRequest);
 
 
-    function handleRequest(): void {
+    function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
+        _response.setHeader("content-type", "text/html; charset=utf-8");
+        _response.setHeader("Access-Control-Allow-Origin", "*");
 
+        if (_request.url) {
+            let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
+            let jsonString: string = JSON.stringify(url.query);
+            _response.write(jsonString);
+        }
 
+        _response.end();
     }
 }

@@ -16,28 +16,26 @@
 <body>
     <header>
         <h1>Fireworks-Editor</h1>
-        <p>Welcome! Put in the name of your fireworks and inform me about the things to take care off. After that, just assemble your rockets like you want. 
-            <br> Choose size, color, duration, the radius of explosion and the amount of particles. Have fun!</p>
+        <p>Welcome! Put in the name of your rocket and inform me about the things to take care off. After that, just
+            assemble them like you want.
+            <br> Choose size, color, duration, the radius of explosion and the amount of particles. Have fun!
+        </p>
     </header>
 
     <div id="editorContainer">
-        <form id="formDescription" method="GET">
-            <div id="basics">
+        <form method="GET">
+            <div id="rocketComponents">
                 <h2>Choose here</h2>
                 <fieldset id="name">
                     <legend> Name </legend>
-                    <input type="text" name="Name" placeholder="put in fireworks name" required />
+                    <input type="text" name="Name" placeholder="put in rocket name" required />
                 </fieldset>
 
                 <fieldset id="risks">
                     <legend> Risks </legend>
                     <input type="text" name="Risks" placeholder="good to know" required />
                 </fieldset>
-            </div>
-        </form>
-
-        <form id="formComponents" method="GET">
-            <div id="extras">
+                
                 <fieldset id="rocketSize">
                     <legend> Size </legend>
                     <input type="radio" name="Size" id="small" value="small" checked />
@@ -85,7 +83,7 @@
     </div>
 
     <div id="compilationContainer">
-        <h2>Your order</h2>
+        <h2>Your rockets</h2>
 
         <div id="yourOrder">
 
@@ -93,7 +91,7 @@
 
         <div id="buttonContainer">
             <button id="resetButton">reset</button>
-            <button id="sendButton" type="button" form="orderForm">save one rocket</button>
+            <button id="sendButton" type="button" form="orderForm">save your rockets</button>
             <button id="showAllButton">show all rockets</button>
         </div>
     </div>
