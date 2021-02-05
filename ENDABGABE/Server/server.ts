@@ -5,7 +5,7 @@ import * as Mongo from "mongodb";
 export namespace ENDABGABE_EIA2 {
 
     let rocket: Mongo.Collection;
-    let databaseUrl: string = "mongodb+srv://helenareimold:fireworkseditor@cluster1.dyyg0.mongodb.net/FireworksEditor?retryWrites=true&w=majority";
+    let databaseUrl: string = "mongodb+srv://helenareimold:hallo1234@cluster1.dyyg0.mongodb.net/FireworksEditor?retryWrites=true&w=majority";
     startServer();
     connectToDatabase(databaseUrl);
 

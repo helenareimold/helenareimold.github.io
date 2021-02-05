@@ -14,7 +14,7 @@ const Mongo = require("mongodb");
 var ENDABGABE_EIA2;
 (function (ENDABGABE_EIA2) {
     let rocket;
-    let databaseUrl = "mongodb+srv://helenareimold:fireworkseditor@cluster1.dyyg0.mongodb.net/FireworksEditor?retryWrites=true&w=majority";
+    let databaseUrl = "mongodb+srv://helenareimold:hallo1234@cluster1.dyyg0.mongodb.net/FireworksEditor?retryWrites=true&w=majority";
     startServer();
     connectToDatabase(databaseUrl);
     function startServer() {
