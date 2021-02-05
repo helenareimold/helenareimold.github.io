@@ -37,7 +37,6 @@ namespace Endabgabe_EIA2 {
         let form: FormData = new FormData(document.forms[0]);
         
         let query: URLSearchParams = new URLSearchParams(<any>form);
-        // let record = addRec.split("<br>").join("->").split("#").join("%23");
         let response: Response = await fetch(url + "?" + query.toString());
         let responseText: string = await response.text();
         

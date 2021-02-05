@@ -30,7 +30,6 @@ var Endabgabe_EIA2;
             console.log("Send order");
             let form = new FormData(document.forms[0]);
             let query = new URLSearchParams(form);
-            // let record = addRec.split("<br>").join("->").split("#").join("%23");
             let response = yield fetch(url + "?" + query.toString());
             let responseText = yield response.text();
             alert(responseText);
