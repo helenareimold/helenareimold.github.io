@@ -44,9 +44,8 @@ export namespace ENDABGABE_EIA2 {
     async function connectToDatabase(_url: string): Promise<void> {
         let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
-        await mongoClient.connect();
         rocket = mongoClient.db("FireworksEditor").collection("Rockets");
-        console.log("Database connection ", rocket != undefined);
+        await mongoClient.connect();
     }
 
     function storeRocket(data: Rocket){
