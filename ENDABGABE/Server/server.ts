@@ -46,6 +46,7 @@ export namespace ENDABGABE_EIA2 {
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
         await mongoClient.connect();
         rocket = mongoClient.db("FireworksEditor").collection("Rockets");
+        console.log("database connected: " +rocket);
     }
 
     function storeRocket(data: Rocket):void{
