@@ -31,7 +31,7 @@ var ENDABGABE_EIA2;
             let url = Url.parse(_request.url, true);
             let jsonString = JSON.stringify(url.query);
             _response.write(jsonString);
-            // storeRocket(url.query);
+            storeRocket(url.query);
         }
         _response.end();
     }
