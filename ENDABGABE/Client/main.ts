@@ -19,7 +19,6 @@ namespace Endabgabe_EIA2 {
         let formComponents: FormData = new FormData(document.forms[0]);
         let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Rocket size: " + formComponents.get("Size") + "<br>" + "Color of the rocket: " + formComponents.get("Color") + "<br>" + "Time of the effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of the effect: " + formComponents.get("Radius") + "cm" + "<br>" + "Amount of particles: " + formComponents.get("Amount") + "<br>" + "<br>";
 
-
         document.querySelector("div#yourOrder").innerHTML = rocket;
     }
     

@@ -19,9 +19,7 @@ var ENDABGABE_EIA2;
     connectToDatabase(databaseUrl);
     function startServer() {
         let server = Http.createServer();
-        let port = process.env.PORT;
-        if (port == undefined)
-            port = 5001;
+        let port = 5001;
         console.log("Server starting on port:" + port);
         server.listen(port);
         server.addListener("request", handleRequest);
@@ -33,6 +31,7 @@ var ENDABGABE_EIA2;
             let url = Url.parse(_request.url, true);
             let jsonString = JSON.stringify(url.query);
             _response.write(jsonString);
+            storeRocket(url.query);
         }
         _response.end();
     }
@@ -44,6 +43,9 @@ var ENDABGABE_EIA2;
             rocket = mongoClient.db("FireworksEditor").collection("Rockets");
             console.log("Database connection ", rocket != undefined);
         });
+    }
+    function storeRocket(data) {
+        rocket.insertOne(data);
     }
 })(ENDABGABE_EIA2 = exports.ENDABGABE_EIA2 || (exports.ENDABGABE_EIA2 = {}));
 //# sourceMappingURL=server.js.map
