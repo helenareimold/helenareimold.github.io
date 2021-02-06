@@ -43,6 +43,7 @@ var ENDABGABE_EIA2;
             let mongoClient = new Mongo.MongoClient(_url, options);
             yield mongoClient.connect();
             rocket = mongoClient.db("FireworksEditor").collection("Rockets");
+            console.log("database connected: " + rocket);
         });
     }
     function storeRocket(data) {
