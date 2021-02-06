@@ -16,7 +16,9 @@ export namespace ENDABGABE_EIA2 {
     function startServer(): void {
         let server: Http.Server = Http.createServer();
 
-        let port:number = 5001;
+        let port: number | string | undefined = process.env.PORT;
+        if (port == undefined)
+            port = 5001;
 
         console.log("Server starting on port:" + port);
         server.listen(port);

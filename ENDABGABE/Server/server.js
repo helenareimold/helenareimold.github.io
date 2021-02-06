@@ -19,7 +19,9 @@ var ENDABGABE_EIA2;
     connectToDatabase(databaseUrl);
     function startServer() {
         let server = Http.createServer();
-        let port = 5001;
+        let port = process.env.PORT;
+        if (port == undefined)
+            port = 5001;
         console.log("Server starting on port:" + port);
         server.listen(port);
         server.addListener("request", handleRequest);
