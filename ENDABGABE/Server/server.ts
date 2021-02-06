@@ -9,7 +9,7 @@ export namespace ENDABGABE_EIA2 {
     }
 
     let rocket: Mongo.Collection;
-    let databaseUrl: string = "mongodb+srv://helenareimold:hallo1234@cluster1.dyyg0.mongodb.net/FireworksEditor?retryWrites=true&w=majority";
+    let databaseUrl: string = "mongodb+srv://helenareimold:hallo@cluster0.eivgu.mongodb.net/fireworks?retryWrites=true&w=majority"
     startServer();
     connectToDatabase(databaseUrl);
 
@@ -46,7 +46,7 @@ export namespace ENDABGABE_EIA2 {
         let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
         await mongoClient.connect();
-        rocket = mongoClient.db("FireworksEditor").collection("Rockets");
+        rocket = mongoClient.db("fireworks").collection("rockets");
         console.log("database connected: " + rocket);
     }
 
