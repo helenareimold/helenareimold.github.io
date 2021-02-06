@@ -41,8 +41,8 @@ var ENDABGABE_EIA2;
         return __awaiter(this, void 0, void 0, function* () {
             let options = { useNewUrlParser: true, useUnifiedTopology: true };
             let mongoClient = new Mongo.MongoClient(_url, options);
-            rocket = mongoClient.db("FireworksEditor").collection("Rockets");
             yield mongoClient.connect();
+            rocket = mongoClient.db("FireworksEditor").collection("Rockets");
         });
     }
     function storeRocket(data) {

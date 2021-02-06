@@ -44,11 +44,11 @@ export namespace ENDABGABE_EIA2 {
     async function connectToDatabase(_url: string): Promise<void> {
         let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
-        rocket = mongoClient.db("FireworksEditor").collection("Rockets");
         await mongoClient.connect();
+        rocket = mongoClient.db("FireworksEditor").collection("Rockets");
     }
 
-    function storeRocket(data: Rocket){
+    function storeRocket(data: Rocket):void{
         rocket.insertOne(data);
     }
 
