@@ -35,7 +35,7 @@ export namespace ENDABGABE_EIA2 {
             let jsonString: string = JSON.stringify(url.query);
             _response.write(jsonString);
 
-            storeRocket(url.query);
+          //  storeRocket(url.query);
         }
 
         _response.end();
