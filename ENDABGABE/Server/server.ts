@@ -14,6 +14,7 @@ export namespace ENDABGABE_EIA2 {
     connectToDatabase(databaseUrl);
 
     function startServer(): void {
+        console.log("start server");
         let server: Http.Server = Http.createServer();
 
         let port: number | string | undefined = process.env.PORT;
@@ -46,7 +47,7 @@ export namespace ENDABGABE_EIA2 {
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
         await mongoClient.connect();
         rocket = mongoClient.db("FireworksEditor").collection("Rockets");
-        console.log("database connected: " +rocket);
+        console.log("database connected: " + rocket);
     }
 
     function storeRocket(data: Rocket):void{
