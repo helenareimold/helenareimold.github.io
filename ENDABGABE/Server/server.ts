@@ -14,7 +14,7 @@ export namespace ENDABGABE_EIA2 {
     connectToDatabase(databaseUrl);
 
     function startServer(): void {
-        console.log("start server");
+        console.log("start")
         let server: Http.Server = Http.createServer();
 
         let port: number | string | undefined = process.env.PORT;
