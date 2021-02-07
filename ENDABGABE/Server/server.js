@@ -71,6 +71,8 @@ var ENDABGABE_EIA2;
             let url = Url.parse(_request.url, true);
             let rocketName = url.query["rocket"];
             rocket.deleteOne({ "Name": rocketName });
+            _response.write("rocket deleted!");
+            _response.end();
         });
     }
 })(ENDABGABE_EIA2 = exports.ENDABGABE_EIA2 || (exports.ENDABGABE_EIA2 = {}));

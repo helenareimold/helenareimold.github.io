@@ -89,8 +89,9 @@ namespace Endabgabe_EIA2 {
 
     async function deleteRocket(): Promise<void> {
         console.log(currentRocket);
-        await fetch(url + "?" + "command=delete&rocket=" + currentRocket);
-        alert("rocket deleted!")
+        let respone: Response = await fetch(url + "?" + "command=delete&rocket=" + currentRocket);
+        let text: string = await respone.text();
+        alert(text);
     }
 }
 

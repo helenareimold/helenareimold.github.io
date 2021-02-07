@@ -77,7 +77,9 @@ export namespace ENDABGABE_EIA2 {
     async function deleteRocket(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
         let rocketName: string | string[] = url.query["rocket"];
-        rocket.deleteOne({"Name":rocketName})
+        rocket.deleteOne({ "Name": rocketName });
+        _response.write("rocket deleted!");
+        _response.end();
     }
 
 }

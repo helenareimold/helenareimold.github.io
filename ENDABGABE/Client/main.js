@@ -76,8 +76,9 @@ var Endabgabe_EIA2;
     function deleteRocket() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(currentRocket);
-            yield fetch(url + "?" + "command=delete&rocket=" + currentRocket);
-            alert("rocket deleted!");
+            let respone = yield fetch(url + "?" + "command=delete&rocket=" + currentRocket);
+            let text = yield respone.text();
+            alert(text);
         });
     }
 })(Endabgabe_EIA2 || (Endabgabe_EIA2 = {}));
