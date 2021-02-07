@@ -67,7 +67,7 @@ export namespace ENDABGABE_EIA2 {
         let rockets: string[] = await results.toArray();
 
         for (let rocket of rockets){
-            console.log(rocket);
+            console.log(rocket[<any>"Name"]);
         }
     }
 

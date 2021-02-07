@@ -60,7 +60,7 @@ var ENDABGABE_EIA2;
             let results = rocket.find();
             let rockets = yield results.toArray();
             for (let rocket of rockets) {
-                console.log(rocket);
+                console.log(rocket["Name"]);
             }
         });
     }
