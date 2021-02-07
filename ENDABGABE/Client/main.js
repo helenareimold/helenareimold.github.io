@@ -50,6 +50,7 @@ var Endabgabe_EIA2;
         return __awaiter(this, void 0, void 0, function* () {
             let response = yield fetch(url + "?" + "command=retrieve");
             let responseText = yield response.text();
+            console.log(responseText);
         });
     }
 })(Endabgabe_EIA2 || (Endabgabe_EIA2 = {}));

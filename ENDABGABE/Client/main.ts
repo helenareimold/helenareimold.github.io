@@ -62,6 +62,7 @@ namespace Endabgabe_EIA2 {
     async function getRocketsFromDatabase(): Promise <void> {
         let response: Response = await fetch(url + "?" + "command=retrieve");
         let responseText: string = await response.text();
+        console.log(responseText);
     }
 
 }

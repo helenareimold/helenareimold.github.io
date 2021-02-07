@@ -59,9 +59,8 @@ var ENDABGABE_EIA2;
         return __awaiter(this, void 0, void 0, function* () {
             let results = rocket.find();
             let rockets = yield results.toArray();
-            for (let rocket of rockets) {
-                console.log(rocket["Name"]);
-            }
+            _response.write(rockets);
+            _response.end();
         });
     }
 })(ENDABGABE_EIA2 = exports.ENDABGABE_EIA2 || (exports.ENDABGABE_EIA2 = {}));
