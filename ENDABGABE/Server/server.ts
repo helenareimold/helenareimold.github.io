@@ -66,7 +66,10 @@ export namespace ENDABGABE_EIA2 {
         let results: Mongo.Cursor = rocket.find();
         let rockets: string[] = await results.toArray();
 
-        _response.write(rockets);
+        for (let rocket of rockets){
+            _response.write(rocket[<any>"Name"]);
+        }
+       
         _response.end();
     }
 
