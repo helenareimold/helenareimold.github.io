@@ -4,13 +4,15 @@ namespace Endabgabe_EIA2 {
 
     let url: string = "https://fireworkseditor.herokuapp.com";
     let buttonClicked: number = 0;
-
+    let rockets: any;
+    let currentRocket: string;
 
     function handleLoad(_event: Event): void {
 
         document.querySelector("#addButton").addEventListener("click", displayOrder);
         document.querySelector("#resetButton").addEventListener("click", resetOrder);
         document.querySelector("#sendButton").addEventListener("click", sendOrder);
+        document.querySelector("#deleteButton").addEventListener("click", deleteRocket);
         document.querySelector("#dropButton").addEventListener("click", showAllRockets);
     }
 
@@ -18,7 +20,7 @@ namespace Endabgabe_EIA2 {
 
 
         let formComponents: FormData = new FormData(document.forms[0]);
-        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Rocket size: " + formComponents.get("Size") + "<br>" + "Color of the rocket: " + formComponents.get("Color") + "<br>" + "Time of the effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of the effect: " + formComponents.get("Radius") + "cm" + "<br>" + "Amount of particles: " + formComponents.get("Amount") + "<br>" + "<br>";
+        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Rocket size: " + formComponents.get("Size") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of effect: " + formComponents.get("Radius") + "cm" + "<br>" + "Amount of particles: " + formComponents.get("Amount") + "<br>" + "<br>";
 
         document.querySelector("div#yourOrder").innerHTML = rocket;
     }
@@ -46,27 +48,50 @@ namespace Endabgabe_EIA2 {
 
     function showAllRockets(): void {
 
-        getRocketsFromDatabase();
+        let parent: HTMLElement = document.querySelector("div#dropupContent");
 
         if (buttonClicked % 2 == 0) {
-            (<HTMLElement>document.querySelector("div#dropupContent")).style.display = "block";
+            getRocketsFromDatabase();
+            parent.style.display = "block";
         }
-
         else {
-            (<HTMLElement>document.querySelector("div#dropupContent")).style.display = "none";
+            parent.style.display = "none";
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
         }
 
         buttonClicked++;
     }
 
-    async function getRocketsFromDatabase(): Promise <void> {
+    async function getRocketsFromDatabase(): Promise<void> {
         let response: Response = await fetch(url + "?" + "command=retrieve");
-        let responseText = await response.json();
-        console.log(responseText);
+        rockets = await response.json();
 
-        
+        for (let rocket of rockets) {
+            let rocketName: HTMLElement = document.createElement("a");
+            rocketName.innerHTML = rocket["Name"];
+            (<HTMLElement>document.querySelector("div#dropupContent")).appendChild(rocketName);
+            rocketName.addEventListener("click", chooseRocket);
+        }
+
     }
 
+    function chooseRocket(_event: Event): void {
+        currentRocket = (<HTMLElement>_event.target).innerHTML;
+        for (let rocket of rockets) {
+            if (rocket["Name"] == currentRocket) {
+                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Rocket size: " + rocket["Size"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of effect: " + rocket["Radius"] + "cm" + "<br>" + "Amount of particles: " + rocket["Amount"];
+            }
+
+        }
+    }
+
+    async function deleteRocket(): Promise<void> {
+        console.log(currentRocket);
+        await fetch(url + "?" + "command=delete&rocket=" + currentRocket);
+        alert("rocket deleted!")
+    }
 }
 
 

@@ -38,6 +38,10 @@ export namespace ENDABGABE_EIA2 {
             getRocketName(_request, _response);
         }
 
+        else if (verify == "delete") {
+            deleteRocket(_request, _response);
+        }
+
         else {
 
             for (let key in url.query) {
@@ -66,8 +70,14 @@ export namespace ENDABGABE_EIA2 {
         let results: Mongo.Cursor = rocket.find();
         let rockets: string[] = await results.toArray();
         _response.write(JSON.stringify(rockets));
-       
+
         _response.end();
+    }
+
+    async function deleteRocket(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
+        let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
+        let rocketName: string | string[] = url.query["rocket"];
+        rocket.deleteOne({"Name":rocketName})
     }
 
 }

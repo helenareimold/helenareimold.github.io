@@ -53,31 +53,33 @@ p{
 	width: 200vh;
 }
 
-#addButton {
-	left: 50%;
-	transform: translate(-50%);
-	position: absolute;
+#buttonContainer1{
+	margin-left: 13vh;
 	bottom: 2%;
-	width: 25vh;
+}
+
+#addButton, #updateButton {
+	width: 20vh;
 	height: 4vh;
 	box-shadow: 3px 3px 5px black;
 	border: 0;
 	border-radius: 3px;
 	font-size: 0.8em;
+	margin-right: 5px;
 	background-color: rgb(37, 45, 68);
 	color: white;
 	cursor: pointer;
 }
 
-#buttonContainer{
+#buttonContainer2{
 	left: 50%;
 	transform: translate(-50%);
 	position: absolute;
 	bottom: 2%;
 }
 
-#resetButton, #sendButton{
-	width: 20vh;
+#resetButton, #sendButton, #deleteButton, #dropButton{
+	width: 15vh;
 	height: 4vh;
 	box-shadow: 3px 3px 5px black;
 	border: 0;
@@ -88,19 +90,6 @@ p{
 	color: white;
 	cursor: pointer;
 }
-
-#dropButton {
-	width: 20vh;
-	height: 4vh;
-	box-shadow: 3px 3px 5px black;
-	border: 0;
-	border-radius: 3px;
-	font-size: 0.8em;
-	margin: 5px;
-	background-color: rgb(102, 54, 70);
-	color: white;
-	cursor: pointer;
-  }
   
   #dropUp {
 	position: relative;
@@ -111,7 +100,7 @@ p{
 	display: none;
 	position: absolute;
 	bottom: 50px;
-	background-color: #f1f1f1;
+	background-color: #999999;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
@@ -122,6 +111,7 @@ p{
 	padding: 12px 16px;
 	text-decoration: none;
 	display: block;
+	cursor: pointer;
   }
 
 h2{
@@ -138,7 +128,4 @@ fieldset{
 #yourOrder{
 	margin-left: 5vh;
 	margin-top: 3vh;
-	overflow-y: scroll;
-	max-height: 64vh;
 }
-

@@ -35,6 +35,9 @@ var ENDABGABE_EIA2;
         if (verify == "retrieve") {
             getRocketName(_request, _response);
         }
+        else if (verify == "delete") {
+            deleteRocket(_request, _response);
+        }
         else {
             for (let key in url.query) {
                 _response.write(key + " : " + url.query[key] + "\n");
@@ -61,6 +64,13 @@ var ENDABGABE_EIA2;
             let rockets = yield results.toArray();
             _response.write(JSON.stringify(rockets));
             _response.end();
+        });
+    }
+    function deleteRocket(_request, _response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let url = Url.parse(_request.url, true);
+            let rocketName = url.query["rocket"];
+            rocket.deleteOne({ "Name": rocketName });
         });
     }
 })(ENDABGABE_EIA2 = exports.ENDABGABE_EIA2 || (exports.ENDABGABE_EIA2 = {}));
