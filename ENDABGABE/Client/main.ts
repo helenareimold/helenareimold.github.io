@@ -46,6 +46,8 @@ namespace Endabgabe_EIA2 {
 
     function showAllRockets(): void {
 
+        getRocketsFromDatabase();
+
         if (buttonClicked % 2 == 0) {
             (<HTMLElement>document.querySelector("div#dropupContent")).style.display = "block";
         }

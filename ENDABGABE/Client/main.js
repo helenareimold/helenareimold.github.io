@@ -37,6 +37,7 @@ var Endabgabe_EIA2;
         });
     }
     function showAllRockets() {
+        getRocketsFromDatabase();
         if (buttonClicked % 2 == 0) {
             document.querySelector("div#dropupContent").style.display = "block";
         }
