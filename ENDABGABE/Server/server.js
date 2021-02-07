@@ -30,8 +30,12 @@ var ENDABGABE_EIA2;
     function handleRequest(_request, _response) {
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
-        if (_request.url) {
-            let url = Url.parse(_request.url, true);
+        let url = Url.parse(_request.url, true);
+        let verify = url.query["command"];
+        if (verify == "retrieve") {
+            getRocketName(_request, _response);
+        }
+        else {
             for (let key in url.query) {
                 _response.write(key + " : " + url.query[key] + "\n");
             }
@@ -50,6 +54,15 @@ var ENDABGABE_EIA2;
     }
     function storeRocket(data) {
         rocket.insertOne(data);
+    }
+    function getRocketName(_request, _response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let results = rocket.find();
+            let rockets = yield results.toArray();
+            for (let rocket of rockets) {
+                console.log(rocket);
+            }
+        });
     }
 })(ENDABGABE_EIA2 = exports.ENDABGABE_EIA2 || (exports.ENDABGABE_EIA2 = {}));
 //# sourceMappingURL=server.js.map

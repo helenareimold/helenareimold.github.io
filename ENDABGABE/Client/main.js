@@ -10,11 +10,12 @@ var Endabgabe_EIA2;
 (function (Endabgabe_EIA2) {
     window.addEventListener("load", handleLoad);
     let url = "https://fireworkseditor.herokuapp.com";
+    let buttonClicked = 0;
     function handleLoad(_event) {
         document.querySelector("#addButton").addEventListener("click", displayOrder);
         document.querySelector("#resetButton").addEventListener("click", resetOrder);
         document.querySelector("#sendButton").addEventListener("click", sendOrder);
-        document.querySelector("#showAllButton").addEventListener("click", showAllOrders);
+        document.querySelector("#dropButton").addEventListener("click", showAllRockets);
     }
     function displayOrder() {
         let formComponents = new FormData(document.forms[0]);
@@ -35,7 +36,20 @@ var Endabgabe_EIA2;
             alert(responseText);
         });
     }
-    function showAllOrders() {
+    function showAllRockets() {
+        if (buttonClicked % 2 == 0) {
+            document.querySelector("div#dropupContent").style.display = "block";
+        }
+        else {
+            document.querySelector("div#dropupContent").style.display = "none";
+        }
+        buttonClicked++;
+    }
+    function getRocketsFromDatabase() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let response = yield fetch(url + "?" + "command=retrieve");
+            let responseText = yield response.text();
+        });
     }
 })(Endabgabe_EIA2 || (Endabgabe_EIA2 = {}));
 //# sourceMappingURL=main.js.map

@@ -76,7 +76,7 @@ p{
 	bottom: 2%;
 }
 
-#resetButton, #sendButton, #showAllButton{
+#resetButton, #sendButton{
 	width: 20vh;
 	height: 4vh;
 	box-shadow: 3px 3px 5px black;
@@ -89,6 +89,40 @@ p{
 	cursor: pointer;
 }
 
+#dropButton {
+	width: 20vh;
+	height: 4vh;
+	box-shadow: 3px 3px 5px black;
+	border: 0;
+	border-radius: 3px;
+	font-size: 0.8em;
+	margin: 5px;
+	background-color: rgb(102, 54, 70);
+	color: white;
+	cursor: pointer;
+  }
+  
+  #dropUp {
+	position: relative;
+	display: inline-block;
+  }
+  
+  #dropupContent {
+	display: none;
+	position: absolute;
+	bottom: 50px;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+  }
+  
+  #dropupContent a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+  }
 
 h2{
 	text-align: center;

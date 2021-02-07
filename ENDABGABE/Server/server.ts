@@ -31,13 +31,18 @@ export namespace ENDABGABE_EIA2 {
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
 
-        if (_request.url) {
-            let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
-            
-            for(let key in url.query){
-                _response.write(key+" : " + url.query[key]+"\n")
-            }
+        let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
+        let verify: string | string[] = url.query["command"];
 
+        if (verify == "retrieve") {
+            getRocketName(_request, _response);
+        }
+
+        else {
+
+            for (let key in url.query) {
+                _response.write(key + " : " + url.query[key] + "\n")
+            }
 
             storeRocket(url.query);
         }
@@ -53,8 +58,17 @@ export namespace ENDABGABE_EIA2 {
         console.log("database connected: " + rocket);
     }
 
-    function storeRocket(data: Rocket):void{
+    function storeRocket(data: Rocket): void {
         rocket.insertOne(data);
+    }
+
+    async function getRocketName(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
+        let results: Mongo.Cursor = rocket.find();
+        let rockets: string[] = await results.toArray();
+
+        for (let rocket of rockets){
+            console.log(rocket);
+        }
     }
 
 }
