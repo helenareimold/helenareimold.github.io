@@ -49,7 +49,7 @@ var Endabgabe_EIA2;
     function getRocketsFromDatabase() {
         return __awaiter(this, void 0, void 0, function* () {
             let response = yield fetch(url + "?" + "command=retrieve");
-            let responseText = yield response.text();
+            let responseText = yield response.json();
             console.log(responseText);
         });
     }

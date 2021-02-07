@@ -65,10 +65,7 @@ export namespace ENDABGABE_EIA2 {
     async function getRocketName(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
         let results: Mongo.Cursor = rocket.find();
         let rockets: string[] = await results.toArray();
-
-        for (let rocket of rockets){
-            _response.write(rocket[<any>"Name"]);
-        }
+        _response.write(JSON.stringify(rockets));
        
         _response.end();
     }
