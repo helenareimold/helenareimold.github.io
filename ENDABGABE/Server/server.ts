@@ -45,9 +45,9 @@ export namespace ENDABGABE_EIA2 {
             }
 
             storeRocket(url.query);
+            _response.end();
         }
 
-        _response.end();
     }
 
     async function connectToDatabase(_url: string): Promise<void> {

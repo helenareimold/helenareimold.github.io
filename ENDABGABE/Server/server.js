@@ -40,8 +40,8 @@ var ENDABGABE_EIA2;
                 _response.write(key + " : " + url.query[key] + "\n");
             }
             storeRocket(url.query);
+            _response.end();
         }
-        _response.end();
     }
     function connectToDatabase(_url) {
         return __awaiter(this, void 0, void 0, function* () {
