@@ -6,7 +6,7 @@ namespace Endabgabe_EIA2 {
     let buttonClicked: number = 0;
     let rockets: any;
     let currentRocket: string;
-    
+
     function handleLoad(_event: Event): void {
         document.querySelector("#addButton").addEventListener("click", displayRocket);
         document.querySelector("#updateButton").addEventListener("click", updateRocket);
@@ -15,27 +15,26 @@ namespace Endabgabe_EIA2 {
         document.querySelector("#deleteButton").addEventListener("click", deleteRocket);
         document.querySelector("#dropButton").addEventListener("click", showAllRockets);
     }
-    
+
     function displayRocket(): void {
         let formComponents: FormData = new FormData(document.forms[0]);                         //Daten aus Formular holen
         let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Rocket size: " + formComponents.get("Size") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm" + "<br>" + "Amount of particles: " + formComponents.get("Amount") + "<br>" + "<br>"; //Schlüssel und Wert jeweils in rocket speichern
-        
+
         document.querySelector("div#yourOrder").innerHTML = rocket;                             //Inhalt von yourOrder div = rocket mit Formular Daten
     }
-    
+
     async function updateRocket(): Promise<void> {
         let response: Response = await fetch(url + "?" + "command=delete");
     }
-    
+
     function resetOrder(): void {
         document.forms[0].reset();                                                              //Formular Daten zurücksetzen
         document.getElementById("yourOrder").innerHTML = "";                                    //Inhalt im div leeren
     }
-    
+
     async function sendOrder(_event: Event): Promise<void> {
         console.log("Send order");
         let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
-
         let query: URLSearchParams = new URLSearchParams(<any>form);                             //In Variable query speichern, vom Objekt URLSearchParams               
         let response: Response = await fetch(url + "?" + query.toString());                      //Daten von Server holen und an url hängen + in string umwandeln für Lesbarkeit --> in response speichern
         let responseText: string = await response.text();                                        //Daten in Textform in responseText speichern und ausgeben lassen

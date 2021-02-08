@@ -16,20 +16,17 @@ body {
 
 #editorContainer {
 	background-color: rgb(8, 12, 29);
-	font-size: 1.3em;
 	grid-area: links;
 	position: relative;
 }
 
 #compilationContainer {
-	font-size: 1.3em;
 	grid-area: mitte;
 	background-color: rgb(70, 28, 37);
 }
 
 #canvasContainer {
 	background-image: url(sky.jpg);
-	font-size: 1.3em;
 	grid-area: rechts;
 }
 
@@ -42,10 +39,11 @@ header{
 h1{
 	font-family: 'Cabin Sketch', monospace;
 	font-size: 2.5em;
+	margin-top: 1%;
 }
 
 p{
-	font-size: 1.2em;
+	font-size: 0.8em;
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%);
@@ -55,7 +53,7 @@ p{
 
 #buttonContainer1{
 	margin-left: 13vh;
-	bottom: 2%;
+	margin-top: 11px;
 }
 
 #addButton, #updateButton {
@@ -75,7 +73,7 @@ p{
 	left: 50%;
 	transform: translate(-50%);
 	position: absolute;
-	bottom: 2%;
+	bottom: 5px;
 }
 
 #resetButton, #sendButton, #deleteButton, #dropButton{
@@ -100,13 +98,14 @@ p{
 	position: absolute;
 	bottom: 5.5vh;
 	background-color: #7f8383;
-	min-width: 160px;
+	min-width: 100px;
 	box-shadow: 3px 3px 5px black;
   }
   
   #dropupContent a {
 	color: rgb(0, 0, 0);
-	padding: 13px;
+	font-size: 0.8em;
+	padding: 10px;
 	display: block;
 	font-weight: bold;
 	cursor: pointer;
@@ -115,12 +114,16 @@ p{
 h2{
 	text-align: center;
 	font-size: 1.2em;
+	margin-bottom: 0;
 }
 
 fieldset{
-	margin: 1vh;
+	margin-top: 0.5vh;
+	margin-left: 1.5vh;
+	margin-right: 1.5vh;
 	border-width: 3px;
 	border-color: white;
+	font-size: 0.8em;
 }
 
 #yourOrder{
