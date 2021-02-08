@@ -45,10 +45,10 @@ var ENDABGABE_EIA2;
             getRocketsFromDb(_request, _response);
         }
         else if (verify == "delete") { //2. löschen
-            updateRocket(_request, _response);
+            deleteRocket(_request, _response);
         }
         else if (verify == "update") { //3. update
-            deleteRocket(_request, _response);
+            updateRocket(_request, _response);
         }
         else { //4. speichern
             for (let key in url.query) {
@@ -77,10 +77,20 @@ var ENDABGABE_EIA2;
     }
     function updateRocket(_request, _response) {
         return __awaiter(this, void 0, void 0, function* () {
+            let url = Url.parse(_request.url, true);
+            let oldName = url.query["rocket"];
+            let rocketName = url.query["Name"];
+            let rocketRisks = url.query["Riks"];
+            let rocketSize = url.query["Size"];
+            let rocketColor = url.query["Color"];
+            let rocketDuration = url.query["Duration"];
+            let rocketRadius = url.query["Radius"];
+            let rocketAmount = url.query["Amount"];
+            rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Size": rocketSize, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius, "Amount": rocketAmount } });
         });
     }
     function storeRocket(data) {
-        rocket.insertOne(data); //Eintrag der Daten in rocket (mongo client)
+        rocket.insertOne(data); //Speichern der Daten in rocket (mongo client)
     }
 })(ENDABGABE_EIA2 = exports.ENDABGABE_EIA2 || (exports.ENDABGABE_EIA2 = {}));
 //# sourceMappingURL=server.js.map

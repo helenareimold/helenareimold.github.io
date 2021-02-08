@@ -38,22 +38,22 @@ header{
 
 h1{
 	font-family: 'Cabin Sketch', monospace;
-	font-size: 2.5em;
-	margin-top: 1%;
+	font-size: 2em;
+	margin-top: 5px;
 }
 
 p{
-	font-size: 0.8em;
+	font-size: 0.9em;
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%);
-	top: 7%;
+	top: 30px;
 	width: 200vh;
 }
 
 #buttonContainer1{
 	margin-left: 13vh;
-	margin-top: 11px;
+	margin-top: 10px;
 }
 
 #addButton, #updateButton {
@@ -96,7 +96,7 @@ p{
   
   #dropupContent {
 	position: absolute;
-	bottom: 5.5vh;
+	bottom: 6vh;
 	background-color: #7f8383;
 	min-width: 100px;
 	box-shadow: 3px 3px 5px black;
@@ -105,7 +105,7 @@ p{
   #dropupContent a {
 	color: rgb(0, 0, 0);
 	font-size: 0.8em;
-	padding: 10px;
+	padding: 8px;
 	display: block;
 	font-weight: bold;
 	cursor: pointer;

@@ -33,7 +33,7 @@ export namespace ENDABGABE_EIA2 {
         rocket = mongoClient.db("fireworks").collection("rockets");                           //rocket = Mongo Client --> db und collection  
         console.log("database connected: " + rocket);
     }
-    
+
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
@@ -46,11 +46,11 @@ export namespace ENDABGABE_EIA2 {
         }
 
         else if (verify == "delete") {                                                         //2. löschen
-            updateRocket(_request, _response);
+            deleteRocket(_request, _response);
         }
 
         else if (verify == "update") {                                                         //3. update
-            deleteRocket(_request, _response);
+            updateRocket(_request, _response);
         }
 
         else {                                                                                 //4. speichern
@@ -63,30 +63,40 @@ export namespace ENDABGABE_EIA2 {
             _response.end();
         }
     }
-    
+
     async function getRocketsFromDb(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
         let results: Mongo.Cursor = rocket.find();                                             //Ergebnissuche der Einträge in rocket
         let rockets: string[] = await results.toArray();                                       //Ergebnisse in Array rockets speichern
         _response.write(JSON.stringify(rockets));                                              //Client ausgeben, welche Raketen gespeichert wurden
-        
+
         _response.end();
     }
-    
+
     async function deleteRocket(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
-        let rocketName: string | string[] = url.query["rocket"];                                
+        let rocketName: string | string[] = url.query["rocket"];
         rocket.deleteOne({ "Name": rocketName });
         _response.write("rocket deleted!");
         _response.end();
     }
 
     async function updateRocket(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
+        let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
+        let oldName: string | string[] = url.query["rocket"];
+        let rocketName: string | string[] = url.query["Name"];
+        let rocketRisks: string | string[] = url.query["Riks"];
+        let rocketSize: string | string[] = url.query["Size"];
+        let rocketColor: string | string[] = url.query["Color"];
+        let rocketDuration: string | string[] = url.query["Duration"];
+        let rocketRadius: string | string[] = url.query["Radius"];
+        let rocketAmount: string | string[] = url.query["Amount"];
 
+        rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Size": rocketSize, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius, "Amount": rocketAmount } });
     }
 
     function storeRocket(data: Rocket): void {
-        rocket.insertOne(data);                                                                //Eintrag der Daten in rocket (mongo client)
+        rocket.insertOne(data);                                                                //Speichern der Daten in rocket (mongo client)
     }
-    
+
 
 }

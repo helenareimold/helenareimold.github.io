@@ -28,7 +28,9 @@ var Endabgabe_EIA2;
     }
     function updateRocket() {
         return __awaiter(this, void 0, void 0, function* () {
-            let response = yield fetch(url + "?" + "command=delete");
+            let newData = new FormData(document.forms[0]);
+            let query = new URLSearchParams(newData);
+            let response = yield fetch(url + "?" + "command=update&rocket=" + currentRocket + "&" + query.toString());
         });
     }
     function resetOrder() {
