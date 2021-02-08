@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENDABGABE: Time to shine</title>
+    <title>ENDABGABE: Make it shine</title>
 
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <script src="main.js" type="text/javascript" charset="utf-8"></script>
@@ -13,9 +13,12 @@
 <body>
     <header>
         <h1>Firework-Editor</h1>
-        <p>Welcome! Put in the name of your rocket and inform me about the things to take care off. After that, just
-            assemble them like you want.
-            <br> Choose size, color, duration, the radius of explosion and the amount of particles. Have fun!
+        <p>Welcome! Put in the name of your rocket and note the things to take care off. After that, just assemble them
+            like you want. Have fun!
+            <br> Good to know: show rocket = shows your seletion combined, update rocket = something is wrong?, reset =
+            everything is wrong?, save rocket = saves rocket to db, <br> delete rocket = removes rocket from db, show
+            rockets = shows saved rockets from db to use them or update them, click somewhere on the right = current
+            rocket explodes
         </p>
     </header>
 
@@ -32,7 +35,7 @@
                     <legend> Risks </legend>
                     <input type="text" name="Risks" placeholder="good to know" required />
                 </fieldset>
-                
+
                 <fieldset id="rocketSize">
                     <legend> Size </legend>
                     <input type="radio" name="Size" id="small" value="small" checked />
@@ -81,20 +84,18 @@
     </div>
 
     <div id="compilationContainer">
-        <h2>Your rockets</h2>
+        <h2>Your currently rocket</h2>
 
-        <div id="yourOrder">
-
-        </div>
-
+        <div id="yourOrder"></div>
+        
         <div id="buttonContainer2">
             <button id="resetButton">reset</button>
             <button id="sendButton" type="button" form="orderForm">save rocket</button>
             <button id="deleteButton">delete rocket</button>
             <div id="dropUp">
-                <button id="dropButton">Show rockets</button>
+                <button id="dropButton">show rockets</button>
                 <div id="dropupContent"></div>
-              </div> 
+            </div>
         </div>
     </div>
 
@@ -102,7 +103,5 @@
         <h2>Check out your firework below
     </div>
 
-
 </body>
-
 </html>

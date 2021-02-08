@@ -27,42 +27,42 @@ var ENDABGABE_EIA2;
         server.listen(port);
         server.addListener("request", handleRequest);
     }
-    function handleRequest(_request, _response) {
-        _response.setHeader("content-type", "text/html; charset=utf-8");
-        _response.setHeader("Access-Control-Allow-Origin", "*");
-        let url = Url.parse(_request.url, true);
-        let verify = url.query["command"];
-        if (verify == "retrieve") {
-            getRocketName(_request, _response);
-        }
-        else if (verify == "delete") {
-            deleteRocket(_request, _response);
-        }
-        else {
-            for (let key in url.query) {
-                _response.write(key + " : " + url.query[key] + "\n");
-            }
-            storeRocket(url.query);
-            _response.end();
-        }
-    }
     function connectToDatabase(_url) {
         return __awaiter(this, void 0, void 0, function* () {
             let options = { useNewUrlParser: true, useUnifiedTopology: true };
             let mongoClient = new Mongo.MongoClient(_url, options);
             yield mongoClient.connect();
-            rocket = mongoClient.db("fireworks").collection("rockets");
+            rocket = mongoClient.db("fireworks").collection("rockets"); //rocket = Mongo Client --> db und collection  
             console.log("database connected: " + rocket);
         });
     }
-    function storeRocket(data) {
-        rocket.insertOne(data);
+    function handleRequest(_request, _response) {
+        _response.setHeader("content-type", "text/html; charset=utf-8");
+        _response.setHeader("Access-Control-Allow-Origin", "*");
+        let url = Url.parse(_request.url, true);
+        let verify = url.query["command"]; //prüfen welcher command ausgeführt wurde
+        if (verify == "retrieve") { //1. Daten aus db holen über sendOrder bei Client
+            getRocketsFromDb(_request, _response);
+        }
+        else if (verify == "delete") { //2. löschen
+            updateRocket(_request, _response);
+        }
+        else if (verify == "update") { //3. update
+            deleteRocket(_request, _response);
+        }
+        else { //4. speichern
+            for (let key in url.query) {
+                _response.write(key + " : " + url.query[key] + "\n"); //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück
+            }
+            storeRocket(url.query);
+            _response.end();
+        }
     }
-    function getRocketName(_request, _response) {
+    function getRocketsFromDb(_request, _response) {
         return __awaiter(this, void 0, void 0, function* () {
-            let results = rocket.find();
-            let rockets = yield results.toArray();
-            _response.write(JSON.stringify(rockets));
+            let results = rocket.find(); //Ergebnissuche der Einträge in rocket
+            let rockets = yield results.toArray(); //Ergebnisse in Array rockets speichern
+            _response.write(JSON.stringify(rockets)); //Client ausgeben, welche Raketen gespeichert wurden
             _response.end();
         });
     }
@@ -74,6 +74,13 @@ var ENDABGABE_EIA2;
             _response.write("rocket deleted!");
             _response.end();
         });
+    }
+    function updateRocket(_request, _response) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+    function storeRocket(data) {
+        rocket.insertOne(data); //Eintrag der Daten in rocket (mongo client)
     }
 })(ENDABGABE_EIA2 = exports.ENDABGABE_EIA2 || (exports.ENDABGABE_EIA2 = {}));
 //# sourceMappingURL=server.js.map
