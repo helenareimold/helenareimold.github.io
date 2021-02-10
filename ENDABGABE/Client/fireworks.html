@@ -7,7 +7,8 @@
     <title>ENDABGABE: Make it shine</title>
 
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-    <script src="main.js" type="text/javascript" charset="utf-8"></script>
+    <script src="mainClient.js" type="text/javascript" charset="utf-8"></script>
+    <script src="mainCanvas.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -16,7 +17,7 @@
         <p>Welcome! Put in the name of your rocket and note the things to take care off. After that, just assemble them
             like you want. Have fun!
             <br> Good to know: show rocket = shows your seletion combined, update rocket = something is wrong?, reset =
-            everything is wrong?, save rocket = saves rocket to db, <br> delete rocket = removes rocket from db, show
+            everything is wrong?, save rocket = sends rocket to server and saves to db, <br> delete rocket = removes rocket from db, show
             rockets = shows saved rockets from db to use them or update them, click somewhere on the right = current
             rocket explodes
         </p>
@@ -33,7 +34,7 @@
 
                 <fieldset id="risks">
                     <legend> Risks </legend>
-                    <input type="text" name="Risks" placeholder="good to know" required />
+                    <textarea name="Risks" rows="2" placeholder="good to know"></textarea>
                 </fieldset>
 
                 <fieldset id="rocketSize">
@@ -53,16 +54,16 @@
 
                 <fieldset>
                     <legend>Duration of effect</legend>
-                    <span id="sliderTime">
+                    <span>
                         3s
-                        <input type="range" name="Duration" id="duration" min="3" max="15" step="1" value="1">
+                        <input type="range" name="Duration" id="duration" min="3" max="15" step="1" value="3">
                         15s
                     </span>
                 </fieldset>
 
                 <fieldset>
                     <legend>Radius of explosion</legend>
-                    <span id="sliderRadius">
+                    <span>
                         1cm
                         <input type="range" name="Radius" id="radius" min="1" max="10" step="1" value="1">
                         10cm
@@ -71,13 +72,13 @@
 
                 <fieldset>
                     <legend> Amount of particles </legend>
-                    <input type="number" name="Amount" class="amount" step="50" min="0" max="500" value="0" />
+                    <input type="number" name="Amount" class="amount" min="10" max="250" step="20" value="10" />
                 </fieldset>
             </div>
         </form>
 
         <div id="buttonContainer1">
-            <button id="addButton">show rocket</button>
+            <button id="displayButton">display rocket</button>
             <button id="updateButton">update rocket</button>
         </div>
 
@@ -87,10 +88,10 @@
         <h2>Your currently rocket</h2>
 
         <div id="yourOrder"></div>
-        
+
         <div id="buttonContainer2">
             <button id="resetButton">reset</button>
-            <button id="sendButton" type="button" form="orderForm">save rocket</button>
+            <button id="saveButton" type="button" form="orderForm">save rocket</button>
             <button id="deleteButton">delete rocket</button>
             <div id="dropUp">
                 <button id="dropButton">show rockets</button>
@@ -100,8 +101,9 @@
     </div>
 
     <div id="canvasContainer">
-        <h2>Check out your firework below
+        <canvas id="canvas" width="421" height="503" style="background: url(sky.jpg)"></canvas>     
     </div>
 
 </body>
+
 </html>

@@ -13,13 +13,18 @@ var Endabgabe_EIA2;
     let buttonClicked = 0;
     let rockets;
     let currentRocket;
+    let crc2;
     function handleLoad(_event) {
-        document.querySelector("#addButton").addEventListener("click", displayRocket);
+        let canvas = document.querySelector("canvas");
+        crc2 = canvas.getContext("2d");
+        document.querySelector("#displayButton").addEventListener("click", displayRocket);
         document.querySelector("#updateButton").addEventListener("click", updateRocket);
         document.querySelector("#resetButton").addEventListener("click", resetOrder);
-        document.querySelector("#sendButton").addEventListener("click", sendOrder);
+        document.querySelector("#saveButton").addEventListener("click", saveRocket);
         document.querySelector("#deleteButton").addEventListener("click", deleteRocket);
         document.querySelector("#dropButton").addEventListener("click", showAllRockets);
+        document.querySelector("canvas").addEventListener("click", handleAnimate);
+        bannerText();
     }
     function displayRocket() {
         let formComponents = new FormData(document.forms[0]); //Daten aus Formular holen
@@ -37,9 +42,9 @@ var Endabgabe_EIA2;
         document.forms[0].reset(); //Formular Daten zurücksetzen
         document.getElementById("yourOrder").innerHTML = ""; //Inhalt im div leeren
     }
-    function sendOrder(_event) {
+    function saveRocket(_event) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("Send order");
+            console.log("Send rocket");
             let form = new FormData(document.forms[0]); //Daten aus Form holen
             let query = new URLSearchParams(form); //In Variable query speichern, vom Objekt URLSearchParams               
             let response = yield fetch(url + "?" + query.toString()); //Daten von Server holen und an url hängen + in string umwandeln für Lesbarkeit --> in response speichern
@@ -54,7 +59,7 @@ var Endabgabe_EIA2;
             for (let rocket of rockets) { //Durchlauf jeder Rakete in Collection rockets
                 let rocketName = document.createElement("a"); //Element a wird erstellt --> in rocketName gespeichert
                 rocketName.innerHTML = rocket["Name"]; //Inhalt des Elements soll passendem Wert zum Schlüssel "Name" entsprechen
-                document.querySelector("div#dropupContent").appendChild(rocketName); //Schlüssel (Kind) von Wert "Name" (Parent) in dropContent div speichern
+                document.querySelector("div#dropupContent").appendChild(rocketName); //Wert (Kind) von Schlüssel "Name" (Parent) in dropContent div speichern
                 rocketName.addEventListener("click", chooseRocket); //click-Listener installieren --> damit Rocket Name klickbar wird, ruft neue Funktion auf
             }
         });
@@ -90,5 +95,43 @@ var Endabgabe_EIA2;
         }
         buttonClicked++;
     }
+    function bannerText() {
+        crc2.font = "1em Nunito"; // Schrift Schild
+        crc2.fillStyle = "white";
+        crc2.textAlign = "center";
+        crc2.fillText("Try out your firework below", 205, 30);
+    }
+    function strahlen(x, y, radius, color) {
+        for (let grad = -1; grad <= 1; grad = grad + 0.2) {
+            let theta = grad * Math.PI;
+            crc2.moveTo(x, y);
+            crc2.lineTo(x + radius * Math.cos(theta), y + radius * Math.sin(theta));
+            crc2.strokeStyle = color;
+            crc2.stroke();
+            //Nach der letzten Schleife Leinwand leer machen
+            if (radius == 50) {
+                crc2.clearRect(0, 0, 421, 503);
+            }
+            crc2.beginPath();
+        }
+    }
+    function handleAnimate(_event) {
+        let cursorX = _event.pageX - document.querySelector("canvas").offsetLeft;
+        let cursorY = _event.pageY - document.querySelector("canvas").offsetTop;
+        console.log(cursorX, cursorY);
+        animate(cursorX, cursorY, 10, "violet");
+    }
+    function animate(x, y, radius, color) {
+        function myLoop() {
+            setTimeout(function () {
+                strahlen(x, y, radius, color);
+                radius = radius + 10;
+                if (radius <= 50) {
+                    myLoop();
+                }
+            }, 200);
+        }
+        myLoop();
+    }
 })(Endabgabe_EIA2 || (Endabgabe_EIA2 = {}));
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=mainClient.js.map

@@ -41,26 +41,21 @@ export namespace ENDABGABE_EIA2 {
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
         let verify: string | string[] = url.query["command"];                                  //prüfen welcher command ausgeführt wurde
 
-        if (verify == "retrieve") {                                                            //1. Daten aus db holen über sendOrder bei Client
-            getRocketsFromDb(_request, _response);
-        }
 
-        else if (verify == "delete") {                                                         //2. löschen
-            deleteRocket(_request, _response);
-        }
+        switch (verify) {
+            case "retrieve": getRocketsFromDb(_request, _response);
+                break;
+            case "delete": deleteRocket(_request, _response);
+                break;
+            case "update": updateRocket(_request, _response);
+            default:
 
-        else if (verify == "update") {                                                         //3. update
-            updateRocket(_request, _response);
-        }
+                for (let key in url.query) {
+                    _response.write(key + " : " + url.query[key] + "\n")                           //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück
+                }
 
-        else {                                                                                 //4. speichern
-
-            for (let key in url.query) {
-                _response.write(key + " : " + url.query[key] + "\n")                           //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück
-            }
-
-            storeRocket(url.query);
-            _response.end();
+                storeRocket(url.query);
+                _response.end();
         }
     }
 

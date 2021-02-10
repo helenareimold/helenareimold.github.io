@@ -41,21 +41,20 @@ var ENDABGABE_EIA2;
         _response.setHeader("Access-Control-Allow-Origin", "*");
         let url = Url.parse(_request.url, true);
         let verify = url.query["command"]; //prüfen welcher command ausgeführt wurde
-        if (verify == "retrieve") { //1. Daten aus db holen über sendOrder bei Client
-            getRocketsFromDb(_request, _response);
-        }
-        else if (verify == "delete") { //2. löschen
-            deleteRocket(_request, _response);
-        }
-        else if (verify == "update") { //3. update
-            updateRocket(_request, _response);
-        }
-        else { //4. speichern
-            for (let key in url.query) {
-                _response.write(key + " : " + url.query[key] + "\n"); //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück
-            }
-            storeRocket(url.query);
-            _response.end();
+        switch (verify) {
+            case "retrieve":
+                getRocketsFromDb(_request, _response);
+                break;
+            case "delete":
+                deleteRocket(_request, _response);
+                break;
+            case "update": updateRocket(_request, _response);
+            default:
+                for (let key in url.query) {
+                    _response.write(key + " : " + url.query[key] + "\n"); //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück
+                }
+                storeRocket(url.query);
+                _response.end();
         }
     }
     function getRocketsFromDb(_request, _response) {
