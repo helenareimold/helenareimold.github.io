@@ -101,9 +101,9 @@ var Endabgabe_EIA2;
         crc2.textAlign = "center";
         crc2.fillText("Try out your firework below", 205, 30);
     }
-    function lightRays(x, y, radius, color) {
-        for (let grad = -1; grad <= 1; grad = grad + 0.2) {
-            let theta = grad * Math.PI;
+    function drawLightRays(x, y, radius, color) {
+        for (let grade = -1; grade <= 1; grade = grade + 0.2) {
+            let theta = grade * Math.PI;
             crc2.moveTo(x, y);
             crc2.lineTo(x + radius * Math.cos(theta), y + radius * Math.sin(theta));
             crc2.strokeStyle = color;
@@ -119,12 +119,12 @@ var Endabgabe_EIA2;
         let cursorX = _event.pageX - document.querySelector("canvas").offsetLeft;
         let cursorY = _event.pageY - document.querySelector("canvas").offsetTop;
         console.log(cursorX, cursorY);
-        animate(cursorX, cursorY, 10, "violet");
+        animateLightRays(cursorX, cursorY, 10, "orange");
     }
-    function animate(x, y, radius, color) {
+    function animateLightRays(x, y, radius, color) {
         function myLoop() {
             setTimeout(function () {
-                lightRays(x, y, radius, color);
+                drawLightRays(x, y, radius, color);
                 radius = radius + 10;
                 if (radius <= 50) {
                     myLoop();
@@ -134,4 +134,4 @@ var Endabgabe_EIA2;
         myLoop();
     }
 })(Endabgabe_EIA2 || (Endabgabe_EIA2 = {}));
-//# sourceMappingURL=mainClient.js.map
+//# sourceMappingURL=main.js.map

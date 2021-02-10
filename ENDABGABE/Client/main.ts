@@ -98,18 +98,18 @@ namespace Endabgabe_EIA2 {
         buttonClicked++;
     }
 
-    function bannerText(): void{
-        crc2.font = "1em Nunito";     
+    function bannerText(): void {
+        crc2.font = "1em Nunito";
         crc2.fillStyle = "white";
         crc2.textAlign = "center";
         crc2.fillText("Try out your firework below", 205, 30);
     }
 
-    function lightRays(x: number, y: number, radius: number, color: string) {
+    function drawLightRays(x: number, y: number, radius: number, color: string) {
 
-        for (let grad: number = -1; grad <= 1; grad = grad + 0.2) {
+        for (let grade: number = -1; grade <= 1; grade = grade + 0.2) {
 
-            let theta: number = grad * Math.PI;
+            let theta: number = grade * Math.PI;
             crc2.moveTo(x, y);
             crc2.lineTo(x + radius * Math.cos(theta), y + radius * Math.sin(theta));
 
@@ -117,7 +117,9 @@ namespace Endabgabe_EIA2 {
             crc2.stroke();
 
             //Nach der letzten Schleife Leinwand leer machen
-            if (radius == 50) { crc2.clearRect(0, 0, 421, 503); }
+            if (radius == 50) {
+                crc2.clearRect(0, 0, 421, 503);
+            }
 
             crc2.beginPath();
         }
@@ -128,14 +130,14 @@ namespace Endabgabe_EIA2 {
         let cursorY: number = _event.pageY - document.querySelector("canvas").offsetTop;
 
         console.log(cursorX, cursorY);
-        animate(cursorX, cursorY, 10, "violet");
+        animateLightRays(cursorX, cursorY, 10, "orange");
     }
 
-    function animate(x: number, y: number, radius: number, color: string): void {
+    function animateLightRays(x: number, y: number, radius: number, color: string): void {
         function myLoop() {
             setTimeout(function () {
 
-                lightRays(x, y, radius, color);
+                drawLightRays(x, y, radius, color);
                 radius = radius + 10;
                 if (radius <= 50) {
                     myLoop();
