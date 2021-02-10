@@ -35,6 +35,8 @@ namespace Endabgabe_EIA2 {
         let newData: FormData = new FormData(document.forms[0]);
         let query: URLSearchParams = new URLSearchParams(<any>newData);
         let response: Response = await fetch(url + "?" + "command=update&rocket=" + currentRocket + "&" + query.toString());
+        let responseText: string = await response.text();
+        alert(responseText);        
     }
 
     function resetOrder(): void {
@@ -75,8 +77,8 @@ namespace Endabgabe_EIA2 {
 
     async function deleteRocket(): Promise<void> {
         console.log(currentRocket);
-        let respone: Response = await fetch(url + "?" + "command=delete&rocket=" + currentRocket);       //Abfrage über url --> hier: löschen über command "delete"
-        let text: string = await respone.text();
+        let response: Response = await fetch(url + "?" + "command=delete&rocket=" + currentRocket);       //Abfrage über url --> hier: löschen über command "delete"
+        let text: string = await response.text();
         alert(text);                                                                                     //rocket deleted!
         document.querySelector("div#yourOrder").innerHTML = "";
     }

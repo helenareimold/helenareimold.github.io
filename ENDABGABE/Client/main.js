@@ -36,6 +36,8 @@ var Endabgabe_EIA2;
             let newData = new FormData(document.forms[0]);
             let query = new URLSearchParams(newData);
             let response = yield fetch(url + "?" + "command=update&rocket=" + currentRocket + "&" + query.toString());
+            let responseText = yield response.text();
+            alert(responseText);
         });
     }
     function resetOrder() {
@@ -75,8 +77,8 @@ var Endabgabe_EIA2;
     function deleteRocket() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(currentRocket);
-            let respone = yield fetch(url + "?" + "command=delete&rocket=" + currentRocket); //Abfrage über url --> hier: löschen über command "delete"
-            let text = yield respone.text();
+            let response = yield fetch(url + "?" + "command=delete&rocket=" + currentRocket); //Abfrage über url --> hier: löschen über command "delete"
+            let text = yield response.text();
             alert(text); //rocket deleted!
             document.querySelector("div#yourOrder").innerHTML = "";
         });

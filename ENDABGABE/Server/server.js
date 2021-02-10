@@ -86,6 +86,8 @@ var ENDABGABE_EIA2;
             let rocketRadius = url.query["Radius"];
             let rocketAmount = url.query["Amount"];
             rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Size": rocketSize, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius, "Amount": rocketAmount } });
+            _response.write("rocket updated!");
+            _response.end();
         });
     }
     function storeRocket(data) {
