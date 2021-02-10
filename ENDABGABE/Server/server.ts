@@ -79,7 +79,7 @@ export namespace ENDABGABE_EIA2 {
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
         let oldName: string | string[] = url.query["rocket"];
         let rocketName: string | string[] = url.query["Name"];
-        let rocketRisks: string | string[] = url.query["Riks"];
+        let rocketRisks: string | string[] = url.query["Risks"];
         let rocketSize: string | string[] = url.query["Size"];
         let rocketColor: string | string[] = url.query["Color"];
         let rocketDuration: string | string[] = url.query["Duration"];

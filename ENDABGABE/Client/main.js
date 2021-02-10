@@ -22,7 +22,7 @@ var Endabgabe_EIA2;
         document.querySelector("#resetButton").addEventListener("click", resetOrder);
         document.querySelector("#saveButton").addEventListener("click", saveRocket);
         document.querySelector("#deleteButton").addEventListener("click", deleteRocket);
-        document.querySelector("#dropButton").addEventListener("click", showAllRockets);
+        document.querySelector("#dropButton").addEventListener("click", showSavedRockets);
         document.querySelector("canvas").addEventListener("click", handleAnimate);
         bannerText();
     }
@@ -46,7 +46,7 @@ var Endabgabe_EIA2;
     }
     function saveRocket(_event) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("Send rocket");
+            console.log("Save rocket");
             let form = new FormData(document.forms[0]); //Daten aus Form holen
             let query = new URLSearchParams(form); //In Variable query speichern, vom Objekt URLSearchParams               
             let response = yield fetch(url + "?" + query.toString()); //Daten von Server holen und an url hängen + in string umwandeln für Lesbarkeit --> in response speichern
@@ -54,7 +54,7 @@ var Endabgabe_EIA2;
             alert(responseText);
         });
     }
-    function getRocketsFromDatabase() {
+    function getSavedRocketsFromDb() {
         return __awaiter(this, void 0, void 0, function* () {
             let response = yield fetch(url + "?" + "command=retrieve"); //Abfrage über url ob Daten gespeichert, geholt oder gelöscht werden sollen --> hier: holen über command "retrieve"
             rockets = yield response.json();
@@ -83,10 +83,10 @@ var Endabgabe_EIA2;
             document.querySelector("div#yourOrder").innerHTML = "";
         });
     }
-    function showAllRockets() {
+    function showSavedRockets() {
         let parent = document.querySelector("div#dropupContent");
         if (buttonClicked % 2 == 0) { //button geklickt = gerade Zahl (auf)
-            getRocketsFromDatabase();
+            getSavedRocketsFromDb();
             parent.style.display = "block";
         }
         else { //button nochmal geklickt = ungerade (zu)

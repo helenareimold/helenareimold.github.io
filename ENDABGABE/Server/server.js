@@ -79,7 +79,7 @@ var ENDABGABE_EIA2;
             let url = Url.parse(_request.url, true);
             let oldName = url.query["rocket"];
             let rocketName = url.query["Name"];
-            let rocketRisks = url.query["Riks"];
+            let rocketRisks = url.query["Risks"];
             let rocketSize = url.query["Size"];
             let rocketColor = url.query["Color"];
             let rocketDuration = url.query["Duration"];

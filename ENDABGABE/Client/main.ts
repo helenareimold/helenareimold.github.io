@@ -17,7 +17,7 @@ namespace Endabgabe_EIA2 {
         document.querySelector("#resetButton").addEventListener("click", resetOrder);
         document.querySelector("#saveButton").addEventListener("click", saveRocket);
         document.querySelector("#deleteButton").addEventListener("click", deleteRocket);
-        document.querySelector("#dropButton").addEventListener("click", showAllRockets);
+        document.querySelector("#dropButton").addEventListener("click", showSavedRockets);
         document.querySelector("canvas").addEventListener("click", handleAnimate);
 
         bannerText();
@@ -45,7 +45,7 @@ namespace Endabgabe_EIA2 {
     }
 
     async function saveRocket(_event: Event): Promise<void> {
-        console.log("Send rocket");
+        console.log("Save rocket");
         let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
         let query: URLSearchParams = new URLSearchParams(<any>form);                             //In Variable query speichern, vom Objekt URLSearchParams               
         let response: Response = await fetch(url + "?" + query.toString());                      //Daten von Server holen und an url hängen + in string umwandeln für Lesbarkeit --> in response speichern
@@ -54,7 +54,7 @@ namespace Endabgabe_EIA2 {
         alert(responseText);
     }
 
-    async function getRocketsFromDatabase(): Promise<void> {
+    async function getSavedRocketsFromDb(): Promise<void> {
         let response: Response = await fetch(url + "?" + "command=retrieve");                    //Abfrage über url ob Daten gespeichert, geholt oder gelöscht werden sollen --> hier: holen über command "retrieve"
         rockets = await response.json();
 
@@ -83,11 +83,11 @@ namespace Endabgabe_EIA2 {
         document.querySelector("div#yourOrder").innerHTML = "";
     }
 
-    function showAllRockets(): void {
+    function showSavedRockets(): void {
         let parent: HTMLElement = document.querySelector("div#dropupContent");
 
         if (buttonClicked % 2 == 0) {                                                                    //button geklickt = gerade Zahl (auf)
-            getRocketsFromDatabase();
+            getSavedRocketsFromDb();
             parent.style.display = "block";
         }
         else {                                                                                           //button nochmal geklickt = ungerade (zu)
