@@ -68,12 +68,18 @@ var Endabgabe_EIA2;
     }
     function chooseRocket(_event) {
         currentRocket = _event.target.innerHTML; //currentRocket entspricht Rakete die angezeigt werden soll
+        let parent = document.querySelector("div#dropupContent");
+        parent.style.display = "none";
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
         for (let rocket of rockets) { //Durchlauf jeder Rakete in Collection rockets
             if (rocket["Name"] == currentRocket) { //entspricht der jeweilige Eintrag in db dem geklickter Wert von currentRocket?
                 document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Rocket size: " + rocket["Size"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm" + "<br>" + "Amount of particles: " + rocket["Amount"]; //ja: Schlüssel-Werte-Paare werden wieder in yourorder div gepusht
                 fillInputFields(rocket);
             }
         }
+        buttonClicked++;
     }
     function fillInputFields(rocket) {
         document.querySelector("input#name").value = rocket["Name"];
@@ -117,6 +123,7 @@ var Endabgabe_EIA2;
         }
         buttonClicked++;
     }
+    // CANVAS
     function bannerText() {
         crc2.font = "1em Nunito";
         crc2.fillStyle = "white";
@@ -131,7 +138,7 @@ var Endabgabe_EIA2;
             crc2.strokeStyle = color;
             crc2.stroke();
             //Nach der letzten Schleife Leinwand leeren
-            if (radius == 50) {
+            if (radius >= 50) {
                 crc2.clearRect(0, 0, 421, 503);
             }
             crc2.beginPath();
@@ -140,10 +147,14 @@ var Endabgabe_EIA2;
     function handleAnimate(_event) {
         let cursorX = _event.pageX - document.querySelector("canvas").offsetLeft;
         let cursorY = _event.pageY - document.querySelector("canvas").offsetTop;
+        let form = new FormData(document.forms[0]); //Daten aus Form holen
+        let color = form.get("Color");
+        let radius = Number(form.get("Radius"));
+        let duration = Number(form.get("Duration"));
         console.log(cursorX, cursorY);
-        animateLightRays(cursorX, cursorY, 10, "orange");
+        animateLightRays(cursorX, cursorY, radius, color, duration * 60);
     }
-    function animateLightRays(x, y, radius, color) {
+    function animateLightRays(x, y, radius, color, duration) {
         function fireworkLoop() {
             setTimeout(function () {
                 drawLightRays(x, y, radius, color);
@@ -151,7 +162,7 @@ var Endabgabe_EIA2;
                 if (radius <= 50) {
                     fireworkLoop();
                 }
-            }, 200);
+            }, duration);
         }
         fireworkLoop();
     }

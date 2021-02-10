@@ -47,7 +47,7 @@ namespace Endabgabe_EIA2 {
     async function saveRocket(_event: Event): Promise<void> {
         console.log("Save rocket");
         let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
-        let query: URLSearchParams = new URLSearchParams(<any>form);                             
+        let query: URLSearchParams = new URLSearchParams(<any>form);
         let response: Response = await fetch(url + "?" + query.toString());                      //Daten von Server holen und an url hängen + in string umwandeln für Lesbarkeit --> in response speichern
         let responseText: string = await response.text();                                        //Daten in Textform in responseText speichern und ausgeben lassen
 
@@ -68,6 +68,12 @@ namespace Endabgabe_EIA2 {
 
     function chooseRocket(_event: Event): void {
         currentRocket = (<HTMLElement>_event.target).innerHTML;                                          //currentRocket entspricht Rakete die angezeigt werden soll
+        let parent: HTMLElement = document.querySelector("div#dropupContent");
+        parent.style.display = "none";
+
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
 
         for (let rocket of rockets) {                                                                   //Durchlauf jeder Rakete in Collection rockets
             if (rocket["Name"] == currentRocket) {                                                      //entspricht der jeweilige Eintrag in db dem geklickter Wert von currentRocket?
@@ -75,6 +81,9 @@ namespace Endabgabe_EIA2 {
                 fillInputFields(rocket);
             }
         }
+
+        buttonClicked++;
+
     }
 
     function fillInputFields(rocket: any): void {
@@ -84,16 +93,16 @@ namespace Endabgabe_EIA2 {
         (<HTMLInputElement>document.querySelector("input#duration")).value = rocket["Duration"];
         (<HTMLInputElement>document.querySelector("input#radius")).value = rocket["Radius"];
         (<HTMLInputElement>document.querySelector("input#amount")).value = rocket["Amount"];
-        switch(rocket["Size"]){
-            case "small": 
-            (<HTMLInputElement>document.querySelector("input#small")).checked = true;
-            break;
-            case "middle": 
-            (<HTMLInputElement>document.querySelector("input#middle")).checked = true;
-            break;
-            case "big": 
-            (<HTMLInputElement>document.querySelector("input#big")).checked = true;
-            break;
+        switch (rocket["Size"]) {
+            case "small":
+                (<HTMLInputElement>document.querySelector("input#small")).checked = true;
+                break;
+            case "middle":
+                (<HTMLInputElement>document.querySelector("input#middle")).checked = true;
+                break;
+            case "big":
+                (<HTMLInputElement>document.querySelector("input#big")).checked = true;
+                break;
 
         }
 
@@ -124,6 +133,9 @@ namespace Endabgabe_EIA2 {
         buttonClicked++;
     }
 
+
+    // CANVAS
+
     function bannerText(): void {
         crc2.font = "1em Nunito";
         crc2.fillStyle = "white";
@@ -143,7 +155,7 @@ namespace Endabgabe_EIA2 {
             crc2.stroke();
 
             //Nach der letzten Schleife Leinwand leeren
-            if (radius == 50) {
+            if (radius >= 50) {
                 crc2.clearRect(0, 0, 421, 503);
             }
 
@@ -155,11 +167,16 @@ namespace Endabgabe_EIA2 {
         let cursorX: number = _event.pageX - document.querySelector("canvas").offsetLeft;
         let cursorY: number = _event.pageY - document.querySelector("canvas").offsetTop;
 
+        let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
+        let color: string = <string>form.get("Color");
+        let radius: number = Number(form.get("Radius"));
+        let duration: number = Number(form.get("Duration"));
+
         console.log(cursorX, cursorY);
-        animateLightRays(cursorX, cursorY, 10, "orange");
+        animateLightRays(cursorX, cursorY, radius, color, duration * 60);
     }
 
-    function animateLightRays(x: number, y: number, radius: number, color: string): void {
+    function animateLightRays(x: number, y: number, radius: number, color: string, duration: number): void {
         function fireworkLoop() {
             setTimeout(function () {
 
@@ -169,7 +186,7 @@ namespace Endabgabe_EIA2 {
                     fireworkLoop();
                 }
 
-            }, 200)
+            }, duration)
         }
 
         fireworkLoop();
