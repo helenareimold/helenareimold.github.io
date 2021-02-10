@@ -116,7 +116,7 @@ namespace Endabgabe_EIA2 {
             crc2.strokeStyle = color;
             crc2.stroke();
 
-            //Nach der letzten Schleife Leinwand leer machen
+            //Nach der letzten Schleife Leinwand leeren
             if (radius == 50) {
                 crc2.clearRect(0, 0, 421, 503);
             }
@@ -134,18 +134,18 @@ namespace Endabgabe_EIA2 {
     }
 
     function animateLightRays(x: number, y: number, radius: number, color: string): void {
-        function myLoop() {
+        function fireworkLoop() {
             setTimeout(function () {
 
                 drawLightRays(x, y, radius, color);
                 radius = radius + 10;
                 if (radius <= 50) {
-                    myLoop();
+                    fireworkLoop();
                 }
 
             }, 200)
         }
 
-        myLoop();
+        fireworkLoop();
     }
 }

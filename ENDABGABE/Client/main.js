@@ -108,7 +108,7 @@ var Endabgabe_EIA2;
             crc2.lineTo(x + radius * Math.cos(theta), y + radius * Math.sin(theta));
             crc2.strokeStyle = color;
             crc2.stroke();
-            //Nach der letzten Schleife Leinwand leer machen
+            //Nach der letzten Schleife Leinwand leeren
             if (radius == 50) {
                 crc2.clearRect(0, 0, 421, 503);
             }
@@ -122,16 +122,16 @@ var Endabgabe_EIA2;
         animateLightRays(cursorX, cursorY, 10, "orange");
     }
     function animateLightRays(x, y, radius, color) {
-        function myLoop() {
+        function fireworkLoop() {
             setTimeout(function () {
                 drawLightRays(x, y, radius, color);
                 radius = radius + 10;
                 if (radius <= 50) {
-                    myLoop();
+                    fireworkLoop();
                 }
             }, 200);
         }
-        myLoop();
+        fireworkLoop();
     }
 })(Endabgabe_EIA2 || (Endabgabe_EIA2 = {}));
 //# sourceMappingURL=main.js.map

@@ -15,9 +15,11 @@
         <h1>Firework-Editor</h1>
         <p>Welcome! Put in the name of your rocket and note the things to take care off. After that, just assemble them
             like you want. Have fun!
-            <br> Good to know: display rocket = shows your seletion combined, update rocket = something is wrong?, reset =
-            everything is wrong?, save rocket = sends rocket to server and saves to db, <br> delete rocket = removes rocket from db, show
-            rockets = shows saved rockets from db to use them or update them, click somewhere on the right area = current
+            <br> Good to know: display rocket = shows your seletion combined, update rocket = something is wrong?, reset
+            = everything is wrong?, save rocket = sends rocket to server and saves to db, <br> delete rocket = removes
+            rocket from db, show
+            rockets = shows saved rockets from db to use them or update them, click somewhere on the right area =
+            current
             rocket explodes
         </p>
     </header>
@@ -33,7 +35,7 @@
 
                 <fieldset id="risks">
                     <legend> Risks </legend>
-                    <textarea name="Risks" rows="2" placeholder="good to know"></textarea>
+                    <textarea name="Risks" rows="2" placeholder="good to know" required></textarea>
                 </fieldset>
 
                 <fieldset id="rocketSize">
@@ -100,7 +102,7 @@
     </div>
 
     <div id="canvasContainer">
-        <canvas id="canvas" width="421" height="503" style="background: url(sky.jpg)"></canvas>     
+        <canvas id="canvas" width="421" height="503" style="background: url(sky.jpg)"></canvas>
     </div>
 
 </body>
