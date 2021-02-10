@@ -82,7 +82,7 @@ p{
 	border: 0;
 	border-radius: 3px;
 	font-size: 0.8em;
-	margin: 5px;
+	margin: 4px;
 	background-color: rgb(102, 54, 70);
 	color: white;
 	cursor: pointer;
@@ -97,14 +97,14 @@ p{
 	position: absolute;
 	bottom: 6vh;
 	background-color: #7f8383;
-	min-width: 100px;
+	min-width: 105px;
 	box-shadow: 3px 3px 5px black;
   }
   
   #dropupContent a {
 	color: rgb(0, 0, 0);
 	font-size: 0.8em;
-	padding: 9px;
+	padding: 7px;
 	display: block;
 	font-weight: bold;
 	cursor: pointer;

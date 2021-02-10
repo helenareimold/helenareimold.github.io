@@ -96,12 +96,12 @@ var Endabgabe_EIA2;
         buttonClicked++;
     }
     function bannerText() {
-        crc2.font = "1em Nunito"; // Schrift Schild
+        crc2.font = "1em Nunito";
         crc2.fillStyle = "white";
         crc2.textAlign = "center";
         crc2.fillText("Try out your firework below", 205, 30);
     }
-    function strahlen(x, y, radius, color) {
+    function lightRays(x, y, radius, color) {
         for (let grad = -1; grad <= 1; grad = grad + 0.2) {
             let theta = grad * Math.PI;
             crc2.moveTo(x, y);
@@ -124,7 +124,7 @@ var Endabgabe_EIA2;
     function animate(x, y, radius, color) {
         function myLoop() {
             setTimeout(function () {
-                strahlen(x, y, radius, color);
+                lightRays(x, y, radius, color);
                 radius = radius + 10;
                 if (radius <= 50) {
                     myLoop();
