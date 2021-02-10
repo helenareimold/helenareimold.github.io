@@ -34,7 +34,7 @@ var Endabgabe_EIA2;
     function updateRocket() {
         return __awaiter(this, void 0, void 0, function* () {
             let newData = new FormData(document.forms[0]);
-            let query = new URLSearchParams(newData);
+            let query = new URLSearchParams(newData); //umformatieren um url mitgeben zu können
             let response = yield fetch(url + "?" + "command=update&rocket=" + currentRocket + "&" + query.toString());
             let responseText = yield response.text();
             alert(responseText);
@@ -48,7 +48,7 @@ var Endabgabe_EIA2;
         return __awaiter(this, void 0, void 0, function* () {
             console.log("Save rocket");
             let form = new FormData(document.forms[0]); //Daten aus Form holen
-            let query = new URLSearchParams(form); //In Variable query speichern, vom Objekt URLSearchParams               
+            let query = new URLSearchParams(form);
             let response = yield fetch(url + "?" + query.toString()); //Daten von Server holen und an url hängen + in string umwandeln für Lesbarkeit --> in response speichern
             let responseText = yield response.text(); //Daten in Textform in responseText speichern und ausgeben lassen
             alert(responseText);
@@ -71,7 +71,27 @@ var Endabgabe_EIA2;
         for (let rocket of rockets) { //Durchlauf jeder Rakete in Collection rockets
             if (rocket["Name"] == currentRocket) { //entspricht der jeweilige Eintrag in db dem geklickter Wert von currentRocket?
                 document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Rocket size: " + rocket["Size"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm" + "<br>" + "Amount of particles: " + rocket["Amount"]; //ja: Schlüssel-Werte-Paare werden wieder in yourorder div gepusht
+                fillInputFields(rocket);
             }
+        }
+    }
+    function fillInputFields(rocket) {
+        document.querySelector("input#name").value = rocket["Name"];
+        document.querySelector("textarea#risks").innerText = rocket["Risks"];
+        document.querySelector("input#color").value = rocket["Color"];
+        document.querySelector("input#duration").value = rocket["Duration"];
+        document.querySelector("input#radius").value = rocket["Radius"];
+        document.querySelector("input#amount").value = rocket["Amount"];
+        switch (rocket["Size"]) {
+            case "small":
+                document.querySelector("input#small").checked = true;
+                break;
+            case "middle":
+                document.querySelector("input#middle").checked = true;
+                break;
+            case "big":
+                document.querySelector("input#big").checked = true;
+                break;
         }
     }
     function deleteRocket() {

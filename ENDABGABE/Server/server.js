@@ -48,7 +48,9 @@ var ENDABGABE_EIA2;
             case "delete":
                 deleteRocket(_request, _response);
                 break;
-            case "update": updateRocket(_request, _response);
+            case "update":
+                updateRocket(_request, _response);
+                break;
             default:
                 for (let key in url.query) {
                     _response.write(key + " : " + url.query[key] + "\n"); //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück

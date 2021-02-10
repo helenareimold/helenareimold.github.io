@@ -28,17 +28,17 @@
         <form method="GET">
             <div id="rocketComponents">
                 <h2>Choose here</h2>
-                <fieldset id="name">
+                <fieldset>
                     <legend> Name </legend>
-                    <input type="text" name="Name" placeholder="put in rocket name" required />
+                    <input type="text" name="Name" id="name" placeholder="put in rocket name" required />
                 </fieldset>
 
-                <fieldset id="risks">
+                <fieldset>
                     <legend> Risks </legend>
-                    <textarea name="Risks" rows="2" placeholder="good to know"></textarea>
+                    <textarea name="Risks" id="risks" rows="2" placeholder="good to know"></textarea>
                 </fieldset>
 
-                <fieldset id="rocketSize">
+                <fieldset>
                     <legend> Size </legend>
                     <input type="radio" name="Size" id="small" value="small" checked />
                     <label for="small">small</label>
@@ -48,7 +48,7 @@
                     <label for="big">big</label>
                 </fieldset>
 
-                <fieldset id="rocketColor">
+                <fieldset>
                     <legend>Color</legend>
                     <input type="color" name="Color" id="color" value="#fff000">
                 </fieldset>
@@ -73,7 +73,7 @@
 
                 <fieldset>
                     <legend> Amount of particles </legend>
-                    <input type="number" name="Amount" class="amount" min="10" max="250" step="20" value="10" />
+                    <input type="number" name="Amount" id="amount" min="10" max="250" step="20" value="10" />
                 </fieldset>
             </div>
         </form>

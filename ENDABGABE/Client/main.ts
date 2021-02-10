@@ -33,10 +33,10 @@ namespace Endabgabe_EIA2 {
 
     async function updateRocket(): Promise<void> {
         let newData: FormData = new FormData(document.forms[0]);
-        let query: URLSearchParams = new URLSearchParams(<any>newData);
+        let query: URLSearchParams = new URLSearchParams(<any>newData);                         //umformatieren um url mitgeben zu können
         let response: Response = await fetch(url + "?" + "command=update&rocket=" + currentRocket + "&" + query.toString());
         let responseText: string = await response.text();
-        alert(responseText);        
+        alert(responseText);
     }
 
     function resetOrder(): void {
@@ -47,7 +47,7 @@ namespace Endabgabe_EIA2 {
     async function saveRocket(_event: Event): Promise<void> {
         console.log("Save rocket");
         let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
-        let query: URLSearchParams = new URLSearchParams(<any>form);                             //In Variable query speichern, vom Objekt URLSearchParams               
+        let query: URLSearchParams = new URLSearchParams(<any>form);                             
         let response: Response = await fetch(url + "?" + query.toString());                      //Daten von Server holen und an url hängen + in string umwandeln für Lesbarkeit --> in response speichern
         let responseText: string = await response.text();                                        //Daten in Textform in responseText speichern und ausgeben lassen
 
@@ -67,12 +67,36 @@ namespace Endabgabe_EIA2 {
     }
 
     function chooseRocket(_event: Event): void {
-        currentRocket = (<HTMLElement>_event.target).innerHTML;                                         //currentRocket entspricht Rakete die angezeigt werden soll
+        currentRocket = (<HTMLElement>_event.target).innerHTML;                                          //currentRocket entspricht Rakete die angezeigt werden soll
+
         for (let rocket of rockets) {                                                                   //Durchlauf jeder Rakete in Collection rockets
             if (rocket["Name"] == currentRocket) {                                                      //entspricht der jeweilige Eintrag in db dem geklickter Wert von currentRocket?
                 document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Rocket size: " + rocket["Size"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm" + "<br>" + "Amount of particles: " + rocket["Amount"];    //ja: Schlüssel-Werte-Paare werden wieder in yourorder div gepusht
+                fillInputFields(rocket);
             }
         }
+    }
+
+    function fillInputFields(rocket: any): void {
+        (<HTMLInputElement>document.querySelector("input#name")).value = rocket["Name"];
+        (<HTMLTextAreaElement>document.querySelector("textarea#risks")).innerText = rocket["Risks"];
+        (<HTMLInputElement>document.querySelector("input#color")).value = rocket["Color"];
+        (<HTMLInputElement>document.querySelector("input#duration")).value = rocket["Duration"];
+        (<HTMLInputElement>document.querySelector("input#radius")).value = rocket["Radius"];
+        (<HTMLInputElement>document.querySelector("input#amount")).value = rocket["Amount"];
+        switch(rocket["Size"]){
+            case "small": 
+            (<HTMLInputElement>document.querySelector("input#small")).checked = true;
+            break;
+            case "middle": 
+            (<HTMLInputElement>document.querySelector("input#middle")).checked = true;
+            break;
+            case "big": 
+            (<HTMLInputElement>document.querySelector("input#big")).checked = true;
+            break;
+
+        }
+
     }
 
     async function deleteRocket(): Promise<void> {
