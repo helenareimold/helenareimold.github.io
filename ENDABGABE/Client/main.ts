@@ -28,7 +28,7 @@ namespace Endabgabe_EIA2 {
 
     function displayRocket(): void {
         let formComponents: FormData = new FormData(document.forms[0]);                         //Daten aus Formular holen
-        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Thickness of light rays: " + formComponents.get("Thickness") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm"; //Schlüssel und Wert jeweils in rocket speichern
+        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Rocket size: " + formComponents.get("Size") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm"; //Schlüssel und Wert jeweils in rocket speichern
 
         document.querySelector("div#yourOrder").innerHTML = rocket;                             //Inhalt von yourOrder div = rocket mit Formular Daten
     }
@@ -79,7 +79,7 @@ namespace Endabgabe_EIA2 {
 
         for (let rocket of rockets) {                                                                   //Durchlauf jeder Rakete in Collection rockets
             if (rocket["Name"] == currentRocket) {                                                      //entspricht der jeweilige Eintrag in db dem geklickter Wert von currentRocket?
-                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Thickness of light rays: " + rocket["Thickness"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm";    //ja: Schlüssel-Werte-Paare sollen wieder in yourorder div gepusht werden
+                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Rocket size: " + rocket["Size"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm";    //ja: Schlüssel-Werte-Paare sollen wieder in yourorder div gepusht werden
                 fillInputFields(rocket);
             }
         }
@@ -93,7 +93,7 @@ namespace Endabgabe_EIA2 {
         (<HTMLInputElement>document.querySelector("input#color")).value = rocket["Color"];
         (<HTMLInputElement>document.querySelector("input#duration")).value = rocket["Duration"];
         (<HTMLInputElement>document.querySelector("input#radius")).value = rocket["Radius"];
-        switch (rocket["Thickness"]) {
+        switch (rocket["Size"]) {
             case "small":
                 (<HTMLInputElement>document.querySelector("input#small")).checked = true;
                 break;
@@ -164,8 +164,7 @@ namespace Endabgabe_EIA2 {
         let cursorX: number = _event.pageX - document.querySelector("canvas").offsetLeft;        //Position Maus X-Achse
         let cursorY: number = _event.pageY - document.querySelector("canvas").offsetTop;         //Position Maus Y-Achse
 
-        let form: FormData = new FormData(document.forms[0]);  
-        let thickness: string = <string>form.get("Thickness");                                  //Daten aus Form holen
+        let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
         let color: string = <string>form.get("Color");
         let duration: number = Number(form.get("Duration")) * 1000;                                //1 Mili sec. * 1000 = 1 sec
         let radiusEnde: number = Number(form.get("Radius")) * 10;                                  //1mm * 10 = 1cm
