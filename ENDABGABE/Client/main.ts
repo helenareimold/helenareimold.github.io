@@ -24,9 +24,11 @@ namespace Endabgabe_EIA2 {
 
     }
 
+    // TEIL 1: CLIENT SEITE
+
     function displayRocket(): void {
         let formComponents: FormData = new FormData(document.forms[0]);                         //Daten aus Formular holen
-        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Rocket size: " + formComponents.get("Size") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm" + "<br>" + "Amount of particles: " + formComponents.get("Amount") + "<br>" + "<br>"; //Schlüssel und Wert jeweils in rocket speichern
+        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Thickness of light rays: " + formComponents.get("Thickness") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm"; //Schlüssel und Wert jeweils in rocket speichern
 
         document.querySelector("div#yourOrder").innerHTML = rocket;                             //Inhalt von yourOrder div = rocket mit Formular Daten
     }
@@ -77,13 +79,12 @@ namespace Endabgabe_EIA2 {
 
         for (let rocket of rockets) {                                                                   //Durchlauf jeder Rakete in Collection rockets
             if (rocket["Name"] == currentRocket) {                                                      //entspricht der jeweilige Eintrag in db dem geklickter Wert von currentRocket?
-                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Rocket size: " + rocket["Size"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm" + "<br>" + "Amount of particles: " + rocket["Amount"];    //ja: Schlüssel-Werte-Paare werden wieder in yourorder div gepusht
+                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Thickness of light rays: " + rocket["Thickness"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm";    //ja: Schlüssel-Werte-Paare sollen wieder in yourorder div gepusht werden
                 fillInputFields(rocket);
             }
         }
 
         buttonClicked++;
-
     }
 
     function fillInputFields(rocket: any): void {
@@ -92,8 +93,7 @@ namespace Endabgabe_EIA2 {
         (<HTMLInputElement>document.querySelector("input#color")).value = rocket["Color"];
         (<HTMLInputElement>document.querySelector("input#duration")).value = rocket["Duration"];
         (<HTMLInputElement>document.querySelector("input#radius")).value = rocket["Radius"];
-        (<HTMLInputElement>document.querySelector("input#amount")).value = rocket["Amount"];
-        switch (rocket["Size"]) {
+        switch (rocket["Thickness"]) {
             case "small":
                 (<HTMLInputElement>document.querySelector("input#small")).checked = true;
                 break;
@@ -103,9 +103,7 @@ namespace Endabgabe_EIA2 {
             case "big":
                 (<HTMLInputElement>document.querySelector("input#big")).checked = true;
                 break;
-
         }
-
     }
 
     async function deleteRocket(): Promise<void> {
@@ -134,7 +132,7 @@ namespace Endabgabe_EIA2 {
     }
 
 
-    // CANVAS
+    // TEIL 2: CANVAS
 
     function bannerText(): void {
         crc2.font = "1em Nunito";
@@ -143,20 +141,19 @@ namespace Endabgabe_EIA2 {
         crc2.fillText("Try out your firework below", 205, 30);
     }
 
-    function drawLightRays(x: number, y: number, radius: number, color: string) {
+    function drawLightRays(x: number, y: number, color: string, radius: number, radiusEnde: number) {
 
         for (let grade: number = -1; grade <= 1; grade = grade + 0.2) {
 
-            let theta: number = grade * Math.PI;
+            let jump: number = grade * Math.PI;
             crc2.moveTo(x, y);
-            crc2.lineTo(x + radius * Math.cos(theta), y + radius * Math.sin(theta));
+            crc2.lineTo(x + radius * Math.cos(jump), y + radius * Math.sin(jump));
 
             crc2.strokeStyle = color;
             crc2.stroke();
 
-            //Nach der letzten Schleife Leinwand leeren
-            if (radius >= 50) {
-                crc2.clearRect(0, 0, 421, 503);
+            if (radius >= radiusEnde) {
+                crc2.clearRect(0, 0, 421, 503);                                                 //Nach der letzten Schleife Leinwand leeren
             }
 
             crc2.beginPath();
@@ -164,31 +161,31 @@ namespace Endabgabe_EIA2 {
     }
 
     function handleAnimate(_event: MouseEvent): void {
-        let cursorX: number = _event.pageX - document.querySelector("canvas").offsetLeft;
-        let cursorY: number = _event.pageY - document.querySelector("canvas").offsetTop;
+        let cursorX: number = _event.pageX - document.querySelector("canvas").offsetLeft;        //Position Maus X-Achse
+        let cursorY: number = _event.pageY - document.querySelector("canvas").offsetTop;         //Position Maus Y-Achse
 
-        let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
+        let form: FormData = new FormData(document.forms[0]);  
+        let thickness: string = <string>form.get("Thickness");                                  //Daten aus Form holen
         let color: string = <string>form.get("Color");
-        let radius: number = Number(form.get("Radius"));
-        let duration: number = Number(form.get("Duration"));
+        let duration: number = Number(form.get("Duration")) * 1000;                                //1 Mili sec. * 1000 = 1 sec
+        let radiusEnde: number = Number(form.get("Radius")) * 10;                                  //1mm * 10 = 1cm
 
-        console.log(cursorX, cursorY);
-        animateLightRays(cursorX, cursorY, radius, color, duration * 60);
+        animateLightRays(cursorX, cursorY, color, duration, 0, radiusEnde);
     }
 
-    function animateLightRays(x: number, y: number, radius: number, color: string, duration: number): void {
-        function fireworkLoop() {
+    function animateLightRays(x: number, y: number, color: string, duration: number, radius: number, radiusEnde: number): void {
+        function oneLoop() {
             setTimeout(function () {
 
-                drawLightRays(x, y, radius, color);
-                radius = radius + 10;
-                if (radius <= 50) {
-                    fireworkLoop();
+                drawLightRays(x, y, color, radius, radiusEnde);
+                radius++;
+                if (radius <= radiusEnde) {
+                    oneLoop();
                 }
 
-            }, duration)
+            }, duration / radiusEnde)
         }
 
-        fireworkLoop();
+        oneLoop();
     }
 }

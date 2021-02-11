@@ -81,13 +81,12 @@ export namespace ENDABGABE_EIA2 {
         let oldName: string | string[] = url.query["rocket"];
         let rocketName: string | string[] = url.query["Name"];
         let rocketRisks: string | string[] = url.query["Risks"];
-        let rocketSize: string | string[] = url.query["Size"];
+        let rocketThickness: string | string[] = url.query["Thickness"];
         let rocketColor: string | string[] = url.query["Color"];
         let rocketDuration: string | string[] = url.query["Duration"];
         let rocketRadius: string | string[] = url.query["Radius"];
-        let rocketAmount: string | string[] = url.query["Amount"];
 
-        rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Size": rocketSize, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius, "Amount": rocketAmount } });
+        rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Thickness": rocketThickness, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius } });
         _response.write("rocket updated!");
         _response.end();
     }

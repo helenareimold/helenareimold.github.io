@@ -26,9 +26,10 @@ var Endabgabe_EIA2;
         document.querySelector("canvas").addEventListener("click", handleAnimate);
         bannerText();
     }
+    // TEIL 1: CLIENT SEITE
     function displayRocket() {
         let formComponents = new FormData(document.forms[0]); //Daten aus Formular holen
-        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Rocket size: " + formComponents.get("Size") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm" + "<br>" + "Amount of particles: " + formComponents.get("Amount") + "<br>" + "<br>"; //Schlüssel und Wert jeweils in rocket speichern
+        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Thickness of light rays: " + formComponents.get("Thickness") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm"; //Schlüssel und Wert jeweils in rocket speichern
         document.querySelector("div#yourOrder").innerHTML = rocket; //Inhalt von yourOrder div = rocket mit Formular Daten
     }
     function updateRocket() {
@@ -75,7 +76,7 @@ var Endabgabe_EIA2;
         }
         for (let rocket of rockets) { //Durchlauf jeder Rakete in Collection rockets
             if (rocket["Name"] == currentRocket) { //entspricht der jeweilige Eintrag in db dem geklickter Wert von currentRocket?
-                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Rocket size: " + rocket["Size"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm" + "<br>" + "Amount of particles: " + rocket["Amount"]; //ja: Schlüssel-Werte-Paare werden wieder in yourorder div gepusht
+                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Thickness of light rays: " + rocket["Thickness"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm"; //ja: Schlüssel-Werte-Paare sollen wieder in yourorder div gepusht werden
                 fillInputFields(rocket);
             }
         }
@@ -87,8 +88,7 @@ var Endabgabe_EIA2;
         document.querySelector("input#color").value = rocket["Color"];
         document.querySelector("input#duration").value = rocket["Duration"];
         document.querySelector("input#radius").value = rocket["Radius"];
-        document.querySelector("input#amount").value = rocket["Amount"];
-        switch (rocket["Size"]) {
+        switch (rocket["Thickness"]) {
             case "small":
                 document.querySelector("input#small").checked = true;
                 break;
@@ -123,48 +123,47 @@ var Endabgabe_EIA2;
         }
         buttonClicked++;
     }
-    // CANVAS
+    // TEIL 2: CANVAS
     function bannerText() {
         crc2.font = "1em Nunito";
         crc2.fillStyle = "white";
         crc2.textAlign = "center";
         crc2.fillText("Try out your firework below", 205, 30);
     }
-    function drawLightRays(x, y, radius, color) {
+    function drawLightRays(x, y, color, radius, radiusEnde) {
         for (let grade = -1; grade <= 1; grade = grade + 0.2) {
-            let theta = grade * Math.PI;
+            let jump = grade * Math.PI;
             crc2.moveTo(x, y);
-            crc2.lineTo(x + radius * Math.cos(theta), y + radius * Math.sin(theta));
+            crc2.lineTo(x + radius * Math.cos(jump), y + radius * Math.sin(jump));
             crc2.strokeStyle = color;
             crc2.stroke();
-            //Nach der letzten Schleife Leinwand leeren
-            if (radius >= 50) {
-                crc2.clearRect(0, 0, 421, 503);
+            if (radius >= radiusEnde) {
+                crc2.clearRect(0, 0, 421, 503); //Nach der letzten Schleife Leinwand leeren
             }
             crc2.beginPath();
         }
     }
     function handleAnimate(_event) {
-        let cursorX = _event.pageX - document.querySelector("canvas").offsetLeft;
-        let cursorY = _event.pageY - document.querySelector("canvas").offsetTop;
-        let form = new FormData(document.forms[0]); //Daten aus Form holen
+        let cursorX = _event.pageX - document.querySelector("canvas").offsetLeft; //Position Maus X-Achse
+        let cursorY = _event.pageY - document.querySelector("canvas").offsetTop; //Position Maus Y-Achse
+        let form = new FormData(document.forms[0]);
+        let thickness = form.get("Thickness"); //Daten aus Form holen
         let color = form.get("Color");
-        let radius = Number(form.get("Radius"));
-        let duration = Number(form.get("Duration"));
-        console.log(cursorX, cursorY);
-        animateLightRays(cursorX, cursorY, radius, color, duration * 60);
+        let duration = Number(form.get("Duration")) * 1000; //1 Mili sec. * 1000 = 1 sec
+        let radiusEnde = Number(form.get("Radius")) * 10; //1mm * 10 = 1cm
+        animateLightRays(cursorX, cursorY, color, duration, 0, radiusEnde);
     }
-    function animateLightRays(x, y, radius, color, duration) {
-        function fireworkLoop() {
+    function animateLightRays(x, y, color, duration, radius, radiusEnde) {
+        function oneLoop() {
             setTimeout(function () {
-                drawLightRays(x, y, radius, color);
-                radius = radius + 10;
-                if (radius <= 50) {
-                    fireworkLoop();
+                drawLightRays(x, y, color, radius, radiusEnde);
+                radius++;
+                if (radius <= radiusEnde) {
+                    oneLoop();
                 }
-            }, duration);
+            }, duration / radiusEnde);
         }
-        fireworkLoop();
+        oneLoop();
     }
 })(Endabgabe_EIA2 || (Endabgabe_EIA2 = {}));
 //# sourceMappingURL=main.js.map
