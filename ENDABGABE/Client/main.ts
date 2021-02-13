@@ -1,5 +1,10 @@
 namespace Endabgabe_EIA2 {
 
+    interface Vector {
+        x: number;
+        y: number;
+    }
+
     window.addEventListener("load", handleLoad);
 
     let url: string = "https://fireworkseditor.herokuapp.com";
@@ -7,6 +12,7 @@ namespace Endabgabe_EIA2 {
     let rockets: any;
     let currentRocket: string;
     let crc2: CanvasRenderingContext2D;
+    let imageData: ImageData;
 
     function handleLoad(_event: Event): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
@@ -20,11 +26,15 @@ namespace Endabgabe_EIA2 {
         document.querySelector("#dropButton").addEventListener("click", showSavedRockets);
         document.querySelector("canvas").addEventListener("click", handleAnimate);
 
+        drawBackground();
+        drawStars({ x: crc2.canvas.width / 2, y: crc2.canvas.height / 2 }, { x: crc2.canvas.width, y: crc2.canvas.height });
+        drawMoon({ x: 100, y: 100 });
         bannerText();
-
+        imageData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
     }
 
     // TEIL 1: CLIENT SEITE
+
 
     function displayRocket(): void {
         let formComponents: FormData = new FormData(document.forms[0]);                         //Daten aus Formular holen
@@ -70,7 +80,7 @@ namespace Endabgabe_EIA2 {
 
     function chooseRocket(_event: Event): void {
         currentRocket = (<HTMLElement>_event.target).innerHTML;                                          //currentRocket entspricht Rakete die angezeigt werden soll
-        let parent: HTMLElement = document.querySelector("div#dropupContent");
+        let parent: HTMLElement = document.querySelector("div#dropupContent");                           //Wenn Rakete ausgewählt, dann soll Dropup-Feld wieder runterfahren 
         parent.style.display = "none";
 
         while (parent.firstChild) {
@@ -134,6 +144,53 @@ namespace Endabgabe_EIA2 {
 
     // TEIL 2: CANVAS
 
+    function drawBackground(): void {
+        crc2.rect(0, 0, crc2.canvas.width, crc2.canvas.height);
+        crc2.fillStyle = "black";
+        crc2.fill();
+    }
+
+    function drawStars(_position: Vector, _size: Vector): void {
+        let stars: number = 1000;
+        let radiusParticle: number = 0.5;
+        let particle: Path2D = new Path2D();
+
+        particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
+
+        crc2.save();
+        crc2.translate(_position.x, _position.y);
+        crc2.fillStyle = "white";
+
+
+        for (let drawn: number = 0; drawn < stars; drawn++) {
+            crc2.save();
+            let x: number = (Math.random() - 0.5) * _size.x;
+            let y: number = (Math.random() - 0.5) * _size.y;
+            crc2.translate(x, y);
+            crc2.fill(particle);
+            crc2.restore();
+        }
+        crc2.restore();
+    }
+
+    function drawMoon(_position: Vector): void {
+        crc2.beginPath();
+        let r1: number = 30;
+        let r2: number = 60;
+        let gradient: CanvasGradient = crc2.createRadialGradient(0, 0, r1, 0, 0, r2);
+
+        gradient.addColorStop(0, "HSLA(0, 0%, 90%, 1)");
+        gradient.addColorStop(1, "HSLA(0, 0%, 50%, 0)");
+
+        crc2.save();
+        crc2.translate(_position.x, _position.y);
+        crc2.fillStyle = gradient;
+        crc2.arc(0, 0, r2, 0, 2 * Math.PI);
+        crc2.fill();
+        crc2.restore();
+        crc2.closePath();
+    }
+
     function bannerText(): void {
         crc2.font = "1em Nunito";
         crc2.fillStyle = "white";
@@ -149,11 +206,19 @@ namespace Endabgabe_EIA2 {
             crc2.moveTo(x, y);
             crc2.lineTo(x + radius * Math.cos(jump), y + radius * Math.sin(jump));
 
-            crc2.strokeStyle = color;
+            let gradient = crc2.createRadialGradient(x, y, 0, x + radius * Math.cos(jump), y + radius * Math.sin(jump), radiusEnde);
+            gradient.addColorStop(0, "black");
+            gradient.addColorStop(0.3, color);
+            gradient.addColorStop(0.4, "black");
+            gradient.addColorStop(1, "grey");
+
+            crc2.strokeStyle = gradient;
             crc2.stroke();
 
             if (radius >= radiusEnde) {
-                crc2.clearRect(0, 0, 421, 503);                                                 //Nach der letzten Schleife Leinwand leeren
+                crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height);                                                 //Nach der letzten Schleife Leinwand leeren
+                crc2.putImageData(imageData, 0, 0);
+
             }
 
             crc2.beginPath();
@@ -166,25 +231,22 @@ namespace Endabgabe_EIA2 {
 
         let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
         let color: string = <string>form.get("Color");
-        let duration: number = Number(form.get("Duration")) * 1000;                                //1 Mili sec. * 1000 = 1 sec
+        let duration: number = Number(form.get("Duration")) * 1000;                                // 1000 = 1 sec
         let radiusEnde: number = Number(form.get("Radius")) * 10;                                  //1mm * 10 = 1cm
 
         animateLightRays(cursorX, cursorY, color, duration, 0, radiusEnde);
     }
 
     function animateLightRays(x: number, y: number, color: string, duration: number, radius: number, radiusEnde: number): void {
-        function oneLoop() {
-            setTimeout(function () {
-
+        setTimeout(function () {
+            if (radius <= radiusEnde) {
                 drawLightRays(x, y, color, radius, radiusEnde);
                 radius++;
-                if (radius <= radiusEnde) {
-                    oneLoop();
-                }
-
-            }, duration / radiusEnde)
-        }
-
-        oneLoop();
+                animateLightRays(x, y, color, duration, radius, radiusEnde);
+            }
+        }, duration / radiusEnde)
     }
+
+
 }
+
