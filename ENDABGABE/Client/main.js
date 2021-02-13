@@ -13,11 +13,13 @@ var Endabgabe_EIA2;
     let buttonClicked = 0;
     let rockets;
     let currentRocket;
-    let crc2;
-    let imageData;
+    let background;
+    let lightRay;
+    let moon;
+    let star;
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
-        crc2 = canvas.getContext("2d");
+        Endabgabe_EIA2.crc2 = canvas.getContext("2d");
         document.querySelector("#displayButton").addEventListener("click", displayRocket);
         document.querySelector("#updateButton").addEventListener("click", updateRocket);
         document.querySelector("#resetButton").addEventListener("click", resetOrder);
@@ -25,11 +27,14 @@ var Endabgabe_EIA2;
         document.querySelector("#deleteButton").addEventListener("click", deleteRocket);
         document.querySelector("#dropButton").addEventListener("click", showSavedRockets);
         document.querySelector("canvas").addEventListener("click", handleAnimate);
-        drawBackground();
-        drawStars({ x: crc2.canvas.width / 2, y: crc2.canvas.height / 2 }, { x: crc2.canvas.width, y: crc2.canvas.height });
-        drawMoon({ x: 100, y: 100 });
-        bannerText();
-        imageData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
+        background = new Endabgabe_EIA2.Background();
+        background.drawBackground();
+        star = new Endabgabe_EIA2.Star({ x: Endabgabe_EIA2.crc2.canvas.width / 2, y: Endabgabe_EIA2.crc2.canvas.height / 2 }, { x: Endabgabe_EIA2.crc2.canvas.width, y: Endabgabe_EIA2.crc2.canvas.height });
+        star.drawStars();
+        moon = new Endabgabe_EIA2.Moon({ x: 100, y: 100 });
+        moon.drawMoon();
+        background.bannerText();
+        Endabgabe_EIA2.imageData = Endabgabe_EIA2.crc2.getImageData(0, 0, Endabgabe_EIA2.crc2.canvas.width, Endabgabe_EIA2.crc2.canvas.height);
     }
     // TEIL 1: CLIENT SEITE
     function displayRocket() {
@@ -129,84 +134,24 @@ var Endabgabe_EIA2;
         buttonClicked++;
     }
     // TEIL 2: CANVAS
-    function drawBackground() {
-        crc2.rect(0, 0, crc2.canvas.width, crc2.canvas.height);
-        crc2.fillStyle = "black";
-        crc2.fill();
-    }
-    function drawStars(_position, _size) {
-        let stars = 1000;
-        let radiusParticle = 0.5;
-        let particle = new Path2D();
-        particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
-        crc2.save();
-        crc2.translate(_position.x, _position.y);
-        crc2.fillStyle = "white";
-        for (let drawn = 0; drawn < stars; drawn++) {
-            crc2.save();
-            let x = (Math.random() - 0.5) * _size.x;
-            let y = (Math.random() - 0.5) * _size.y;
-            crc2.translate(x, y);
-            crc2.fill(particle);
-            crc2.restore();
-        }
-        crc2.restore();
-    }
-    function drawMoon(_position) {
-        crc2.beginPath();
-        let r1 = 30;
-        let r2 = 60;
-        let gradient = crc2.createRadialGradient(0, 0, r1, 0, 0, r2);
-        gradient.addColorStop(0, "HSLA(0, 0%, 90%, 1)");
-        gradient.addColorStop(1, "HSLA(0, 0%, 50%, 0)");
-        crc2.save();
-        crc2.translate(_position.x, _position.y);
-        crc2.fillStyle = gradient;
-        crc2.arc(0, 0, r2, 0, 2 * Math.PI);
-        crc2.fill();
-        crc2.restore();
-        crc2.closePath();
-    }
-    function bannerText() {
-        crc2.font = "1em Nunito";
-        crc2.fillStyle = "white";
-        crc2.textAlign = "center";
-        crc2.fillText("Try out your firework below", 205, 30);
-    }
-    function drawLightRays(x, y, color, radius, radiusEnde) {
-        for (let grade = -1; grade <= 1; grade = grade + 0.2) {
-            let jump = grade * Math.PI;
-            crc2.moveTo(x, y);
-            crc2.lineTo(x + radius * Math.cos(jump), y + radius * Math.sin(jump));
-            let gradient = crc2.createRadialGradient(x, y, 0, x + radius * Math.cos(jump), y + radius * Math.sin(jump), radiusEnde);
-            gradient.addColorStop(0, "black");
-            gradient.addColorStop(0.3, color);
-            gradient.addColorStop(0.4, "black");
-            gradient.addColorStop(1, "grey");
-            crc2.strokeStyle = gradient;
-            crc2.stroke();
-            if (radius >= radiusEnde) {
-                crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height); //Nach der letzten Schleife Leinwand leeren
-                crc2.putImageData(imageData, 0, 0);
-            }
-            crc2.beginPath();
-        }
-    }
     function handleAnimate(_event) {
         let cursorX = _event.pageX - document.querySelector("canvas").offsetLeft; //Position Maus X-Achse
         let cursorY = _event.pageY - document.querySelector("canvas").offsetTop; //Position Maus Y-Achse
         let form = new FormData(document.forms[0]); //Daten aus Form holen
         let color = form.get("Color");
-        let duration = Number(form.get("Duration")) * 1000; // 1000 = 1 sec
+        let duration = Number(form.get("Duration")) * 1000;
+        let radius = 0; // 1000 = 1 sec
         let radiusEnde = Number(form.get("Radius")) * 10; //1mm * 10 = 1cm
-        animateLightRays(cursorX, cursorY, color, duration, 0, radiusEnde);
+        lightRay = new Endabgabe_EIA2.LightRay({ x: cursorX, y: cursorY }, color, radius, radiusEnde);
+        animate(radius, radiusEnde, duration);
     }
-    function animateLightRays(x, y, color, duration, radius, radiusEnde) {
+    function animate(radius, radiusEnde, duration) {
         setTimeout(function () {
             if (radius <= radiusEnde) {
-                drawLightRays(x, y, color, radius, radiusEnde);
+                console.log("Test");
+                lightRay.drawLightRays();
                 radius++;
-                animateLightRays(x, y, color, duration, radius, radiusEnde);
+                animate(radius, radiusEnde, duration);
             }
         }, duration / radiusEnde);
     }

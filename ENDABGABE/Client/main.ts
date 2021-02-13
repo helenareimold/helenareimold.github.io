@@ -1,18 +1,16 @@
 namespace Endabgabe_EIA2 {
-
-    interface Vector {
-        x: number;
-        y: number;
-    }
-
     window.addEventListener("load", handleLoad);
 
     let url: string = "https://fireworkseditor.herokuapp.com";
     let buttonClicked: number = 0;
     let rockets: any;
     let currentRocket: string;
-    let crc2: CanvasRenderingContext2D;
-    let imageData: ImageData;
+    export let crc2: CanvasRenderingContext2D;
+    export let imageData: ImageData;
+    let background: Background;
+    let lightRay: LightRay;
+    let moon: Moon;
+    let star: Star;
 
     function handleLoad(_event: Event): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
@@ -26,10 +24,13 @@ namespace Endabgabe_EIA2 {
         document.querySelector("#dropButton").addEventListener("click", showSavedRockets);
         document.querySelector("canvas").addEventListener("click", handleAnimate);
 
-        drawBackground();
-        drawStars({ x: crc2.canvas.width / 2, y: crc2.canvas.height / 2 }, { x: crc2.canvas.width, y: crc2.canvas.height });
-        drawMoon({ x: 100, y: 100 });
-        bannerText();
+        background = new Background();
+        background.drawBackground();
+        star = new Star({ x: crc2.canvas.width / 2, y: crc2.canvas.height / 2 }, { x: crc2.canvas.width, y: crc2.canvas.height });
+        star.drawStars();
+        moon = new Moon({ x: 100, y: 100 });
+        moon.drawMoon();
+        background.bannerText();
         imageData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
     }
 
@@ -144,109 +145,30 @@ namespace Endabgabe_EIA2 {
 
     // TEIL 2: CANVAS
 
-    function drawBackground(): void {
-        crc2.rect(0, 0, crc2.canvas.width, crc2.canvas.height);
-        crc2.fillStyle = "black";
-        crc2.fill();
-    }
-
-    function drawStars(_position: Vector, _size: Vector): void {
-        let stars: number = 1000;
-        let radiusParticle: number = 0.5;
-        let particle: Path2D = new Path2D();
-
-        particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
-
-        crc2.save();
-        crc2.translate(_position.x, _position.y);
-        crc2.fillStyle = "white";
-
-
-        for (let drawn: number = 0; drawn < stars; drawn++) {
-            crc2.save();
-            let x: number = (Math.random() - 0.5) * _size.x;
-            let y: number = (Math.random() - 0.5) * _size.y;
-            crc2.translate(x, y);
-            crc2.fill(particle);
-            crc2.restore();
-        }
-        crc2.restore();
-    }
-
-    function drawMoon(_position: Vector): void {
-        crc2.beginPath();
-        let r1: number = 30;
-        let r2: number = 60;
-        let gradient: CanvasGradient = crc2.createRadialGradient(0, 0, r1, 0, 0, r2);
-
-        gradient.addColorStop(0, "HSLA(0, 0%, 90%, 1)");
-        gradient.addColorStop(1, "HSLA(0, 0%, 50%, 0)");
-
-        crc2.save();
-        crc2.translate(_position.x, _position.y);
-        crc2.fillStyle = gradient;
-        crc2.arc(0, 0, r2, 0, 2 * Math.PI);
-        crc2.fill();
-        crc2.restore();
-        crc2.closePath();
-    }
-
-    function bannerText(): void {
-        crc2.font = "1em Nunito";
-        crc2.fillStyle = "white";
-        crc2.textAlign = "center";
-        crc2.fillText("Try out your firework below", 205, 30);
-    }
-
-    function drawLightRays(x: number, y: number, color: string, radius: number, radiusEnde: number) {
-
-        for (let grade: number = -1; grade <= 1; grade = grade + 0.2) {
-
-            let jump: number = grade * Math.PI;
-            crc2.moveTo(x, y);
-            crc2.lineTo(x + radius * Math.cos(jump), y + radius * Math.sin(jump));
-
-            let gradient = crc2.createRadialGradient(x, y, 0, x + radius * Math.cos(jump), y + radius * Math.sin(jump), radiusEnde);
-            gradient.addColorStop(0, "black");
-            gradient.addColorStop(0.3, color);
-            gradient.addColorStop(0.4, "black");
-            gradient.addColorStop(1, "grey");
-
-            crc2.strokeStyle = gradient;
-            crc2.stroke();
-
-            if (radius >= radiusEnde) {
-                crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height);                                                 //Nach der letzten Schleife Leinwand leeren
-                crc2.putImageData(imageData, 0, 0);
-
-            }
-
-            crc2.beginPath();
-        }
-    }
-
     function handleAnimate(_event: MouseEvent): void {
         let cursorX: number = _event.pageX - document.querySelector("canvas").offsetLeft;        //Position Maus X-Achse
         let cursorY: number = _event.pageY - document.querySelector("canvas").offsetTop;         //Position Maus Y-Achse
 
         let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
         let color: string = <string>form.get("Color");
-        let duration: number = Number(form.get("Duration")) * 1000;                                // 1000 = 1 sec
+        let duration: number = Number(form.get("Duration")) * 1000;
+        let radius: number = 0;                                                                     // 1000 = 1 sec
         let radiusEnde: number = Number(form.get("Radius")) * 10;                                  //1mm * 10 = 1cm
+        lightRay = new LightRay({ x: cursorX, y: cursorY }, color, radius, radiusEnde);
+        animate(radius, radiusEnde, duration);
 
-        animateLightRays(cursorX, cursorY, color, duration, 0, radiusEnde);
     }
-
-    function animateLightRays(x: number, y: number, color: string, duration: number, radius: number, radiusEnde: number): void {
+    function animate(radius: number, radiusEnde: number, duration: number) {
         setTimeout(function () {
             if (radius <= radiusEnde) {
-                drawLightRays(x, y, color, radius, radiusEnde);
+                console.log("Test");
+                lightRay.drawLightRays();
                 radius++;
-                animateLightRays(x, y, color, duration, radius, radiusEnde);
+                animate(radius, radiusEnde, duration);
             }
-        }, duration / radiusEnde)
-    }
 
+        }, duration / radiusEnde);
+    }
 
 }
 
