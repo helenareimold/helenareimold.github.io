@@ -169,6 +169,5 @@ namespace Endabgabe_EIA2 {
 
         }, duration / radiusEnde);
     }
-
 }
 
