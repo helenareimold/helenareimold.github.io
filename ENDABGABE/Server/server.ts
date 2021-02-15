@@ -47,7 +47,7 @@ export namespace ENDABGABE_EIA2 {
                 break;
             case "update": updateRocket(_request, _response);
                 break;
-            case "save":
+            default:
                 for (let key in url.query) {
                     _response.write(key + " : " + url.query[key] + "\n")                           //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück
                 }
