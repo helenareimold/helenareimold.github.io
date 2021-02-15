@@ -14,14 +14,12 @@ export namespace ENDABGABE_EIA2 {
     connectToDatabase(databaseUrl);
 
     function startServer(): void {
-        console.log("start")
         let server: Http.Server = Http.createServer();
 
         let port: number | string | undefined = process.env.PORT;
         if (port == undefined)
             port = 5001;
 
-        console.log("Server starting on port:" + port);
         server.listen(port);
         server.addListener("request", handleRequest);
     }
@@ -49,12 +47,10 @@ export namespace ENDABGABE_EIA2 {
                 break;
             case "update": updateRocket(_request, _response);
                 break;
-            default:
-
+            case "save":
                 for (let key in url.query) {
                     _response.write(key + " : " + url.query[key] + "\n")                           //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück
                 }
-
                 storeRocket(url.query);
                 _response.end();
         }
@@ -81,12 +77,12 @@ export namespace ENDABGABE_EIA2 {
         let oldName: string | string[] = url.query["rocket"];
         let rocketName: string | string[] = url.query["Name"];
         let rocketRisks: string | string[] = url.query["Risks"];
-        let rocketSize: string | string[] = url.query["Size"];
+        let rocketThickness: string | string[] = url.query["Thickness"];
         let rocketColor: string | string[] = url.query["Color"];
         let rocketDuration: string | string[] = url.query["Duration"];
         let rocketRadius: string | string[] = url.query["Radius"];
 
-        rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Size": rocketSize, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius } });
+        rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Thickness": rocketThickness, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius } });
         _response.write("rocket updated!");
         _response.end();
     }
