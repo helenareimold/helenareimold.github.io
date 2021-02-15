@@ -51,7 +51,9 @@ export namespace ENDABGABE_EIA2 {
                 for (let key in url.query) {
                     _response.write(key + " : " + url.query[key] + "\n")                           //Schlüssel-Werte-Paar jeweils in Ausgabe an Client zurück
                 }
-                storeRocket(url.query);
+                if(url.query["Name"]! = null){
+                    storeRocket(url.query);
+                }
                 _response.end();
         }
     }
