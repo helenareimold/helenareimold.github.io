@@ -1,12 +1,12 @@
 namespace Endabgabe_EIA2 {
 
-    export class Moon {
-        position: Vector;
+    export class Moon extends Moveable {
 
         constructor(_position: Vector) {
+            super();
             this.position = _position;
         }
-        drawMoon(): void {
+        draw(): void {
             crc2.beginPath();
             let r1: number = 30;
             let r2: number = 60;

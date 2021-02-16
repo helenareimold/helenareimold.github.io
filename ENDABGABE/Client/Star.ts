@@ -1,15 +1,16 @@
 namespace Endabgabe_EIA2 {
 
-    export class Star {
+    export class Star extends Moveable {
 
-        position: Vector;
         size: Vector;
 
         constructor(_position: Vector, _size: Vector) {
+            super();
             this.position = _position;
             this.size = _size;
         }
-        drawStars(): void {
+        
+        draw(): void {
             let stars: number = 1000;
             let radiusParticle: number = 0.5;
             let particle: Path2D = new Path2D();

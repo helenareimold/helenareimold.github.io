@@ -18,12 +18,10 @@ var ENDABGABE_EIA2;
     startServer();
     connectToDatabase(databaseUrl);
     function startServer() {
-        console.log("start");
         let server = Http.createServer();
         let port = process.env.PORT;
         if (port == undefined)
             port = 5001;
-        console.log("Server starting on port:" + port);
         server.listen(port);
         server.addListener("request", handleRequest);
     }
@@ -82,11 +80,11 @@ var ENDABGABE_EIA2;
             let oldName = url.query["rocket"];
             let rocketName = url.query["Name"];
             let rocketRisks = url.query["Risks"];
-            let rocketSize = url.query["Size"];
+            let rocketThickness = url.query["Thickness"];
             let rocketColor = url.query["Color"];
             let rocketDuration = url.query["Duration"];
             let rocketRadius = url.query["Radius"];
-            rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Size": rocketSize, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius } });
+            rocket.updateOne({ "Name": oldName }, { $set: { "Name": rocketName, "Risks": rocketRisks, "Thickness": rocketThickness, "Color": rocketColor, "Duration": rocketDuration, "Radius": rocketRadius } });
             _response.write("rocket updated!");
             _response.end();
         });

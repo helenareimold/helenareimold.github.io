@@ -7,10 +7,8 @@ namespace Endabgabe_EIA2 {
     let currentRocket: string;
     export let crc2: CanvasRenderingContext2D;
     export let imageData: ImageData;
-    let background: Background;
     let lightRay: LightRay;
-    let moon: Moon;
-    let star: Star;
+    let moveables: Moveable[] = [];
 
     function handleLoad(_event: Event): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
@@ -24,13 +22,12 @@ namespace Endabgabe_EIA2 {
         document.querySelector("#dropButton").addEventListener("click", showSavedRockets);
         document.querySelector("canvas").addEventListener("click", handleAnimate);
 
-        background = new Background();
-        background.drawBackground();
-        star = new Star({ x: crc2.canvas.width / 2, y: crc2.canvas.height / 2 }, { x: crc2.canvas.width, y: crc2.canvas.height });
-        star.drawStars();
-        moon = new Moon({ x: 100, y: 100 });
-        moon.drawMoon();
-        background.bannerText();
+        moveables.push(new Background());
+        moveables.push(new Star({ x: crc2.canvas.width / 2, y: crc2.canvas.height / 2 }, { x: crc2.canvas.width, y: crc2.canvas.height }));
+        moveables.push(new Moon({ x: 100, y: 100 }))
+        for (let moveable of moveables) {
+            moveable.draw();
+        }
         imageData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
     }
 
@@ -39,7 +36,7 @@ namespace Endabgabe_EIA2 {
 
     function displayRocket(): void {
         let formComponents: FormData = new FormData(document.forms[0]);                         //Daten aus Formular holen
-        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Size of light rays: " + formComponents.get("Size") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm"; //Schlüssel und Wert jeweils in rocket speichern
+        let rocket = "Name of your rocket: " + formComponents.get("Name") + "<br>" + "Risks: " + formComponents.get("Risks") + "<br>" + "Thickness of light rays: " + formComponents.get("Thickness") + "<br>" + "Color: " + formComponents.get("Color") + "<br>" + "Duration of effect: " + formComponents.get("Duration") + "s" + "<br>" + "Radius of explosion: " + formComponents.get("Radius") + "cm"; //Schlüssel und Wert jeweils in rocket speichern
 
         document.querySelector("div#yourOrder").innerHTML = rocket;                             //Inhalt von yourOrder div = rocket mit Formular Daten
     }
@@ -57,7 +54,7 @@ namespace Endabgabe_EIA2 {
         document.getElementById("yourOrder").innerHTML = "";                                    //Inhalt im div leeren
     }
 
-    async function saveRocket(_event: Event): Promise<void> {
+    async function saveRocket(): Promise<void> {
         console.log("Save rocket");
         let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
         let query: URLSearchParams = new URLSearchParams(<any>form);
@@ -65,6 +62,31 @@ namespace Endabgabe_EIA2 {
         let responseText: string = await response.text();                                        //Daten in Textform in responseText speichern und ausgeben lassen
 
         alert(responseText);
+    }
+
+    async function deleteRocket(): Promise<void> {
+        console.log("delete rocket");
+        let response: Response = await fetch(url + "?" + "command=delete&rocket=" + currentRocket);       //Abfrage über url --> hier: löschen über command "delete"
+        let text: string = await response.text();
+        alert(text);                                                                                     //rocket deleted!
+        document.querySelector("div#yourOrder").innerHTML = "";
+    }
+
+    function showSavedRockets(): void {
+        let parent: HTMLElement = document.querySelector("div#dropupContent");
+
+        if (buttonClicked % 2 == 0) {                                                                    //button geklickt = gerade Zahl (auf)
+            getSavedRocketsFromDb();
+            parent.style.display = "block";
+        }
+        else {                                                                                           //button nochmal geklickt = ungerade (zu)
+            parent.style.display = "none";
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+        }
+
+        buttonClicked++;
     }
 
     async function getSavedRocketsFromDb(): Promise<void> {
@@ -90,7 +112,7 @@ namespace Endabgabe_EIA2 {
 
         for (let rocket of rockets) {                                                                   //Durchlauf jeder Rakete in Collection rockets
             if (rocket["Name"] == currentRocket) {                                                      //entspricht der jeweilige Eintrag in db dem geklickter Wert von currentRocket?
-                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Size of light rays: " + rocket["Size"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm";    //ja: Schlüssel-Werte-Paare sollen wieder in yourorder div gepusht werden
+                document.querySelector("div#yourOrder").innerHTML = "Name: " + rocket["Name"] + "<br>" + "Risks:  " + rocket["Risks"] + "<br>" + "Thickness of light rays: " + rocket["Thickness"] + "<br>" + "Color: " + rocket["Color"] + "<br>" + "Duration of effect: " + rocket["Duration"] + "s" + "<br>" + "Radius of explosion: " + rocket["Radius"] + "cm";    //ja: Schlüssel-Werte-Paare sollen wieder in yourorder div gepusht werden
                 fillInputFields(rocket);
             }
         }
@@ -104,7 +126,7 @@ namespace Endabgabe_EIA2 {
         (<HTMLInputElement>document.querySelector("input#color")).value = rocket["Color"];
         (<HTMLInputElement>document.querySelector("input#duration")).value = rocket["Duration"];
         (<HTMLInputElement>document.querySelector("input#radius")).value = rocket["Radius"];
-        switch (rocket["Size"]) {
+        switch (rocket["Thickness"]) {
             case "small":
                 (<HTMLInputElement>document.querySelector("input#small")).checked = true;
                 break;
@@ -117,30 +139,6 @@ namespace Endabgabe_EIA2 {
         }
     }
 
-    async function deleteRocket(): Promise<void> {
-        console.log(currentRocket);
-        let response: Response = await fetch(url + "?" + "command=delete&rocket=" + currentRocket);       //Abfrage über url --> hier: löschen über command "delete"
-        let text: string = await response.text();
-        alert(text);                                                                                     //rocket deleted!
-        document.querySelector("div#yourOrder").innerHTML = "";
-    }
-
-    function showSavedRockets(): void {
-        let parent: HTMLElement = document.querySelector("div#dropupContent");
-
-        if (buttonClicked % 2 == 0) {                                                                    //button geklickt = gerade Zahl (auf)
-            getSavedRocketsFromDb();
-            parent.style.display = "block";
-        }
-        else {                                                                                           //button nochmal geklickt = ungerade (zu)
-            parent.style.display = "none";
-            while (parent.firstChild) {
-                parent.removeChild(parent.firstChild);
-            }
-        }
-
-        buttonClicked++;
-    }
 
 
     // TEIL 2: CANVAS
@@ -150,24 +148,13 @@ namespace Endabgabe_EIA2 {
         let cursorY: number = _event.pageY - document.querySelector("canvas").offsetTop;         //Position Maus Y-Achse
 
         let form: FormData = new FormData(document.forms[0]);                                    //Daten aus Form holen
+        let thickness: string = <string>form.get("Thickness");
         let color: string = <string>form.get("Color");
         let duration: number = Number(form.get("Duration")) * 1000;
         let radius: number = 0;                                                                     // 1000 = 1 sec
-        let radiusEnde: number = Number(form.get("Radius")) * 10;                                  //1mm * 10 = 1cm
-        lightRay = new LightRay({ x: cursorX, y: cursorY }, color, radius, radiusEnde);
-        animate(radius, radiusEnde, duration);
-
-    }
-    function animate(radius: number, radiusEnde: number, duration: number) {
-        setTimeout(function () {
-            if (radius <= radiusEnde) {
-                console.log("Test");
-                lightRay.drawLightRays();
-                radius++;
-                animate(radius, radiusEnde, duration);
-            }
-
-        }, duration / radiusEnde);
+        let radiusEnde: number = Number(form.get("Radius")) * 10;                                   //1mm * 10 = 1cm
+        lightRay = new LightRay({ x: cursorX, y: cursorY }, thickness, color, duration, radius, radiusEnde);
+        lightRay.animate();
     }
 }
 

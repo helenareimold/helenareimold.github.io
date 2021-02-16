@@ -1,11 +1,12 @@
 var Endabgabe_EIA2;
 (function (Endabgabe_EIA2) {
-    class Star {
+    class Star extends Endabgabe_EIA2.Moveable {
         constructor(_position, _size) {
+            super();
             this.position = _position;
             this.size = _size;
         }
-        drawStars() {
+        draw() {
             let stars = 1000;
             let radiusParticle = 0.5;
             let particle = new Path2D();

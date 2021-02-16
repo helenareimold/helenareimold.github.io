@@ -1,10 +1,12 @@
 namespace Endabgabe_EIA2 {
 
-    export class Moveable{
+    export abstract class Moveable {
+        position: Vector;
 
-        
+        abstract draw(): void;
 
-        
+
+
     }
 
 
@@ -16,5 +18,5 @@ namespace Endabgabe_EIA2 {
 
 
 
-    
+
 }

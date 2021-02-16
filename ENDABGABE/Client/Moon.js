@@ -1,10 +1,11 @@
 var Endabgabe_EIA2;
 (function (Endabgabe_EIA2) {
-    class Moon {
+    class Moon extends Endabgabe_EIA2.Moveable {
         constructor(_position) {
+            super();
             this.position = _position;
         }
-        drawMoon() {
+        draw() {
             Endabgabe_EIA2.crc2.beginPath();
             let r1 = 30;
             let r2 = 60;
